@@ -39,7 +39,7 @@ def home():
         JOIN Status ON Tasks.StatusID = Status.StatusID
         """
     tasks = query_db(sql)
-    return render_template("index.html",tasks=tasks)\
+    return render_template("index.html",tasks=tasks)
     
 
 

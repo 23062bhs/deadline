@@ -5,12 +5,13 @@
 
 header {
     background-color: rgb(120, 202, 252);
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #FFFFFF;
-    padding: 1rem 0 1rem 2rem;
-    font-family: 'Inter';
+    padding: 1rem 0 1rem 2.5rem;
+    font-family: 'Satoshi';
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
     position: relative;
+    font-weight: 700;
 }
 
 ul {
@@ -20,10 +21,10 @@ ul {
 }
 
 .navbar {
-    font-family: 'Inter';
+    font-family: 'Satoshi';
     background-color: rgb(218, 218, 218);
     margin-right: 83%;
-    padding: 0 0 25rem 0;
+    padding: 0 0 10rem 0;
 
 }
 
@@ -32,7 +33,8 @@ li a {
     text-decoration: none;
     color: #000000;
     font-size: 1.1rem;
-    padding: 1.5rem 0 1.5rem 5.5rem;
+    font-weight: 500;
+    padding: 1.5rem 0 1.5rem 2.5rem;
 }
 
 li a:hover {
@@ -40,4 +42,12 @@ li a:hover {
 
 }
 
+.nav-divider {
+    border-top: 0.1rem solid #b0b0b0;
+    margin: 1rem 0;
+}
+
+nav li i {
+    margin-right: 1.5rem;
+}
 

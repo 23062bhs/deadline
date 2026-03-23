@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{* block title*}{* endblock *}</title>
+    <title>{* block title *}{* endblock *}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ada09c2be0.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -13,11 +14,12 @@
     </header>
     <nav class="navbar">
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="">Subjects</a></li>
-            <li><a href="">Add Subject</a></li>
-            <li><a href="">Tasks</a></li>
-            <li><a href="">Add Task</a></li>
+            <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href=""><i class="fa-solid fa-book"></i>Subjects</a></li>
+            <li><a href=""><i class="fa-solid fa-plus"></i>Add Subject</a></li>
+            <hr class="nav-divider">
+            <li><a href=""><i class="fa-solid fa-list-check"></i>Tasks</a></li>
+            <li><a href=""><i class="fa-solid fa-calendar-plus"></i>Add Task</a></li>
         </ul>
     </nav>
 
