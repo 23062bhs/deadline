@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: rgb(120, 202, 252);
+    font-size: 2rem;
+    color: #FFFFFF;
+    padding: 1rem 0 1rem 2rem;
+    font-family: 'Inter';
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    font-family: 'Inter';
+    background-color: rgb(218, 218, 218);
+    margin-right: 83%;
+    padding: 0 0 25rem 0;
+
+}
+
+li a {
+    display: block;
+    text-decoration: none;
+    color: #000000;
+    font-size: 1.1rem;
+    padding: 1.5rem 0 1.5rem 5.5rem;
+}
+
+li a:hover {
+    background-color: #b9b7b7;
+
+}
+
+
