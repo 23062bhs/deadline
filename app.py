@@ -40,7 +40,7 @@ def home():
         """
     tasks = query_db(sql)
     return render_template("index.html",tasks=tasks)
-    
+
 
 
 if __name__ == "__main__":
