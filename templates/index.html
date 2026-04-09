@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home | Deadline{% endblock %}
 
 {% block content %}
 
@@ -10,9 +10,84 @@
         <h2 class="description">Manage your subjects, tasks and assignments</h2>
     </div>
     <div class="button-group">
-        <a href="/add-subject" class="add-subject-button"><i class="fa-solid fa-plus"></i> Add Subject</a>
-        <a href="/add-task" class="add-task-button"><i class="fa-solid fa-plus"></i> Add Task</a>
+        <button id="open-task-modal-btn" class="add-task-button"><i class="fa-solid fa-plus"></i> Add Task</button>
     </div>
 </div>
+
+<div class="subjects-section">
+    <h1 class="subjects-header">Subjects</h1>
+    <button id="open-subject-modal-btn" class="add-subject-button"><i class="fa-solid fa-plus"></i> Add Subject</button>
+</div>
+
+<div class="tasks-container">
+    <h1 class="tasks-title">My Tasks</h1>
+    <table>
+        <tr class="tasks-headers">
+            <th>Tasks</th>
+            <th>Subject</th>
+            <th>Due Date</th>
+            <th>Status</th>
+        </tr>
+
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task[1] }}</td>
+            <td>{{ task[3] }}</td>
+            <td>{{ task[2] }}</td>
+            <td><span class="status-badge">{{ task[4] }}</span></td>   
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div id="taskModal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2>New Task</h2>
+            <button class="close-modal">&times;</button>
+        </div>
+        <form action="/" method="POST">
+            <div class="input-group">
+                <label>Task Name</label>
+                <input type="text" name="task_name" placeholder="Finish UI Design" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Subject ID</label>
+                <input type="number" name="subject_id" placeholder="e.g., 1" required>
+            </div>
+
+            <div class="input-group">
+                <label>Due Date</label>
+                <input type="date" name="due_date" required>
+            </div>
+
+            <div class="input-group">
+                <label>Status</label>
+                <select name="status">
+                    <option value="1">Complete</option>
+                    <option value="2">Incomplete</option>
+                    <option value="3">In Progress</option>
+                    <option value="4">Overdue</option>
+                </select>
+            </div>
+
+            <button type="save" class="save-btn">Save Task</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('taskModal');
+    const openBtn = document.getElementById('open-task-modal-btn');
+    const closeBtn = document.querySelector('.close-modal');
+
+    openBtn.onclick = () => modal.style.display = 'flex';
+    closeBtn.onclick = () => modal.style.display = 'none';
+
+    window.onclick = (event) => {
+        if (event.target == modal) modal.style.display = 'none';
+    }
+</script>
 
 {% endblock %}

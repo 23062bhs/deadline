@@ -1,4 +1,4 @@
-from flask import Flask, g, render_template, request, redirect
+from flask import Flask, g, render_template, request, redirect, url_for
 import sqlite3
 
 DATABASE = "deadline.db"
@@ -21,7 +21,7 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-
+#
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
     rv = cur.fetchall()
@@ -29,8 +29,25 @@ def query_db(query, args=(), one=False):
     return (rv[0] if rv else None) if one else rv
 
 #home page
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home(): 
+    db = get_db()
+
+    if request.method == 'POST':
+        task_name = request.form.get('task_name')
+        subject_id = request.form.get('subject_id')
+        due_date = request.form.get('due_date')
+        status_id = request.form.get('status')
+        
+        sql_insert = """
+            INSERT INTO Tasks (TaskName, SubjectID, DueDate, StatusID)
+            VALUES (?, ?, ?, ?)
+        """
+        db.execute(sql_insert, (task_name, subject_id, due_date, status_id))
+        db.commit()
+        
+        return redirect(url_for('home'))
+
     sql = """
         SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
         Subjects.SubjectName, Status.StatusName
@@ -40,8 +57,6 @@ def home():
         """
     tasks = query_db(sql)
     return render_template("index.html",tasks=tasks)
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)

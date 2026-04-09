@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{* block title *}{* endblock *}</title>
+    <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/ada09c2be0.js" crossorigin="anonymous"></script>
@@ -12,6 +12,7 @@
     <header>
         Deadline
     </header>
+    <!-- navigation bar -->
     <div class="main-container">
         <nav class="navbar">
             <ul>

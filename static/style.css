@@ -16,6 +16,7 @@ header {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
     position: relative;
     font-weight: 700;
+    width: auto;
 }
 
 ul {
@@ -34,6 +35,7 @@ ul {
     background-color: rgb(199, 199, 199);
     width: 15rem;
     padding-bottom: 10rem;
+    height: 100vh;
 }
 
 li a {
@@ -78,43 +80,120 @@ main {
     font-size: 1.2rem;
 }
 
-.button-group { 
-    font-family: 'Satoshi';
-}
-
 .add-subject-button {
+    font-family: 'Satoshi';
+    font-size: 1rem;
+    border: 0.1rem solid #000000;
     display: inline-flex;
     transition: 0.1s;
     margin-right: 5rem;
     text-decoration: none;
-    padding: 0.8rem 1.3rem;
+    padding: 2.5rem 1.5rem;
+    margin-top: 2rem;
     border-radius: 1rem;
-    background-color: #3ace4e; 
-    color: #ffffff;   
-    width: 7rem;     
+    color: #000000;  
+    background-color: #dfdfdf; 
+    width: 11rem;     
     align-items: center;  
     justify-content: center;
 }
 
 .add-task-button {
+    font-family: 'Satoshi';
+    font-size: 1rem;
     display: inline-flex;
     transition: 0.1s;
-    margin-right: 3rem;
     text-decoration: none; 
-    padding: 0.8rem 1.3rem;
+    padding: 0.85rem 1.3rem;
     border-radius: 1rem;
     background-color: rgb(120, 202, 252); 
     color: #ffffff;     
-    width: 7rem;   
+    width: 9rem;   
     align-items: center;
     justify-content: center;
+    border: none;
 }
 
 .add-subject-button:hover {
-    background-color: rgb(43, 159, 31);
+    background-color: rgb(193, 193, 193);
 }
 
 .add-task-button:hover {
     background-color: rgb(57, 161, 199);
 }
 
+.subjects-section {
+    font-family: 'Satoshi';
+}
+
+.subjects-header {
+    margin-top: 2.5rem;
+    font-size: 1.7rem;
+}
+
+.tasks-container {
+    width: auto;
+    font-family: 'Satoshi';
+    margin-top: 3rem;
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    padding: 2rem;
+}
+
+.tasks-title {
+    padding: 0 0 1.2rem 0.5rem;
+    font-size: 1.5rem;
+}
+
+th {
+    background-color: rgb(199, 199, 199);
+    padding: 0.5rem;
+}
+
+th:first-child {
+    border-top-left-radius: 0.7rem;
+    border-bottom-left-radius: 0.7rem;
+}
+
+th:last-child {
+    border-top-right-radius: 0.7rem;
+    border-bottom-right-radius: 0.7rem;
+}
+
+table {
+    width: 100%;
+    padding-bottom: 3rem;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.modal-header  {
+    display: flex;
+}
+
+.modal-overlay {
+    display: none;
+    font-family: 'Satoshi';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-box {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(1rem);
+    z-index: 1000;
+    width: 25rem;
+}
+
+.close-modal {
+    padding: 0.5rem;
+}
+
+.save-btn {
+    padding: 0.5rem;
+}
