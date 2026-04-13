@@ -3,8 +3,10 @@
     padding: 0;
 }
 
-body {
-    background-color: #dfdfdf;
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
 }
 
 header {
@@ -14,9 +16,12 @@ header {
     padding: 1rem 0 1rem 2.5rem;
     font-family: 'Satoshi';
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
-    position: relative;
     font-weight: 700;
+    height: 4.5rem; 
+    box-sizing: border-box;
+    position: relative;
     width: auto;
+    z-index: 1000;
 }
 
 ul {
@@ -27,7 +32,8 @@ ul {
 
 .main-container {
     display: flex;
-    align-items: flex-start;
+    height: calc(100vh - 4.5rem);
+    align-items: stretch;
 }
 
 .navbar {
@@ -36,6 +42,7 @@ ul {
     width: 15rem;
     padding-bottom: 10rem;
     height: 100vh;
+    overflow: auto;
 }
 
 li a {
@@ -49,6 +56,7 @@ li a {
 
 li a:hover {
     background-color: #b9b7b7;
+    transition: all 0.3s ease;
 }
 
 .nav-divider {
@@ -63,6 +71,8 @@ nav li i {
 main {
     flex-grow: 1;
     padding: 2.5rem;
+    overflow-y: auto;
+    background-color: #dfdfdf;
 }
 
 .header-section {
@@ -73,32 +83,34 @@ main {
 
 .intro {
     font-family: 'Satoshi';
+    margin-top: -0.5rem;
 }
 
 .description {
     margin-top: 1rem;
     font-size: 1.2rem;
+    font-weight: 400;
 }
 
-.add-subject-button {
+.add-subject-btn {
     font-family: 'Satoshi';
     font-size: 1rem;
-    border: 0.1rem solid #000000;
+    border: 0.1rem solid #a9a8a8;
     display: inline-flex;
     transition: 0.1s;
     margin-right: 5rem;
     text-decoration: none;
-    padding: 2.5rem 1.5rem;
-    margin-top: 2rem;
+    padding: 2.5rem 1.25rem;
+    margin-top: 1.5rem;
     border-radius: 1rem;
     color: #000000;  
     background-color: #dfdfdf; 
-    width: 11rem;     
+    width: 10rem;     
     align-items: center;  
     justify-content: center;
 }
 
-.add-task-button {
+.add-task-btn {
     font-family: 'Satoshi';
     font-size: 1rem;
     display: inline-flex;
@@ -114,12 +126,22 @@ main {
     border: none;
 }
 
-.add-subject-button:hover {
-    background-color: rgb(193, 193, 193);
+.add-subject-btn:hover {
+    background-color: rgb(200, 200, 200);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.add-task-button:hover {
-    background-color: rgb(57, 161, 199);
+.add-subject-btn:active {
+    transform: scale(0.97); 
+}
+
+.add-task-btn:hover {
+    background-color: rgb(93, 190, 250);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.add-task-btn:active {
+    transform: scale(0.97); 
 }
 
 .subjects-section {
@@ -127,14 +149,14 @@ main {
 }
 
 .subjects-header {
-    margin-top: 2.5rem;
+    margin-top: 1.8rem;
     font-size: 1.7rem;
 }
 
 .tasks-container {
     width: auto;
     font-family: 'Satoshi';
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     background-color: #ffffff;
     border-radius: 1.5rem;
     padding: 2rem;
@@ -148,6 +170,7 @@ main {
 th {
     background-color: rgb(199, 199, 199);
     padding: 0.5rem;
+    color: #505050;
 }
 
 th:first-child {
@@ -169,6 +192,9 @@ table {
 
 .modal-header  {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .modal-overlay {
@@ -183,17 +209,78 @@ table {
 
 .modal-box {
     background-color: #ffffff;
-    padding: 2rem;
+    padding: 1rem 2rem;
     border-radius: 1rem;
     backdrop-filter: blur(1rem);
     z-index: 1000;
     width: 25rem;
 }
 
-.close-modal {
-    padding: 0.5rem;
+.close-modal-btn {
+    padding: 0.25rem 0.75rem;
+    background-color: #ffffff;
+    border: none;
+    font-size: 2rem;
+}
+
+.close-modal-btn:hover {
+    background-color: #dfdfdf;
+    border-radius: 50%;
+}
+
+.close-modal-btn:active {
+    transform: scale(0.97); 
 }
 
 .save-btn {
-    padding: 0.5rem;
+    width: 6rem;
+    padding: 0.8rem;
+    background-color: rgb(120, 202, 252);
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    font-family: 'Satoshi';
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.2s;
+    margin: 0.5rem 0 0.5rem 0;
 }
+
+.save-btn:hover {
+    background-color: rgb(92, 193, 255);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.save-btn:active {
+    transform: scale(0.97); 
+}
+
+.input-group {
+    padding-bottom: 1rem;
+}
+
+.input-group label {
+    font-family: 'Satoshi';
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.input-group input, .input-group select {
+    padding: 0.5rem 0.7rem;
+    border: 0.1rem solid #f0f0f0;
+    background-color: #f9f9f9;
+    border-radius: 0.8rem;
+    font-family: 'Satoshi';
+    font-size: 0.7rem;
+    transition: all 0.2s ease;
+    margin-left: 1rem;
+}
+
+.input-group input:focus, .input-group select:focus {
+    outline: none;
+    border-color: rgb(120, 202, 252);
+}
+

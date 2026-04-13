@@ -13,7 +13,6 @@ def get_db():
         db = g._database = sqlite3.connect(DATABASE) 
     return db
 
-
 #automatically closes database after every request (prevents memory leaks and file locks)
 @app.teardown_appcontext
 def close_connection(exception):
@@ -21,7 +20,7 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-#
+#executes a query and returns either all results or 1 result
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
     rv = cur.fetchall()
