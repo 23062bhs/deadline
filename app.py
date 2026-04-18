@@ -46,16 +46,41 @@ def home():
         db.commit()
         
         return redirect(url_for('home'))
+    
+    sql_subjects = """
+        SELECT Subjects.SubjectID, Subjects.SubjectName, Subjects.SubjectColor, 
+               COUNT(Tasks.TaskID) AS TaskCount
+        FROM Subjects
+        LEFT JOIN Tasks ON Subjects.SubjectID = Tasks.SubjectID
+        GROUP BY Subjects.SubjectID;
+    """
+    subjects = query_db(sql_subjects)
 
     sql = """
         SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
         Subjects.SubjectName, Status.StatusName
         FROM Tasks
-        JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
-        JOIN Status ON Tasks.StatusID = Status.StatusID
+        LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
+        LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
         """
     tasks = query_db(sql)
-    return render_template("index.html",tasks=tasks)
+    return render_template("index.html", tasks=tasks, subjects=subjects)
+
+
+#home page subject section
+@app.route('/add-subject', methods=['POST'])
+def add_subject():
+    if request.method == 'POST':
+        subject_name = request.form.get('subject_name')
+        subject_color = request.form.get('subject_color') 
+
+        db = get_db()
+        
+        sql = "INSERT INTO Subjects (SubjectName, SubjectColor) VALUES (?, ?)"
+        db.execute(sql, (subject_name, subject_color))
+        db.commit()
+        
+        return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(debug=True)

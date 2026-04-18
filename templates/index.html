@@ -14,8 +14,18 @@
     </div>
 </div>
 
-<div class="subjects-section">
-    <h1 class="subjects-header">Subjects</h1>
+<div class="subjects-header">
+        <h1>Subjects</h1>
+</div>
+<div class="subjects-grid">
+    {% for subject in subjects %}
+    <div class="subjects-card" style="--bg-color: {{ subject[2] }}; background-color: var(--bg-color);">
+        <div class="subjects-card-text">
+            <h3>{{ subject[1] }}</h3>
+            <span class="task-count">{{ subject[3] }} tasks</span>
+        </div>
+    </div>
+    {% endfor %}
     <button id="open-subject-modal-btn" class="add-subject-btn"><i class="fa-solid fa-plus"></i> Add Subject</button>
 </div>
 
@@ -55,8 +65,21 @@
             </div>
             
             <div class="input-group">
-                <label>Subject ID</label>
-                <input type="number" name="subject_id" placeholder="e.g., 1" required>
+                <label for="subject_id">Subject</label>
+    
+                {% if subjects %}
+                    <select name="subject_id" id="subject_id" required>
+                        <option value="" disabled selected>Select a subject</option>
+            
+                        {% for subject in subjects %}
+                            <option value="{{ subject[0] }}">{{ subject[1] }}</option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <div class="no-subjects-alert">
+                        <p>No subjects found, please add a subject first</p>
+                    </div>
+                {% endif %}
             </div>
 
             <div class="input-group">
@@ -67,7 +90,7 @@
             <div class="input-group">
                 <label>Status</label>
                 <select name="status">
-                    <option value="1">Complete</option>
+                    <option value="1">Completed</option>
                     <option value="2">Incomplete</option>
                     <option value="3">In Progress</option>
                     <option value="4">Overdue</option>
@@ -79,16 +102,53 @@
     </div>
 </div>
 
-<script>
-    const modal = document.getElementById('task-modal');
-    const openBtn = document.getElementById('open-task-modal-btn');
-    const closeBtn = document.querySelector('.close-modal');
+<div id="subject-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2>Add New Subject</h2>
+            <div class="close-modal">
+                <button class="close-modal-btn">&times;</button>
+            </div>
+        </div>
+        
+        <form action="/add-subject" method="POST">
+            <div class="input-group">
+                <label>Subject Name</label>
+                <input type="text" name="subject_name" placeholder="e.g., Physics" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Subject Color</label>
+                <div class="color-picker">
+                    <input type="color" name="subject_color" value="#ffffff" required>
+                    <span class="color-picker-text">Choose a color</span>
+                </div>
+            </div>
 
-    openBtn.onclick = () => modal.style.display = 'flex';
-    closeBtn.onclick = () => modal.style.display = 'none';
+            <button type="submit" class="save-btn">Create Subject</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const taskModal = document.getElementById('task-modal');
+    const openTaskBtn = document.getElementById('open-task-modal-btn');
+    const subjectModal = document.getElementById('subject-modal');
+    const openSubjectBtn = document.getElementById('open-subject-modal-btn');
+
+    openTaskBtn.onclick = () => taskModal.style.display = 'flex';
+    openSubjectBtn.onclick = () => subjectModal.style.display = 'flex';
+
+    document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.onclick = () => {
+            taskModal.style.display = 'none';
+            subjectModal.style.display = 'none';
+        }
+    });
 
     window.onclick = (event) => {
-        if (event.target == modal) modal.style.display = 'none';
+        if (event.target == taskModal) taskModal.style.display = 'none';
+        if (event.target == subjectModal) subjectModal.style.display = 'none';
     }
 </script>
 
