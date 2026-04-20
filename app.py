@@ -81,6 +81,14 @@ def add_subject():
         db.commit()
         
         return redirect(url_for('home'))
+    
+#delete tasks
+@app.route('/delete-task/<int:task_id>')
+def delete_task(task_id):
+    db = get_db()
+    db.execute("DELETE FROM Tasks WHERE TaskID = ?", (task_id,))
+    db.commit()
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(debug=True)

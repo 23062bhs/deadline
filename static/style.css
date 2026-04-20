@@ -310,6 +310,7 @@ main {
 }
 
 .tasks-title {
+    margin-top: -0.75rem;
     padding: 0 0 1.2rem 0.5rem;
     font-size: 1.5rem;
 }
@@ -331,8 +332,83 @@ th:last-child {
 }
 
 table {
-    width: 100%;
     padding-bottom: 3rem;
     border-spacing: 0;
     border-collapse: collapse;
+}
+
+td {
+    padding: 1rem 1rem;
+    color: #000000;
+    font-size: 1rem;
+    border-bottom: 0.1rem solid #dfdfdf;
+}
+
+.tasks-column {
+    padding: 0 10rem 0 3rem;
+    
+}
+
+.subjects-column {
+    padding-right: 7rem;
+}
+
+.date-column {
+    padding-right: 7rem;
+}
+
+.status-column {
+    padding-right: 5rem;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-btn:hover {
+    background-color: #f1f5f9;
+    color: #1e293b;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+    z-index: 10;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content a {
+    color: #1e293b;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.dropdown-content a:hover {
+    background-color: #f8fafc;
+}
+
+.delete-link:hover {
+    color: #ef4444;
+    background-color: #fef2f2;
 }
