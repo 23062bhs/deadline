@@ -1,4 +1,5 @@
 from flask import Flask, g, render_template, request, redirect, url_for
+from datetime import datetime
 import sqlite3
 
 DATABASE = "deadline.db"
@@ -64,6 +65,24 @@ def home():
         LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
         """
     tasks = query_db(sql)
+
+    #display due dates correctly
+    formatted_list = []
+
+    for task in tasks:
+        task_list = list(task)
+        
+        if task_list[2]:
+            try:
+                date_obj = datetime.strptime(task_list[2], '%Y-%m-%d')
+                task_list[2] = date_obj.strftime('%d %b %Y')
+            except ValueError:
+                pass
+            
+        formatted_list.append(task_list)
+
+    tasks = formatted_list
+    
     return render_template("index.html", tasks=tasks, subjects=subjects)
 
 
