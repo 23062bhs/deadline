@@ -9,6 +9,14 @@ function toggleMenu(event, button) {
     });
 
     button.nextElementSibling.classList.toggle('show');
+    
+    window.onclick = function(event) {
+    if (!event.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown-content').forEach(menu => {
+            menu.classList.remove('show');
+        });
+    }
+}
 }
 
 window.onclick = function(event) {

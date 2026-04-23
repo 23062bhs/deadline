@@ -59,7 +59,7 @@ def home():
 
     sql = """
         SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
-        Subjects.SubjectName, Status.StatusName
+        Subjects.SubjectName, Status.StatusName, Subjects.SubjectColor, Status.StatusColor
         FROM Tasks
         LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
         LEFT JOIN Status ON Tasks.StatusID = Status.StatusID

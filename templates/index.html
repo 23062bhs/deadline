@@ -15,7 +15,7 @@
 </div>
 
 <div class="subjects-header">
-        <h1>Subjects</h1>
+    <h1>Subjects</h1>
 </div>
 <div class="subjects-grid">
     {% for subject in subjects %}
@@ -122,10 +122,24 @@
 
         {% for task in tasks %}
         <tr class="tasks">
-            <td class="tasks-column">{{ task[1] }}</td>
-            <td class="subjects-column">{{ task[3] }}</td>
-            <td class="date-column">{{ task[2] }}</td>
-            <td class="status-column">{{ task[4] }}</td>  
+            <td class="tasks-column">
+                <span class="truncate">
+                    {{ task[1] }}
+                </span>
+            </td>
+            <td class="subjects-column">
+                <span class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);">
+                    {{ task[3] }}
+                </span>
+            </td>
+            <td class="date-column">
+                {{ task[2] }}
+            </td>
+            <td class="status-column">
+                <span class="pill" style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);">
+                    {{ task[4] }}
+                </span>
+            </td>  
             <td class="task-actions">
                 <div class="dropdown">
                     <button class="menu-btn" onclick="toggleMenu(event, this)">
