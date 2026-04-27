@@ -188,6 +188,14 @@ main {
     font-size: 0.9rem;
 }
 
+.subjects-truncate {
+    display: block;
+    max-width: 7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* modals */
 .modal-header  {
     display: flex;
