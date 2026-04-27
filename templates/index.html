@@ -23,9 +23,7 @@
     {% for subject in subjects %}
     <div class="subjects-card" style="--bg-color: {{ subject[2] }}; background-color: var(--bg-color);">
         <div class="subjects-card-text">
-            <span class="subjects-truncate">
-                <h3>{{ subject[1] }}</h3>
-            </span>
+            <h3 class="subjects-truncate">{{ subject[1] }}</h3>
             <span class="task-count">{{ subject[3] }} tasks</span>
         </div>
     </div>
@@ -33,7 +31,7 @@
     <button id="open-subject-modal-btn" class="add-subject-btn"><i class="fa-solid fa-plus"></i> Add Subject</button>
 </div>
 
-<!-- task modal-->
+<!-- task modal -->
 <div id="task-modal" class="modal-overlay">
     <div class="modal-box">
         <div class="modal-header">
@@ -54,9 +52,8 @@
                 {% if subjects %}
                     <select name="subject_id" id="subject_id" required>
                         <option value="" disabled selected>Select a subject</option>
-            
                         {% for subject in subjects %}
-                            <option value="{{ subject[0] }}">{{ subject[1] }}</option>
+                            <option value="{{ subject[0] }}" title="{{ subject[1] }}">{{ subject[1][:13] }}{% if subject[1]|length > 13 %}...{% endif %}</option>
                         {% endfor %}
                     </select>
                 {% else %}
@@ -98,11 +95,9 @@
         
         <form action="/add-subject" method="POST">
             <div class="input-group">
-                <span class="truncate">
-                    <label>
-                        Subject Name
-                    </label>
-                </span>
+                <label>
+                    Subject Name
+                </label>
                 <input type="text" name="subject_name" placeholder="e.g., Physics" required>
             </div>
             
@@ -139,7 +134,7 @@
                 </span>
             </td>
             <td class="subjects-column">
-                <span class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);">
+                <span class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}">
                     {{ task[3] }}
                 </span>
             </td>

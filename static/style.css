@@ -190,7 +190,7 @@ main {
 
 .subjects-truncate {
     display: block;
-    max-width: 7rem;
+    max-width: 6rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -374,7 +374,7 @@ td {
 }
 
 .subjects-column {
-    width: 22.5%;
+    width: 25%;
 }
 
 .date-column {
@@ -457,4 +457,10 @@ td {
 .pill {
     padding: 0.5rem 1rem;
     border-radius: 2rem;
+    display: inline-block;
+    white-space: nowrap;
+    max-width: 6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
 }
