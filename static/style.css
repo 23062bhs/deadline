@@ -1,3 +1,4 @@
+/* global resets and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +10,7 @@ html, body {
     overflow: hidden;
 }
 
+/* header */
 header {
     background-color: rgb(120, 202, 252);
     font-size: 1.7rem;
@@ -40,6 +42,7 @@ ul {
     padding: 0;
 }
 
+/* navigation bar (sidebar) */
 .main-container {
     display: flex;
     height: calc(100vh - 4.5rem);
@@ -78,6 +81,7 @@ nav li i {
     margin-right: 1.5rem;
 }
 
+/* main content */
 main {
     flex-grow: 1;
     padding: 2.5rem;
@@ -102,6 +106,7 @@ main {
     font-weight: 400;
 }
 
+/* add subject and task buttons */
 .add-subject-btn {
     font-family: 'Satoshi';
     font-size: 0.9rem;
@@ -140,19 +145,16 @@ main {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.add-subject-btn:active {
-    transform: scale(0.97); 
-}
-
 .add-task-btn:hover {
     background-color: rgb(93, 190, 250);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.add-task-btn:active {
+.add-task-btn:active, .add-subject-btn:active {
     transform: scale(0.97); 
 }
 
+/* subject grid */
 .subjects-grid {
     font-family: 'Satoshi';
     display: grid;
@@ -186,6 +188,7 @@ main {
     font-size: 0.9rem;
 }
 
+/* modals */
 .modal-header  {
     display: flex;
     justify-content: space-between;
@@ -325,7 +328,16 @@ main {
     font-size: 1.5rem;
 }
 
+/* task table */
+table {
+    width: 100%;
+    padding-bottom: 3rem;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
 th {
+    text-align: left;
     background-color: rgb(199, 199, 199);
     padding: 0.5rem;
     color: #505050;
@@ -341,40 +353,37 @@ th:last-child {
     border-bottom-right-radius: 0.7rem;
 }
 
-table {
-    width: 100%;
-    padding-bottom: 3rem;
-    border-spacing: 0;
-    border-collapse: collapse;
-}
-
 td {
-    padding: 1rem 1rem;
+    padding: 1rem 0;
     color: #000000;
     font-size: 1rem;
     border-bottom: 0.1rem solid #dfdfdf;
 }
 
 .tasks-column {
-    padding: 0 8rem 0 3rem;
-    width: 4rem;
+    padding-left: 3rem;
+    width: 30%;
 }
 
 .subjects-column {
-    padding-right: 7rem;
+    width: 22.5%;
 }
 
 .date-column {
-    padding-right: 7rem;
+    width: 25%;
 }
 
 .status-column {
-    padding-right: 2rem;
+    width: 15%;
 }
 
-.truncate {
+.task-actions {
+    padding-left: 1rem;
+}
+
+.tasks-truncate {
     display: inline-block;
-    max-width: 250px;
+    max-width: 10rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

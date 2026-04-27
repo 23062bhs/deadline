@@ -92,7 +92,11 @@
         
         <form action="/add-subject" method="POST">
             <div class="input-group">
-                <label>Subject Name</label>
+                <span class="truncate">
+                    <label>
+                        Subject Name
+                    </label>
+                </span>
                 <input type="text" name="subject_name" placeholder="e.g., Physics" required>
             </div>
             
@@ -123,7 +127,7 @@
         {% for task in tasks %}
         <tr class="tasks">
             <td class="tasks-column">
-                <span class="truncate">
+                <span class="tasks-truncate">
                     {{ task[1] }}
                 </span>
             </td>
