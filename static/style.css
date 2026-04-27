@@ -464,3 +464,17 @@ td {
     text-overflow: ellipsis;
     vertical-align: middle;
 }
+
+.no-tasks-msg {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+    color: #666;
+}
+
+.task-summary {
+    font-family: "Satoshi";
+    text-align: right;
+    margin-top: 1rem;
+
+}
