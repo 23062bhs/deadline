@@ -27,7 +27,7 @@ window.onclick = function(event) {
     }
 }
 
-//allows task and subject modal to show on click, close modal button to close modal on click and closes modal when clicking outside of it
+//allows modals to show on click, close modal button to close modal on click and closes modal when clicking outside of it
 const taskModal = document.getElementById('task-modal');
 const openTaskBtn = document.getElementById('open-task-modal-btn');
 const subjectModal = document.getElementById('subject-modal');

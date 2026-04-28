@@ -24,7 +24,7 @@
     <div class="subjects-card" style="--bg-color: {{ subject[2] }}; background-color: var(--bg-color);">
         <div class="subjects-card-text">
             <h3 class="subjects-truncate">{{ subject[1] }}</h3>
-            <span class="task-count">{{ subject[3] }} tasks</span>
+            <span class="task-count">{{ subject[3] }} task{{ 's' if subject[3] != 1 }}</span>
         </div>
     </div>
     {% endfor %}
@@ -169,7 +169,7 @@
     {% endif %}
 </div>
 <div class="task-summary">
-    <p>Showing <strong>{{ [tasks|length, 5]|min }}</strong> out of <strong>{{ tasks|length }}</strong> tasks</p>
+    <p>Showing <strong>{{ [tasks|length, 5]|min }}</strong> out of <strong>{{ tasks|length }}</strong> task{{ 's' if tasks|length != 1 }}</p>
 </div>
 
 {% endblock %}

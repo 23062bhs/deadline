@@ -369,7 +369,7 @@ td {
 }
 
 .tasks-column {
-    padding-left: 3rem;
+    padding-left: 2.5rem;
     width: 30%;
 }
 
@@ -476,5 +476,4 @@ td {
     font-family: "Satoshi";
     text-align: right;
     margin-top: 1rem;
-
 }
