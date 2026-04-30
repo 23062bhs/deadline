@@ -42,21 +42,6 @@ def home():
         LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
         """
     tasks = query_db(sql)
-
-    if request.method == 'POST':
-        task_name = request.form.get('task_name')
-        subject_id = request.form.get('subject_id')
-        due_date = request.form.get('due_date')
-        status_id = request.form.get('status')
-        
-        sql_insert = """
-            INSERT INTO Tasks (TaskName, SubjectID, DueDate, StatusID)
-            VALUES (?, ?, ?, ?)
-        """
-        db.execute(sql_insert, (task_name, subject_id, due_date, status_id))
-        db.commit()
-        
-        return redirect(url_for('home'))
     
     sql_subjects = """
         SELECT Subjects.SubjectID, Subjects.SubjectName, Subjects.SubjectColor, 
@@ -87,6 +72,20 @@ def home():
     tasks = formatted_list
     
     return render_template("index.html", tasks=tasks, subjects=subjects)
+
+#add task button
+@app.route('/add-task', methods=['POST'])
+def add_task():
+    task_name = request.form.get('task_name')
+    subject_id = request.form.get('subject_id')
+    due_date = request.form.get('due_date')
+    status_id = request.form.get('status')
+    
+    db = get_db()
+    sql = "INSERT INTO Tasks (TaskName, SubjectID, DueDate, StatusID) VALUES (?, ?, ?, ?)"
+    db.execute(sql, (task_name, subject_id, due_date, status_id))
+    db.commit()
+    return redirect(url_for('home'))
 
 #home page subject section
 @app.route('/add-subject', methods=['POST'])
