@@ -33,6 +33,16 @@ def query_db(query, args=(), one=False):
 def home(): 
     db = get_db()
 
+    sql = """
+        SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
+        Subjects.SubjectName, Status.StatusName, Subjects.SubjectColor, Status.StatusColor, 
+        Tasks.SubjectID, Tasks.StatusID
+        FROM Tasks
+        LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
+        LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
+        """
+    tasks = query_db(sql)
+
     if request.method == 'POST':
         task_name = request.form.get('task_name')
         subject_id = request.form.get('subject_id')
@@ -57,20 +67,12 @@ def home():
     """
     subjects = query_db(sql_subjects)
 
-    sql = """
-        SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
-        Subjects.SubjectName, Status.StatusName, Subjects.SubjectColor, Status.StatusColor
-        FROM Tasks
-        LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
-        LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
-        """
-    tasks = query_db(sql)
-
     #display due dates correctly
     formatted_list = []
 
     for task in tasks:
         task_list = list(task)
+        raw_date = task_list[2]
         
         if task_list[2]:
             try:
@@ -78,13 +80,13 @@ def home():
                 task_list[2] = date_obj.strftime('%d %b %Y')
             except ValueError:
                 pass
-            
+
+        task_list.append(raw_date)  
         formatted_list.append(task_list)
 
     tasks = formatted_list
     
     return render_template("index.html", tasks=tasks, subjects=subjects)
-
 
 #home page subject section
 @app.route('/add-subject', methods=['POST'])
@@ -107,6 +109,26 @@ def delete_task(task_id):
     db = get_db()
     db.execute("DELETE FROM Tasks WHERE TaskID = ?", (task_id,))
     db.commit()
+    return redirect(url_for('home'))
+
+#edit tasks
+@app.route('/edit-task/<int:task_id>', methods=['POST'])
+def edit_task(task_id):
+    if request.method == 'POST':
+        task_name = request.form.get('task_name')
+        subject_id = request.form.get('subject_id')
+        due_date = request.form.get('due_date')
+        status_id = request.form.get('status')
+        
+        db = get_db()
+        sql = """
+            UPDATE Tasks 
+            SET TaskName = ?, SubjectID = ?, DueDate = ?, StatusID = ? 
+            WHERE TaskID = ?
+        """
+        db.execute(sql, (task_name, subject_id, due_date, status_id, task_id))
+        db.commit()
+        
     return redirect(url_for('home'))
 
 if __name__ == "__main__":

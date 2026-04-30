@@ -23,8 +23,12 @@
     {% for subject in subjects %}
     <div class="subjects-card" style="--bg-color: {{ subject[2] }}; background-color: var(--bg-color);">
         <div class="subjects-card-text">
-            <h3 class="subjects-truncate">{{ subject[1] }}</h3>
-            <span class="task-count">{{ subject[3] }} task{{ 's' if subject[3] != 1 }}</span>
+            <h3 class="subjects-truncate" title="{{ subject[1] }}">
+                {{ subject[1] }}
+            </h3>
+            <span class="task-count">
+                {{ subject[3] }} task{{ 's' if subject[3] != 1 }}
+            </span>
         </div>
     </div>
     {% endfor %}
@@ -35,22 +39,20 @@
 <div id="task-modal" class="modal-overlay">
     <div class="modal-box">
         <div class="modal-header">
-            <h2 class="modal-title">New Task</h2>
+            <h2 class="modal-title" id="modal-title">New Task</h2>
             <div class="close-modal">
                 <button class="close-modal-btn">&times;</button>
             </div>
         </div>
-        <form action="/" method="POST">
+        <form action="/add-task" method="POST" id="task-form">
             <div class="input-group">
                 <label>Task Name</label>
-                <input type="text" name="task_name" placeholder="Finish UI Design" required>
-            </div>
-            
+                <input type="text" name="task_name" id="task-name-input" placeholder="Finish UI Design" required>
+            </div>       
             <div class="input-group">
                 <label for="subject_id">Subject</label>
-    
                 {% if subjects %}
-                    <select name="subject_id" id="subject_id" required>
+                    <select name="subject_id" id="subject-id-select" required>
                         <option value="" disabled selected>Select a subject</option>
                         {% for subject in subjects %}
                             <option value="{{ subject[0] }}" title="{{ subject[1] }}">{{ subject[1][:13] }}{% if subject[1]|length > 13 %}...{% endif %}</option>
@@ -62,23 +64,20 @@
                     </div>
                 {% endif %}
             </div>
-
             <div class="input-group">
                 <label>Due Date</label>
-                <input type="date" name="due_date" required>
+                <input type="date" id="due-date-input" name="due_date" required>
             </div>
-
             <div class="input-group">
                 <label>Status</label>
-                <select name="status">
+                <select name="status" id="status-select">
                     <option value="1">Completed</option>
                     <option value="2">Incomplete</option>
                     <option value="3">In Progress</option>
                     <option value="4">Overdue</option>
                 </select>
             </div>
-
-            <button type="submit" class="save-btn">Save Task</button>
+            <button type="submit" class="save-btn" id="save-btn">Save Task</button>
         </form>
     </div>
 </div>
@@ -92,15 +91,13 @@
                 <button class="close-modal-btn">&times;</button>
             </div>
         </div>
-        
         <form action="/add-subject" method="POST">
             <div class="input-group">
                 <label>
                     Subject Name
                 </label>
                 <input type="text" name="subject_name" placeholder="e.g., Physics" required>
-            </div>
-            
+            </div> 
             <div class="input-group">
                 <label>Subject Color</label>
                 <div class="color-picker">
@@ -108,7 +105,6 @@
                     <span class="color-picker-text">Choose a color</span>
                 </div>
             </div>
-
             <button type="submit" class="save-btn">Create Subject</button>
         </form>
     </div>
@@ -125,12 +121,11 @@
             <th class="status-column">Status</th>
             <th></th>
         </tr>
-
         {% if tasks %}
             {% for task in tasks[:5] %}
             <tr class="tasks">
                 <td class="tasks-column">
-                    <span class="tasks-truncate">
+                    <span class="tasks-truncate" title="{{ task[1] }}">
                         {{ task[1] }}
                     </span>
                 </td>
@@ -153,7 +148,16 @@
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
                         <div class="dropdown-content">
-                            <a href="/edit-task/{{ task[0] }}" class="edit-link"><i class="fa-solid fa-pen"></i> Edit</a>
+                            <a href="javascript:void(0)" 
+                                class="edit-link" 
+                                onclick="prepareEditModal(this)"
+                                data-id="{{ task[0] }}"
+                                data-name="{{ task[1] }}"
+                                data-date="{{ task[9] }}"
+                                data-subject="{{ task[7] }}"
+                                data-status="{{ task[8] }}">
+                            <i class="fa-solid fa-pen"></i> Edit
+                            </a>
                             <a href="/delete-task/{{ task[0] }}" class="delete-link" onclick="return confirm('Are you sure you want to delete this task?');"><i class="fa-solid fa-trash"></i> Delete</a>
                         </div>
                     </div>
