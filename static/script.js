@@ -76,14 +76,13 @@ document.querySelector('.close-modal-btn').onclick = function() {
     
     form.reset();
     
-    form.action = '/add-task';
+    form.action = '/';
     document.getElementById('modal-title').innerText = "New Task";
     document.querySelector('.save-btn').innerText = "Save Task";
 }
 
-
 //resets the edit form
-function openAddModal() {
+function resetForm() {
     const form = document.getElementById('task-form');
     form.reset();
     form.action = '/';
