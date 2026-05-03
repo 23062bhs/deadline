@@ -32,6 +32,23 @@ def query_db(query, args=(), one=False):
 @app.route('/', methods=['GET', 'POST'])
 def home(): 
     db = get_db()
+    today = datetime.now().date()
+
+    if request.method == 'POST':
+        task_name = request.form.get('task_name')
+        due_date_str = request.form.get('due_date')
+        subject_id = request.form.get('subject_id')
+        status_id = request.form.get('status')
+
+        if due_date_str:
+            try:
+                sql_insert = "INSERT INTO Tasks (TaskName, DueDate, SubjectID, StatusID) VALUES (?, ?, ?, ?)"
+                db.execute(sql_insert, (task_name, due_date_str, subject_id, status_id))
+                db.commit()
+                return redirect(url_for('home'))
+            
+            except ValueError:
+                return "Invalid date format", 400
 
     sql = """
         SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
@@ -54,7 +71,6 @@ def home():
 
     #display due dates correctly
     formatted_list = []
-
     for task in tasks:
         task_list = list(task)
         raw_date = task_list[2]
@@ -71,21 +87,7 @@ def home():
 
     tasks = formatted_list
     
-    return render_template("index.html", tasks=tasks, subjects=subjects)
-
-#add task button
-@app.route('/add-task', methods=['POST'])
-def add_task():
-    task_name = request.form.get('task_name')
-    subject_id = request.form.get('subject_id')
-    due_date = request.form.get('due_date')
-    status_id = request.form.get('status')
-    
-    db = get_db()
-    sql = "INSERT INTO Tasks (TaskName, SubjectID, DueDate, StatusID) VALUES (?, ?, ?, ?)"
-    db.execute(sql, (task_name, subject_id, due_date, status_id))
-    db.commit()
-    return redirect(url_for('home'))
+    return render_template("index.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())
 
 #home page subject section
 @app.route('/add-subject', methods=['POST'])

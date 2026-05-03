@@ -44,7 +44,7 @@
                 <button class="close-modal-btn">&times;</button>
             </div>
         </div>
-        <form action="/add-task" method="POST" id="task-form">
+        <form action="/" method="POST" id="task-form">
             <div class="input-group">
                 <label>Task Name</label>
                 <input type="text" name="task_name" id="task-name-input" placeholder="Finish UI Design" required>
@@ -66,7 +66,8 @@
             </div>
             <div class="input-group">
                 <label>Due Date</label>
-                <input type="date" id="due-date-input" name="due_date" required>
+                <input type="date" id="due-date-input" name="due_date" required min="{{ today_date }}" 
+                max="2050-12-31">
             </div>
             <div class="input-group">
                 <label>Status</label>

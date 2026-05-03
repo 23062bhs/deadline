@@ -72,13 +72,10 @@ document.querySelector('.close-modal-btn').onclick = function() {
     const modal = document.getElementById('task-modal');
     const form = document.getElementById('task-form');
     
-    // 1. Hide the modal
     modal.style.display = 'none';
     
-    // 2. Clear all inputs (Task Name, Date, etc.)
     form.reset();
     
-    // 3. Reset the form action and titles back to "New Task" defaults
     form.action = '/add-task';
     document.getElementById('modal-title').innerText = "New Task";
     document.querySelector('.save-btn').innerText = "Save Task";
@@ -87,8 +84,10 @@ document.querySelector('.close-modal-btn').onclick = function() {
 
 //resets the edit form
 function openAddModal() {
-    document.getElementById('task-form').reset();
-    document.getElementById('task-form').action = '/add-task';
+    const form = document.getElementById('task-form');
+    form.reset();
+    form.action = '/';
+
     document.getElementById('modal-title').innerText = "Add New Task";
     
     const saveBtn = document.querySelector('.save-btn');
