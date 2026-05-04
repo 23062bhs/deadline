@@ -134,15 +134,34 @@ def edit_task(task_id):
 
 #subjects page
 @app.route('/subjects')
-def subjects():
-    sql = """ 
-        SELECT * 
+def subjects_page():
+    db = get_db()
+    
+    sql_subjects = """
+        SELECT Subjects.SubjectID, 
+               Subjects.SubjectName, 
+               Subjects.SubjectColor, 
+               COUNT(Tasks.TaskID) AS TaskCount
         FROM Subjects
+        LEFT JOIN Tasks ON Subjects.SubjectID = Tasks.SubjectID
+        GROUP BY Subjects.SubjectID
     """
-    subjects = query_db(sql)
+    subjects = query_db(sql_subjects)
+    
+    return render_template("subjects.html", subjects=subjects)
 
-    return render_template("subjects.html")
-
+#tasks page
+@app.route('/tasks')
+def tasks_page():
+    db = get_db()
+    
+    sql_tasks = """
+        SELECT *
+        FROM Tasks
+    """
+    tasks = query_db(sql_tasks)
+    
+    return render_template("tasks.html", tasks=tasks)
 
 if __name__ == "__main__":
     app.run(debug=True)
