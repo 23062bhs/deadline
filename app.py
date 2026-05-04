@@ -132,5 +132,17 @@ def edit_task(task_id):
         
     return redirect(url_for('home'))
 
+#subjects page
+@app.route('/subjects')
+def subjects():
+    sql = """ 
+        SELECT * 
+        FROM Subjects
+    """
+    subjects = query_db(sql)
+
+    return render_template("subjects.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
