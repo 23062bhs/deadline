@@ -489,3 +489,8 @@ td {
     font-size: 1.2rem;
 }
 
+.subjects-page-grid {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
