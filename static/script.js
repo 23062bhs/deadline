@@ -15,7 +15,8 @@ window.onclick = function(event) {
     const subjectModal = document.getElementById('subject-modal');
 
     if (event.target == taskModal) {
-        document.querySelector('.close-modal-btn').click(); 
+        const closeBtn = document.querySelector('.close-modal-btn');
+        if (closeBtn) closeBtn.click();
     }
     
     if (event.target == subjectModal) subjectModal.style.display = 'none';
@@ -33,16 +34,14 @@ const openTaskBtn = document.getElementById('open-task-modal-btn');
 const subjectModal = document.getElementById('subject-modal');
 const openSubjectBtn = document.getElementById('open-subject-modal-btn');
 
-if (openTaskBtn && openSubjectBtn) {
-    openTaskBtn.onclick = () => taskModal.style.display = 'flex';
-    openSubjectBtn.onclick = () => subjectModal.style.display = 'flex';
-}
+if (openTaskBtn) openTaskBtn.onclick = () => { if (taskModal) taskModal.style.display = 'flex'; };
+if (openSubjectBtn) openSubjectBtn.onclick = () => { if (subjectModal) subjectModal.style.display = 'flex'; };
 
-document.querySelectorAll('.close-modal').forEach(btn => {
-    btn.onclick = () => {
-        taskModal.style.display = 'none';
-        subjectModal.style.display = 'none';
-    }
+document.querySelectorAll('[id="open-task-modal-btn"]').forEach(btn => {
+    btn.onclick = () => { if (taskModal) taskModal.style.display = 'flex'; };
+});
+document.querySelectorAll('[id="open-subject-modal-btn"]').forEach(btn => {
+    btn.onclick = () => { if (subjectModal) subjectModal.style.display = 'flex'; };
 });
 
 //edit task button
@@ -68,18 +67,23 @@ function prepareEditModal(element) {
 }
 
 //make sure close button still works
-document.querySelector('.close-modal-btn').onclick = function() {
-    const modal = document.getElementById('task-modal');
-    const form = document.getElementById('task-form');
-    
-    modal.style.display = 'none';
-    
-    form.reset();
-    
-    form.action = '/';
-    document.getElementById('modal-title').innerText = "New Task";
-    document.querySelector('.save-btn').innerText = "Save Task";
-}
+document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.onclick = () => {
+        if (taskModal) {
+            taskModal.style.display = 'none';
+            const form = document.getElementById('task-form');
+            if (form) {
+                form.reset();
+                form.action = '/';
+            }
+            const modalTitle = document.getElementById('modal-title');
+            const saveBtn = document.querySelector('.save-btn');
+            if (modalTitle) modalTitle.innerText = "New Task";
+            if (saveBtn) saveBtn.innerText = "Save Task";
+        }
+        if (subjectModal) subjectModal.style.display = 'none';
+    }
+});
 
 //resets the edit form
 function resetForm() {
@@ -95,3 +99,11 @@ function resetForm() {
     document.getElementById('task-modal').style.display = 'flex';
 }
 
+//highlight the active nav link
+const navLinks = document.querySelectorAll('.navbar li a');
+
+navLinks.forEach(link => {
+    if (link.getAttribute('href') === window.location.pathname) {
+        link.classList.add('active');
+    }
+});

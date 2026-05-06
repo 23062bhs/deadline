@@ -86,6 +86,10 @@ nav li i {
     margin-right: 1.5rem;
 }
 
+.navbar li a.active {
+    background-color: #b9b7b7;
+}
+
 /* main content */
 main {
     flex-grow: 1;
