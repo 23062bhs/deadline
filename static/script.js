@@ -107,3 +107,17 @@ navLinks.forEach(link => {
         link.classList.add('active');
     }
 });
+
+//changes date warning text
+const dueDateInput = document.getElementById('due-date-input');
+if (dueDateInput) {
+    dueDateInput.addEventListener('input', function() {
+        if (this.validity.rangeOverflow) {
+            this.setCustomValidity('Please enter a date before 31/12/2050');
+        } else if (this.validity.rangeUnderflow) {
+            this.setCustomValidity('Please enter a date from today or later');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+}
