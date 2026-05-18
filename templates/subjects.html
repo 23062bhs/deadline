@@ -14,7 +14,16 @@
 
 <div class="subjects-page-grid">
     {% for subject in subjects %}
-        
+        <div class="subjects-page-card" style="--bg-color: {{ subject[2] }}; background-color: var(--bg-color);">
+            <div class="subjects-page-card-text">
+                <h3 class="subjects-truncate" title="{{ subject[1] }}">
+                    {{ subject[1] }}
+                </h3>
+                <span class="task-count">
+                    {{ subject[3] }} task{{ 's' if subject[3] != 1 }}
+                </span>
+            </div>
+        </div>
     {% endfor %}
 </div>
 
