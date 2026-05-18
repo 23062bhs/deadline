@@ -150,6 +150,14 @@ def subjects_page():
     
     return render_template("subjects.html", subjects=subjects)
 
+#delete subjects
+@app.route('/delete-subject/<int:subject_id>')
+def delete_subject(subject_id):
+    db = get_db()
+    db.execute("DELETE FROM Subjects WHERE SubjectID = ?", (subject_id,))
+    db.commit()
+    return redirect(url_for('subjects_page'))
+
 #tasks page
 @app.route('/tasks')
 def tasks_page():
