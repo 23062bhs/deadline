@@ -69,7 +69,7 @@ def home():
     """
     subjects = query_db(sql_subjects)
 
-    #display due dates correctly
+    #display due dates correctly (day, month, year)
     formatted_list = []
     for task in tasks:
         task_list = list(task)
@@ -149,6 +149,25 @@ def subjects_page():
     subjects = query_db(sql_subjects)
     
     return render_template("subjects.html", subjects=subjects)
+
+#edit subjects
+@app.route('/edit-subject/<int:subject_id>', methods=['POST'])
+def edit_subject(subject_id):
+    if request.method == 'POST':
+        subject_name = request.form.get('subject_name')
+        subject_id = request.form.get('subject_id')
+        subject_color = request.form.get('subject_color')
+        
+        db = get_db()
+        sql = """
+            UPDATE Subjects
+            SET SubjectName = ?, SubjectID = ?, SubjectColor = ?
+            WHERE SubjectID = ?
+        """
+        db.execute(sql, (subject_name, subject_id, subject_color))
+        db.commit()
+        
+    return redirect(url_for('home'))
 
 #delete subjects
 @app.route('/delete-subject/<int:subject_id>')

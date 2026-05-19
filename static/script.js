@@ -1,20 +1,22 @@
-//allows menu button to show task dropdown on click
+// allows menu button to show task dropdown on click
 function toggleMenu(event, button) {
-    event.stopPropagation();
+    event.stopPropagation(); // stops the click from bubbling up to window.onclick, which would immediately close the dropdown we're trying to open
     const dropdown = button.nextElementSibling;
     
     const isHidden = window.getComputedStyle(dropdown).display === 'none';
 
-    document.querySelectorAll('.dropdown-content').forEach(d => d.style.display = 'none');
+    document.querySelectorAll('.dropdown-content').forEach(d => d.style.display = 'none'); // closes other dropdowns
 
     dropdown.style.display = isHidden ? 'block' : 'none';
 }
 
+// this runs on every click anywhere on the page
 window.onclick = function(event) {
     const taskModal = document.getElementById('task-modal');
     const subjectModal = document.getElementById('subject-modal');
 
-    if (event.target == taskModal) {
+    // closes modal if user clicks off of it
+    if (event.target == taskModal) { 
         const closeBtn = document.querySelector('.close-modal-btn');
         if (closeBtn) closeBtn.click();
     }
@@ -28,15 +30,17 @@ window.onclick = function(event) {
     }
 }
 
-//allows modals to show on click, close modal button to close modal on click and closes modal when clicking outside of it
+// store modal and button elements in variables so we can reuse them
 const taskModal = document.getElementById('task-modal');
 const openTaskBtn = document.getElementById('open-task-modal-btn');
 const subjectModal = document.getElementById('subject-modal');
 const openSubjectBtn = document.getElementById('open-subject-modal-btn');
 
+// if the buttons exist on this page, attach click handlers to open the modals
 if (openTaskBtn) openTaskBtn.onclick = () => { if (taskModal) taskModal.style.display = 'flex'; };
 if (openSubjectBtn) openSubjectBtn.onclick = () => { if (subjectModal) subjectModal.style.display = 'flex'; };
 
+// some pages have multiple buttons with the same id so this catches all of them since getElementById only catches the first
 document.querySelectorAll('[id="open-task-modal-btn"]').forEach(btn => {
     btn.onclick = () => { if (taskModal) taskModal.style.display = 'flex'; };
 });
@@ -44,71 +48,78 @@ document.querySelectorAll('[id="open-subject-modal-btn"]').forEach(btn => {
     btn.onclick = () => { if (subjectModal) subjectModal.style.display = 'flex'; };
 });
 
-//edit task button
+// edit task button
 function prepareEditModal(element) {
+    // reads the task data stored in data - attributes on the edit button
     const id = element.getAttribute('data-id');
     const name = element.getAttribute('data-name');
     const date = element.getAttribute('data-date');
     const subject = element.getAttribute('data-subject');
     const status = element.getAttribute('data-status');
 
+    // pre-fills the modal form with the existing task data
     document.getElementById('task-name-input').value = name;
     document.getElementById('due-date-input').value = date;
     document.getElementById('subject-id-select').value = subject;
     document.getElementById('status-select').value = status;
+
+    // changes modal title
     document.getElementById('modal-title').innerText = "Edit Task";
     document.getElementById('save-btn').innerText = "Update Task";
+
+    // changes the form action so it submits to the edit route instead of the add route
     document.getElementById('task-form').action = '/edit-task/' + id;
 
+    // changes button text
     const saveBtn = document.querySelector('.save-btn');
     if (saveBtn) saveBtn.innerText = "Update Task";
 
     document.getElementById('task-modal').style.display = 'flex';
 }
 
-//make sure close button still works
+// runs when any close modal button is clicked
 document.querySelectorAll('.close-modal').forEach(btn => {
     btn.onclick = () => {
         if (taskModal) {
-            taskModal.style.display = 'none';
+            taskModal.style.display = 'none'; // hides the task modal
             const form = document.getElementById('task-form');
             if (form) {
-                form.reset();
-                form.action = '/';
+                form.reset(); // clears all the form inputs
+                form.action = '/'; // resets the form action back to the add route
             }
             const modalTitle = document.getElementById('modal-title');
             const saveBtn = document.querySelector('.save-btn');
-            if (modalTitle) modalTitle.innerText = "New Task";
-            if (saveBtn) saveBtn.innerText = "Save Task";
+            if (modalTitle) modalTitle.innerText = "New Task"; // resets the title
+            if (saveBtn) saveBtn.innerText = "Save Task"; // resets the button text
         }
-        if (subjectModal) subjectModal.style.display = 'none';
+        if (subjectModal) subjectModal.style.display = 'none'; // hides subject modal
     }
 });
 
-//resets the edit form
+// for when the user wants to cancel an edit 
 function resetForm() {
     const form = document.getElementById('task-form');
-    form.reset();
-    form.action = '/';
+    form.reset(); // clears inputs
+    form.action = '/'; // resets to add route
 
     document.getElementById('modal-title').innerText = "Add New Task";
     
     const saveBtn = document.querySelector('.save-btn');
     if (saveBtn) saveBtn.innerText = "Save Task";
     
-    document.getElementById('task-modal').style.display = 'flex';
+    document.getElementById('task-modal').style.display = 'flex'; // reopens the modal 
 }
 
-//highlight the active nav link
+// highlight the active nav link
 const navLinks = document.querySelectorAll('.navbar li a');
 
 navLinks.forEach(link => {
     if (link.getAttribute('href') === window.location.pathname) {
-        link.classList.add('active');
+        link.classList.add('active'); // if the link's href matches the URl path, add the active class
     }
 });
 
-//changes date warning text
+// changes date warning text
 const dueDateInput = document.getElementById('due-date-input');
 if (dueDateInput) {
     dueDateInput.addEventListener('input', function() {

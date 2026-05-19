@@ -512,3 +512,28 @@ td {
 .subjects-page-card-text {
     padding: 2rem;
 }
+
+.subjects-page-card h3 {
+    padding: 1.5rem 0 1rem 2rem;
+}
+
+.subjects-page-card span {
+    padding: 2rem;
+}
+
+.subjects-page-task-count {
+    font-size: 1rem;
+}
+
+.subject-card-actions {
+    padding: 1rem;
+    padding-left: 2rem;
+    color: #000000;
+    text-decoration: none;
+}
+
+.no-subjects-msg {
+    margin-top: -0.5rem;
+    font-size: 1.1rem;
+    width: 120%;
+}
