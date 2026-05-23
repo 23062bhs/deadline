@@ -10,7 +10,7 @@ html, body {
     overflow: hidden;
 }
 
-/* header */
+/* home page */
 header {
     background-color: rgb(120, 202, 252);
     font-size: 1.7rem;
@@ -482,10 +482,20 @@ td {
     font-weight: 500;
 }
 
-.task-summary {
+.task-count {
     font-family: "Satoshi";
     text-align: right;
     margin-top: 1rem;
+}
+
+.task-summary {
+    font-family: 'Satoshi';
+}
+
+.incomplete-tasks {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    width: 25%;
 }
 
 /* subjects page */
@@ -530,6 +540,7 @@ td {
     padding-left: 2rem;
     color: #000000;
     text-decoration: none;
+    list-style-type: none;
 }
 
 .no-subjects-msg {

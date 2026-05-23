@@ -26,8 +26,8 @@
             <h3 class="subjects-truncate" title="{{ subject[1] }}">
                 {{ subject[1] }}
             </h3>
-            <span class="task-count">
-                {{ subject[3] }} task{{ 's' if subject[3] != 1 }}
+            <span class="subject-card-task-count">
+                {{ subject[3] }} task{{ 's' if subject[3] != 1 }} <!-- changes "tasks" to "task" if task count is 1 -->
             </span>
         </div>
     </div>
@@ -122,7 +122,7 @@
             <th></th>
         </tr>
         {% if tasks %}
-            {% for task in tasks[:5] %}
+            {% for task in tasks[:5] %} <!-- limits the amount off shown tasks to a maximum of 5 -->
             <tr class="tasks">
                 <td class="tasks-column">
                     <span class="tasks-truncate" title="{{ task[1] }}">
@@ -168,12 +168,18 @@
     </table>
     {% if not tasks %}
         <div class="no-tasks-msg">
-            <p>You have no tasks, add a task</p>
+            <p>You have no tasks, add a task</p> <!-- tells user to add a task if they have none -->
         </div>
     {% endif %}
 </div>
+<div class="task-count">
+    <p>Showing <strong>{{ [tasks|length, 5]|min }}</strong> out of <strong>{{ tasks|length }}</strong> task{{ 's' if tasks|length != 1 }}</p> <!-- task count changes "tasks" to "task" if the task count is 1 -->
+</div>
+
 <div class="task-summary">
-    <p>Showing <strong>{{ [tasks|length, 5]|min }}</strong> out of <strong>{{ tasks|length }}</strong> task{{ 's' if tasks|length != 1 }}</p>
+    <div class="incomplete-tasks">
+        
+    </div>
 </div>
 
 {% endblock %}

@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock %}</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/ada09c2be0.js" crossorigin="anonymous"></script>
+    <title>{% block title %} {% endblock %}</title> <!-- page title set by each template -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"> <!-- favicon icon in browser tab -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- link to css file -->
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet"> <!-- import satoshi font -->
+    <script src="https://kit.fontawesome.com/ada09c2be0.js" crossorigin="anonymous"></script> <!-- import icons -->
 </head>
 <body>
     <header>
@@ -35,6 +35,6 @@
         </main>
 
     </div> 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script> <!-- link to javascript file -->
 </body>
 </html>

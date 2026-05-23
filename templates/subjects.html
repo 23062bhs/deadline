@@ -12,12 +12,13 @@
     </div>
 </div>
 
+<!-- subject grid -->
 <div class="subjects-page-grid">
     {% if subjects %}
         {% for subject in subjects %}
         <div class="subjects-page-card" style="--bg-color: {{ subject[2] }}; background-color: var(--bg-color);">
             <h3 class="subjects-truncate" title="{{ subject[1] }}">{{ subject[1] }}</h3>
-            <span class="subjects-page-task-count">{{ subject[3] }} task{{ 's' if subject[3] != 1 }}</span>
+            <span class="subjects-page-task-count">{{ subject[3] }} task{{ 's' if subject[3] != 1 }}</span> <!-- changes "subjects" to "subject if subject count is 1" -->
             <div class="subject-card-actions">
                 <a href="/delete-subject/{{ subject[0] }}" class="delete-link" onclick="return confirm('Are you sure you want to delete this subject?')"><i class="fa-solid fa-trash"></i> Delete</a>
             </div>

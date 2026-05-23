@@ -1,6 +1,6 @@
 // allows menu button to show task dropdown on click
 function toggleMenu(event, button) {
-    event.stopPropagation(); // stops the click from bubbling up to window.onclick, which would immediately close the dropdown we're trying to open
+    event.stopPropagation(); // stops the click from bubbling up to window.onclick, which would immediately close the dropdown I'm trying to open
     const dropdown = button.nextElementSibling;
     
     const isHidden = window.getComputedStyle(dropdown).display === 'none';
@@ -30,7 +30,7 @@ window.onclick = function(event) {
     }
 }
 
-// store modal and button elements in variables so we can reuse them
+// store modal and button elements in variables so I can reuse them
 const taskModal = document.getElementById('task-modal');
 const openTaskBtn = document.getElementById('open-task-modal-btn');
 const subjectModal = document.getElementById('subject-modal');
@@ -123,10 +123,13 @@ navLinks.forEach(link => {
 const dueDateInput = document.getElementById('due-date-input');
 if (dueDateInput) {
     dueDateInput.addEventListener('input', function() {
+        // changes message if user inputted date it too far into the future
         if (this.validity.rangeOverflow) {
             this.setCustomValidity('Please enter a date before 31/12/2050');
+        // changes message if user inputted date it too far in the past
         } else if (this.validity.rangeUnderflow) {
             this.setCustomValidity('Please enter a date from today or later');
+        // resets warning message
         } else {
             this.setCustomValidity('');
         }
