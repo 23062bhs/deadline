@@ -1,0 +1,72 @@
+<!-- task modal -->
+<div id="task-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-title">New Task</h2>
+            <div class="close-modal">
+                <button class="close-modal-btn">&times;</button>
+            </div>
+        </div>
+        <form action="/" method="POST" id="task-form">
+            <div class="input-group">
+                <label>Task Name</label>
+                <input type="text" name="task_name" id="task-name-input" placeholder="Finish UI Design" required>
+            </div>       
+            <div class="input-group">
+                <label>Subject</label>
+                {% if subjects %}
+                    <select name="subject_id" id="subject-id-select" required>
+                        <option value="" disabled selected>Select a subject</option>
+                        {% for subject in subjects %}
+                            <option value="{{ subject[0] }}" title="{{ subject[1] }}">{{ subject[1][:13] }}{% if subject[1]|length > 13 %}...{% endif %}</option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <div class="no-subjects-alert">
+                        <p>No subjects found, please add a subject first</p>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="input-group">
+                <label>Due Date</label>
+                <input type="date" id="due-date-input" name="due_date" required min="{{ today_date }}" max="2050-12-31">
+            </div>
+            <div class="input-group">
+                <label>Status</label>
+                <select name="status" id="status-select">
+                    <option value="1">Completed</option>
+                    <option value="2">Incomplete</option>
+                    <option value="3">In Progress</option>
+                    <option value="4">Overdue</option>
+                </select>
+            </div>
+            <button type="submit" class="save-btn" id="save-btn">Save Task</button>
+        </form>
+    </div>
+</div>
+
+<!-- subject modal -->
+<div id="subject-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2>Add New Subject</h2>
+            <div class="close-modal">
+                <button class="close-modal-btn">&times;</button>
+            </div>
+        </div>
+        <form action="/add-subject" method="POST">
+            <div class="input-group">
+                <label>Subject Name</label>
+                <input type="text" name="subject_name" placeholder="e.g., Physics" required>
+            </div> 
+            <div class="input-group">
+                <label>Subject Color</label>
+                <div class="color-picker">
+                    <input type="color" name="subject_color" value="#ffffff" required>
+                    <span class="color-picker-text">Choose a color</span>
+                </div>
+            </div>
+            <button type="submit" class="save-btn">Create Subject</button>
+        </form>
+    </div>
+</div>

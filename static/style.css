@@ -536,10 +536,10 @@ td {
 }
 
 .subject-card-actions {
-    padding: 1rem;
-    padding-left: 2rem;
     color: #000000;
     text-decoration: none;
+    padding: 1rem;
+    padding-left: 2rem;
     list-style-type: none;
 }
 

@@ -185,15 +185,10 @@ def delete_subject(subject_id):
 # tasks page
 @app.route('/tasks')
 def tasks_page():
-    db = get_db()
-    
-    sql_tasks = """
-        SELECT *
-        FROM Tasks
-    """
-    tasks = query_db(sql_tasks)
-    
-    return render_template("tasks.html", tasks=tasks)
+    today = datetime.now().date()
+    subjects = query_db("SELECT SubjectID, SubjectName, SubjectColor FROM Subjects")
+    tasks = query_db("SELECT * FROM Tasks")
+    return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())
 
 # runs the app directly 
 if __name__ == "__main__":
