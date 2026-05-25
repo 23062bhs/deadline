@@ -498,6 +498,49 @@ td {
     width: 25%;
 }
 
+/* error page */
+.error-page {
+    margin-top: -2rem;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Satoshi';
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    height: 100%;
+    gap: 2rem;
+}
+
+.error-page h1 {
+    font-size: 4.5rem;
+}
+
+.error-page p {
+    font-size: 2rem;
+}
+
+.go-home-btn {
+    font-size: 1.2rem;
+    display: inline-flex;
+    transition: 0.1s;
+    text-decoration: none; 
+    padding: 1rem 1.5rem;
+    border-radius: 1.2rem;
+    background-color: rgb(120, 202, 252); 
+    color: #ffffff;     
+    width: 9rem;   
+    align-items: center;
+    justify-content: center;
+    border: none;
+    margin-top: 2rem;
+    font-weight: 500;
+}
+
+.go-home-btn:hover {
+    background-color: rgb(93, 190, 250);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
 /* subjects page */
 .intro p {
     margin-top: 1rem;

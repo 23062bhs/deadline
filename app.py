@@ -190,6 +190,11 @@ def tasks_page():
     tasks = query_db("SELECT * FROM Tasks")
     return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())
 
+#404 handler
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html'), 404
+
 # runs the app directly 
 if __name__ == "__main__":
     app.run(debug=True)
