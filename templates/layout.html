@@ -32,10 +32,10 @@
         <!-- main content -->
         <main>
         {% block content %}{% endblock %}
+        <footer>&copy; Deadline 2026</footer>
         </main>
 
     </div> 
-    <footer>&copy; Deadline</footer>
     {% include 'modals.html' %}
     <script src="{{ url_for('static', filename='script.js') }}"></script> <!-- link to javascript file -->
 </body>

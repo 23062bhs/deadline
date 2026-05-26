@@ -7,7 +7,12 @@
 html, body {
     height: 100%;
     margin: 0;
-    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 /* home page */
@@ -23,6 +28,7 @@ header {
     box-sizing: border-box;
     position: relative;
     width: auto;
+    flex-shrink: 0;
 }
 
 .header-logo {
@@ -47,11 +53,23 @@ ul {
     padding: 0;
 }
 
+footer {
+    font-family: 'Satoshi';
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 500;
+    background-color: rgb(120, 202, 252);
+    flex-shrink: 0;
+    margin: 3.5rem -2.5rem -2.5rem -2.5rem;
+}
+
 /* navigation bar (sidebar) */
 .main-container {
     display: flex;
-    height: calc(100vh - 4.5rem);
-    align-items: stretch;
+    flex: 1;
+    overflow: hidden;
 }
 
 .navbar {
