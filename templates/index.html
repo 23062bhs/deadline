@@ -176,9 +176,20 @@
     <p>Showing <strong>{{ [tasks|length, 5]|min }}</strong> out of <strong>{{ tasks|length }}</strong> task{{ 's' if tasks|length != 1 }}</p> <!-- task count changes "tasks" to "task" if the task count is 1 -->
 </div>
 
+<!-- task summary -->
+<div class="summary-title">Task Summary</div>
 <div class="task-summary">
+    <div class="total-tasks">
+        <h1></h1>
+    </div>
     <div class="incomplete-tasks">
-        
+        <h1></h1>
+    </div>
+    <div class="completed-tasks">
+        <h1></h1>
+    </div>
+    <div class="overdue-tasks">
+        <h1></h1>
     </div>
 </div>
 

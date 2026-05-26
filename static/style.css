@@ -508,12 +508,50 @@ td {
 
 .task-summary {
     font-family: 'Satoshi';
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    gap: 2rem;
+}
+
+.summary-title {
+    font-family: 'Satoshi';
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+}
+
+.total-tasks {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    width: 70%;
+    height: 5rem;
+    padding: 2rem;
 }
 
 .incomplete-tasks {
     background-color: #ffffff;
     border-radius: 1.5rem;
-    width: 25%;
+    width: 70%;
+    height: 5rem;
+    padding: 2rem;
+}
+
+.completed-tasks {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    width: 70%;
+    height: 5rem;
+    padding: 2rem;
+}
+
+.overdue-tasks {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    width: 70%;
+    height: 5rem;
+    padding: 2rem;
 }
 
 /* error page */
