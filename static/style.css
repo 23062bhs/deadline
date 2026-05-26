@@ -62,7 +62,7 @@ footer {
     font-weight: 500;
     background-color: rgb(120, 202, 252);
     flex-shrink: 0;
-    margin: 3.5rem -2.5rem -2.5rem -2.5rem;
+    margin: auto -2.5rem -2.5rem -2.5rem;
 }
 
 /* navigation bar (sidebar) */
@@ -114,6 +114,8 @@ main {
     padding: 2.5rem;
     overflow-y: auto;
     background-color: #dfdfdf;
+    display: flex;
+    flex-direction: column;
 }
 
 .header-section {
@@ -508,7 +510,7 @@ td {
 
 .task-summary {
     font-family: 'Satoshi';
-    margin-top: 1.5rem;
+    margin: 1.5rem 0 3rem 0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 100%;
@@ -528,6 +530,11 @@ td {
     width: 70%;
     height: 5rem;
     padding: 2rem;
+}
+
+.task-summary h1 {
+    margin-top: -0.5rem;
+    font-size: 1.2rem;
 }
 
 .incomplete-tasks {
