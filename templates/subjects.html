@@ -23,6 +23,12 @@
             <h3 class="subjects-truncate" title="{{ subject[1] }}">{{ subject[1] }}</h3>
             <span class="subjects-page-task-count">{{ subject[3] }} task{{ 's' if subject[3] != 1 }}</span> <!-- changes "subjects" to "subject if subject count is 1" -->
             <div class="subject-card-actions">
+                <a href="javascript:void(0)" onclick="prepareEditSubjectModal(this)"
+                    data-id="{{ subject[0] }}"
+                    data-name="{{ subject[1] }}"
+                    data-color="{{ subject[2] }}">
+                    <i class="fa-solid fa-pen"></i>
+                </a>
                 <a href="/delete-subject/{{ subject[0] }}" class="delete-link" onclick="return confirm('Are you sure you want to delete this subject?')"><i class="fa-solid fa-trash"></i></a>
             </div>
         </div>
@@ -32,6 +38,32 @@
             <p>No subjects yet, add a subject to get started</p>
         </div>
     {% endif %}
+</div>
+
+<!-- edit subject modal -->
+<div id="edit-subject-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2>Edit Subject</h2>
+            <div class="close-modal">
+                <button class="close-modal-btn">&times;</button>
+            </div>
+        </div>
+        <form action="" method="POST" id="edit-subject-form">
+            <div class="input-group">
+                <label>Subject Name</label>
+                <input type="text" name="subject_name" id="edit-subject-name" required>
+            </div>
+            <div class="input-group">
+                <label>Subject Color</label>
+                <div class="color-picker">
+                    <input type="color" name="subject_color" id="edit-subject-color" required>
+                    <span class="color-picker-text">Choose a color</span>
+                </div>
+            </div>
+            <button type="submit" class="save-btn">Update Subject</button>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

@@ -135,3 +135,16 @@ if (dueDateInput) {
         }
     });
 }
+
+// edit subject modal
+function prepareEditSubjectModal(element) {
+    const id = element.getAttribute('data-id');
+    const name = element.getAttribute('data-name');
+    const color = element.getAttribute('data-color');
+
+    document.getElementById('edit-subject-name').value = name;
+    document.getElementById('edit-subject-color').value = color;
+    document.getElementById('edit-subject-form').action = '/edit-subject/' + id;
+
+    document.getElementById('edit-subject-modal').style.display = 'flex';
+}

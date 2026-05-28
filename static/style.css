@@ -667,11 +667,13 @@ td {
     font-size: 1rem;
 }
 
-.subject-card-actions {
+.subjects-card-actions {
+    display: flex;
+}
+
+.subject-card-actions a {
     color: #000000;
     text-decoration: none;
-    padding: 1rem;
-    padding-left: 2rem;
     list-style-type: none;
 }
 
