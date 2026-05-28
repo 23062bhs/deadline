@@ -180,7 +180,7 @@ main {
 }
 
 .add-task-btn:active, .add-subject-btn:active {
-    transform: scale(0.97); 
+    transform: scale(0.95); 
 }
 
 /* subject grid */
@@ -626,19 +626,29 @@ td {
     border: none;
 }
 
+.subjects-page-btn:hover {
+    background-color: rgb(93, 190, 250);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.subjects-page-btn:active {
+    transform: scale(0.95); 
+}
+
 .subjects-page-grid {
     margin-top: 2rem;
     font-family: 'Satoshi';
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
     align-items: start;
-    gap: 1rem;
+    gap: 2.3rem;
+    padding-bottom: 2.5rem;
 }
 
 .subjects-page-card {
     border-radius: 1rem;
-    width: 15rem;
-    height: 10rem;
+    width: 13rem;
+    height: 9rem;
 }
 
 .subjects-page-card-text {
