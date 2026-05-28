@@ -610,6 +610,22 @@ td {
     font-size: 1.2rem;
 }
 
+.subjects-page-btn {
+    font-family: 'Satoshi';
+    font-size: 1rem;
+    display: inline-flex;
+    transition: 0.1s;
+    text-decoration: none; 
+    padding: 0.85rem 1.3rem;
+    border-radius: 1rem;
+    background-color: rgb(120, 202, 252); 
+    color: #ffffff;     
+    width: 10rem;   
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
 .subjects-page-grid {
     margin-top: 2rem;
     font-family: 'Satoshi';

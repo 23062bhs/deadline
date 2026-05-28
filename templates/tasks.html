@@ -14,9 +14,11 @@
 
 <!-- task list -->
 <div class="task-list">
-    {% for task in tasks %}
-
-    {% endfor %}
+    {% if tasks %}
+        {% for task in tasks %}
+            
+        {% endfor %}
+    {% endif %}
 </div>
 
 {% endblock %}
