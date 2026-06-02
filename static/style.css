@@ -506,6 +506,7 @@ td {
     font-family: "Satoshi";
     text-align: right;
     margin-top: 1rem;
+    padding-bottom: 2.5rem;
 }
 
 .task-summary {
@@ -521,7 +522,7 @@ td {
     font-family: 'Satoshi';
     font-size: 1.3rem;
     font-weight: 600;
-    margin-top: 1.5rem;
+    margin-top: -1.5rem;
 }
 
 .total-tasks {
@@ -684,8 +685,14 @@ td {
     margin: -0.5rem 1rem 0 0;
 }
 
+.subject-card-actions a:hover {
+    color: #b9b7b7;
+}
+
 .no-subjects-msg {
     margin-top: -0.5rem;
     font-size: 1.1rem;
     width: 120%;
 }
+
+

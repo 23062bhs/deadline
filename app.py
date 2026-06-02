@@ -142,10 +142,8 @@ def subjects_page():
     db = get_db()
     
     sql_subjects = """
-        SELECT Subjects.SubjectID, 
-               Subjects.SubjectName, 
-               Subjects.SubjectColor, 
-               COUNT(Tasks.TaskID) AS TaskCount
+        SELECT Subjects.SubjectID, Subjects.SubjectName, Subjects.SubjectColor, 
+        COUNT(Tasks.TaskID) AS TaskCount
         FROM Subjects
         LEFT JOIN Tasks ON Subjects.SubjectID = Tasks.SubjectID
         GROUP BY Subjects.SubjectID
@@ -187,7 +185,11 @@ def delete_subject(subject_id):
 def tasks_page():
     today = datetime.now().date()
     subjects = query_db("SELECT SubjectID, SubjectName, SubjectColor FROM Subjects")
-    tasks = query_db("SELECT * FROM Tasks")
+    sql = """ 
+        SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
+        FROM Tasks
+    """
+    tasks = query_db(sql)
     return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())
 
 #404 handler

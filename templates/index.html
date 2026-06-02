@@ -66,7 +66,7 @@
             </div>
             <div class="input-group">
                 <label>Due Date</label>
-                <input type="date" id="due-date-input" name="due_date" required min="{{ today_date }}" max="2050-12-31">
+                <input type="date" id="due-date-input" name="due_date" required min="2026-01-01" max="2050-12-31">
             </div>
             <div class="input-group">
                 <label>Status</label>
@@ -177,21 +177,23 @@
 </div>
 
 <!-- task summary -->
-<div class="summary-title">Task Summary</div>
-<div class="task-summary">
-    <div class="total-tasks">
-        <h1>Total Tasks</h1>
-        <span></span>
+{% if tasks %}
+    <div class="summary-title">Task Summary</div>
+    <div class="task-summary">
+        <div class="total-tasks">
+            <h1>Total Tasks</h1>
+            <span></span>
+        </div>
+        <div class="incomplete-tasks">
+            <h1>Incomplete</h1>
+        </div>
+        <div class="completed-tasks">
+            <h1>Completed</h1>
+        </div>
+        <div class="overdue-tasks">
+            <h1>Overdue</h1>
+        </div>
     </div>
-    <div class="incomplete-tasks">
-        <h1>Incomplete</h1>
-    </div>
-    <div class="completed-tasks">
-        <h1>Completed</h1>
-    </div>
-    <div class="overdue-tasks">
-        <h1>Overdue</h1>
-    </div>
-</div>
+{% endif %}
 
 {% endblock %}

@@ -128,7 +128,7 @@ if (dueDateInput) {
             this.setCustomValidity('Please enter a date before 31/12/2050');
         // changes message if user inputted date it too far in the past
         } else if (this.validity.rangeUnderflow) {
-            this.setCustomValidity('Please enter a date from today or later');
+            this.setCustomValidity('Please enter a date from 01/01/2026 or later');
         // resets warning message
         } else {
             this.setCustomValidity('');
