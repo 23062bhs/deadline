@@ -186,7 +186,7 @@ def tasks_page():
     today = datetime.now().date()
     subjects = query_db("SELECT SubjectID, SubjectName, SubjectColor FROM Subjects")
     sql = """ 
-        SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
+        SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate
         FROM Tasks
     """
     tasks = query_db(sql)
