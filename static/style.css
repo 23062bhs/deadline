@@ -188,7 +188,7 @@ main {
     font-family: 'Satoshi';
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: start;
 }
 
@@ -639,16 +639,18 @@ td {
     margin-top: 2rem;
     font-family: 'Satoshi';
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
     align-items: start;
-    gap: 2.3rem;
+    gap: 1.8rem;
     padding-bottom: 2.5rem;
 }
 
 .subjects-page-card {
     border-radius: 1rem;
-    width: 13rem;
+    width: 13.5rem;
     height: 9rem;
+    background-color: #FFFFFF;
+    border-top: 1rem solid var(--bg-color);
 }
 
 .subjects-page-card-text {
@@ -656,25 +658,30 @@ td {
 }
 
 .subjects-page-card h3 {
-    padding: 1.5rem 0 1rem 2rem;
+    padding: 1.2rem 0 1rem 2rem;
 }
 
 .subjects-page-card span {
-    padding: 2rem;
+    padding: 2rem 0 2rem 2rem;
 }
 
 .subjects-page-task-count {
     font-size: 1rem;
 }
 
-.subjects-card-actions {
+.subject-card-actions {
     display: flex;
+    border-top: 0.1rem solid #929191;
+    padding-top: 0.9rem;
+    margin-top: 1.5rem;
+    justify-content: right;
 }
 
 .subject-card-actions a {
     color: #000000;
     text-decoration: none;
     list-style-type: none;
+    margin: -0.5rem 1rem 0 0;
 }
 
 .no-subjects-msg {

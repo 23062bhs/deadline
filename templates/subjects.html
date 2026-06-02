@@ -19,7 +19,7 @@
 <div class="subjects-page-grid">
     {% if subjects %}
         {% for subject in subjects %}
-        <div class="subjects-page-card" style="--bg-color: {{ subject[2] }}; background-color: var(--bg-color);">
+        <div class="subjects-page-card" style="--bg-color: {{ subject[2] }};">
             <h3 class="subjects-truncate" title="{{ subject[1] }}">{{ subject[1] }}</h3>
             <span class="subjects-page-task-count">{{ subject[3] }} task{{ 's' if subject[3] != 1 }}</span> <!-- changes "subjects" to "subject if subject count is 1" -->
             <div class="subject-card-actions">
