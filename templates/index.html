@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}Home | Deadline{% endblock %}
+{% block title %}Home | Deadline{% endblock %} <!-- sets page title -->
 
 {% block content %}
 
@@ -21,7 +21,7 @@
 </div>
 <div class="subjects-grid">
     {% for subject in subjects %}
-    <div class="subjects-card" style="--bg-color: {{ subject[2] }}; background-color: var(--bg-color);">
+    <div class="subjects-card" style="--bg-color: {{ subject[2] }}; background-color: var(--bg-color);"> <!-- sets the background color of the card to the color of the subject -->
         <div class="subjects-card-text">
             <h3 class="subjects-truncate" title="{{ subject[1] }}">
                 {{ subject[1] }}
@@ -47,7 +47,7 @@
             <th></th>
         </tr>
         {% if tasks %}
-            {% for task in tasks[:5] %} <!-- limits the amount off shown tasks to a maximum of 5 -->
+            {% for task in tasks[:5] %} <!-- limits the amount of shown tasks to a maximum of 5 -->
             <tr class="tasks">
                 <td class="tasks-column">
                     <span class="tasks-truncate" title="{{ task[1] }}">
@@ -55,7 +55,7 @@
                     </span>
                 </td>
                 <td class="subjects-column">
-                    <span class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}">
+                    <span class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}"> <!-- sets the pill color of the pill to the color of the subject -->
                         {{ task[3] }}
                     </span>
                 </td>
@@ -63,16 +63,16 @@
                     {{ task[2] }}
                 </td>
                 <td class="status-column">
-                    <span class="pill" style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);">
+                    <span class="pill" style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);"> <!-- sets the pill color the color associated with the status -->
                         {{ task[4] }}
                     </span>
                 </td>  
                 <td class="task-actions">
                     <div class="dropdown">
-                        <button class="menu-btn" onclick="toggleMenu(event, this)">
+                        <button class="menu-btn" onclick="toggleMenu(event, this)"> <!-- shows dropdown when pressed -->
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                        <div class="dropdown-content">
+                        <div class="dropdown-content"> <!-- edit modal content -->
                             <a href="javascript:void(0)" 
                                 class="edit-link" 
                                 onclick="prepareEditModal(this)"
@@ -84,7 +84,7 @@
                             <i class="fa-solid fa-pen"></i> 
                             Edit
                             </a>
-                            <a href="/delete-task/{{ task[0] }}" class="delete-link" onclick="return confirm('Are you sure you want to delete this task?');"><i class="fa-solid fa-trash"></i> Delete</a>
+                            <a href="/delete-task/{{ task[0] }}" class="delete-link" onclick="return confirm('Are you sure you want to delete this task?');"><i class="fa-solid fa-trash"></i> Delete</a> <!-- warning message to prevent accidents -->
                         </div>
                     </div>
                 </td>
@@ -126,4 +126,3 @@
 {% endif %}
 
 {% endblock %}
-{% include 'modals.html' %}
