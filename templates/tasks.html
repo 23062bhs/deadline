@@ -18,7 +18,20 @@
 <!-- task list -->
 <div class="task-list-container">
     <div class="tasks-toolbar">
-        
+        <button class="filter-subject-btn">Filter by subject <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="status-options">
+            <button class="status-btn">All</button>
+            <button class="status-btn">Pending</button>
+            <button class="status-btn">Overdue</button>
+            <button class="status-btn">Complete</button>
+        </div>
+        <button class="sort-btn">Sort by <i class="fa-solid fa-chevron-down"></i></button>
+    </div>
+    <div class="list-headers">
+        <p>Task Name</p>
+        <p>Subject</p>
+        <p>Due Date</p>
+        <p>Actions</p>
     </div>
     <div class="task-list">
         {% if tasks %}

@@ -705,10 +705,48 @@ td {
 
 /* tasks page */
 .task-list-container {
+    font-family: 'Satoshi';
     margin-top: 2rem;
-    border: #b9b7b7 0.2rem solid;
+    border: #b7b7b7 0.2rem solid;
+    border-radius: 1rem;
+}
+
+.tasks-toolbar {
+    background-color: #ffffff;
+    padding: 0.75rem 0 0.75rem 1.5rem;
+    border-top-left-radius: 0.85rem;
+    border-top-right-radius: 0.85rem;
+    display: flex;
+}
+
+.filter-subject-btn {
+    font-family: 'Satoshi';
+    background-color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    border: #b7b7b7 0.1rem solid;
+}
+
+.status-btn {
+    background-color: #ffffff;
+}
+
+.sort-btn {
+    font-family: 'Satoshi';
+    background-color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    border: #b7b7b7 0.1rem solid;
+    
+}
+
+.list-headers {
+    background-color: #ffffff;
+    display: flex;
 }
 
 .task-list {
     background-color: #ffffff;
+    border-bottom-left-radius: 0.85rem;
+    border-bottom-right-radius: 0.85rem;
 }

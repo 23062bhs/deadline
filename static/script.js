@@ -1,6 +1,6 @@
 // allows menu button to show task dropdown on click
 function toggleMenu(event, button) {
-    event.stopPropagation(); // stops the click from bubbling up to window.onclick, which would immediately close the dropdown I'm trying to open
+    event.stopPropagation(); // stops the click from propagating up to window.onclick, which would immediately close the dropdown I'm trying to open
     const dropdown = button.nextElementSibling;
     
     const isHidden = window.getComputedStyle(dropdown).display === 'none';
@@ -138,7 +138,7 @@ if (dueDateInput) {
 
 // edit subject modal
 function prepareEditSubjectModal(element) {
-    const id = element.getAttribute('data-id');
+    const id = element.getAttribute('data-id'); 
     const name = element.getAttribute('data-name');
     const color = element.getAttribute('data-color');
 
