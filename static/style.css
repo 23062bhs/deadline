@@ -204,6 +204,7 @@ main {
     padding: 1.25rem 1rem;
     width: 7rem;
     border-radius: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .subjects-header {
@@ -357,6 +358,7 @@ main {
     background-color: #ffffff;
     border-radius: 1.5rem;
     padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .tasks-title {
@@ -462,7 +464,7 @@ td {
 }
 
 .dropdown-content a {
-    color: #1e293b;
+    color: #000000;
     padding: 0.7rem 1rem;
     text-decoration: none;
     display: flex;
@@ -531,6 +533,7 @@ td {
     width: 70%;
     height: 5rem;
     padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .task-summary h1 {
@@ -544,6 +547,7 @@ td {
     width: 70%;
     height: 5rem;
     padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .completed-tasks {
@@ -552,6 +556,7 @@ td {
     width: 70%;
     height: 5rem;
     padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .overdue-tasks {
@@ -560,6 +565,7 @@ td {
     width: 70%;
     height: 5rem;
     padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* error page */
@@ -652,6 +658,7 @@ td {
     height: 9rem;
     background-color: #FFFFFF;
     border-top: 1rem solid var(--bg-color);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
 }
 
 .subjects-page-card-text {
@@ -696,4 +703,12 @@ td {
     width: 120%;
 }
 
+/* tasks page */
+.task-list-container {
+    margin-top: 2rem;
+    border: #b9b7b7 0.2rem solid;
+}
 
+.task-list {
+    background-color: #ffffff;
+}
