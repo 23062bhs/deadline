@@ -39,8 +39,8 @@
 <div class="tasks-container">
     <h1 class="tasks-title">My Tasks</h1>
     <table>
-        <tr class="tasks-headers">
-            <th class="tasks-column">Tasks</th>
+        <tr class="table-headers">
+            <th class="tasks-column tasks-header">Tasks</th>
             <th class="subjects-column">Subject</th>
             <th class="date-column">Due Date</th>
             <th class="status-column">Status</th>
@@ -50,7 +50,7 @@
             {% for task in tasks[:5] %} <!-- limits the amount of shown tasks to a maximum of 5 -->
             <tr class="tasks">
                 <td class="tasks-column">
-                    <span class="tasks-truncate" title="{{ task[1] }}">
+                    <span class="tasks-truncate task-name" title="{{ task[1] }}">
                         {{ task[1] }}
                     </span>
                 </td>

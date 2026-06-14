@@ -27,19 +27,21 @@
         </div>
         <button class="sort-btn">Sort by <i class="fa-solid fa-chevron-down"></i></button>
     </div>
-    <div class="list-headers">
-        <p class="name-header">Task Name</p>
-        <p class="subject-header">Subject</p>
-        <p class="date-header">Due Date</p>
-        <p class="action-header">Actions</p>
-    </div>
-    <div class="task-list">
+    <table class="task-list">
+        <tr class="list-headers">
+            <th class="name-header">Task Name</th>
+            <th class="subject-header">Subject</th>
+            <th class="date-header">Due Date</th>
+            <th class="action-header">Actions</th>
+        </tr>
         {% if tasks %}
             {% for task in tasks %}
-                w
+                <td>{{ task[1] }}</td>
+                <td>{{ task[3] }}</td>
+                <td>{{ task[2] }}</td>
             {% endfor %}
         {% endif %}
-    </div>
+    </table>
         {% if not tasks %}  
             <div class="tasks-page-no-tasks-msg">
                 <p>You have no tasks, add a task</p> <!-- tells user to add a task if they have none -->

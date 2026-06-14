@@ -183,16 +183,38 @@ def delete_subject(subject_id):
 # tasks page
 @app.route('/tasks')
 def tasks_page():
-    today = datetime.now().date()
+    today = datetime.now().date() # used to set the minimum selectable date in forms 
     subjects = query_db("SELECT SubjectID, SubjectName, SubjectColor FROM Subjects")
     sql = """ 
-        SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate
+        SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
+        Subjects.SubjectName, Status.StatusName, Subjects.SubjectColor, Status.StatusColor,
+        Tasks.SubjectID, Tasks.StatusID
         FROM Tasks
+        LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
+        LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
     """
     tasks = query_db(sql)
+
+    formatted_list = []
+    for task in tasks:
+        task_list = list(task) # convert to list 
+        raw_date = task_list[2] # store original date 
+        
+        if task_list[2]:
+            try:
+                date_obj = datetime.strptime(task_list[2], '%Y-%m-%d')
+                task_list[2] = date_obj.strftime('%d %b %Y') # reformat the date
+            except ValueError:
+                pass # leaves date unchanged if it cant be fixed
+
+        task_list.append(raw_date) 
+        formatted_list.append(task_list)
+
+    task = formatted_list
+    
     return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())
 
-#404 handler
+# error 404 handler
 @app.errorhandler(404)
 def not_found(e):
     return render_template('404.html'), 404

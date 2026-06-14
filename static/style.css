@@ -375,7 +375,7 @@ table {
     border-collapse: collapse;
 }
 
-th {
+.table-headers th {
     text-align: left;
     background-color: rgb(199, 199, 199);
     padding: 0.5rem;
@@ -392,7 +392,11 @@ th:last-child {
     border-bottom-right-radius: 0.7rem;
 }
 
-td {
+.tasks-header {
+    padding-left: 2.5rem !important;
+}
+
+.tasks td {
     padding: 1rem 0;
     color: #000000;
     font-size: 1rem;
@@ -400,8 +404,11 @@ td {
 }
 
 .tasks-column {
-    padding-left: 2.5rem;
     width: 30%;
+}
+
+.task-name {
+    padding-left: 2.75rem;
 }
 
 .subjects-column {
@@ -806,7 +813,9 @@ td {
 }
 
 .task-list {
+    display: flex;
     background-color: #ffffff;
     border-bottom-left-radius: 0.85rem;
     border-bottom-right-radius: 0.85rem;
 }
+
