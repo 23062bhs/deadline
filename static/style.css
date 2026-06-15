@@ -791,31 +791,30 @@ th:last-child {
 
 .list-headers {
     background-color: #ffffff;
-    display: flex;
     padding: 0.5rem 0 0.5rem 2rem;
     border-bottom: #b7b7b7 0.2rem solid;
 }
 
-.name-header {
-    padding: 0rem 13rem 0 2.5rem;
-}
-
-.subject-header {
-    padding-right: 10rem;
-}
-
-.date-header {
-    padding-right: 12rem;
-}
-
-.action-header {
-    padding-right: 4.5rem;
-}
-
 .task-list {
-    display: flex;
+    width: 100%;
+    border-collapse: collapse;
     background-color: #ffffff;
     border-bottom-left-radius: 0.85rem;
     border-bottom-right-radius: 0.85rem;
 }
 
+.task-list thead tr {
+    border-bottom: 0.2rem solid #b7b7b7;
+}
+
+.task-list th {
+    text-align: left;
+    font-weight: 500;
+    color: #000000;
+    font-size: 0.95rem;
+    padding: 0.5rem 0 0.5rem 5rem;
+}
+
+.task-info {
+    border-bottom: 0.2rem solid #b7b7b7;
+}

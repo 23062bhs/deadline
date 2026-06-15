@@ -28,25 +28,49 @@
         <button class="sort-btn">Sort by <i class="fa-solid fa-chevron-down"></i></button>
     </div>
     <table class="task-list">
-        <tr class="list-headers">
-            <th class="name-header">Task Name</th>
-            <th class="subject-header">Subject</th>
-            <th class="date-header">Due Date</th>
-            <th class="action-header">Actions</th>
-        </tr>
-        {% if tasks %}
-            {% for task in tasks %}
-                <td>{{ task[1] }}</td>
-                <td>{{ task[3] }}</td>
-                <td>{{ task[2] }}</td>
-            {% endfor %}
-        {% endif %}
+        <thead>
+            <tr class="list-headers">
+                <th>Task Name</th>
+                <th>Subject</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if tasks %}
+                {% for task in tasks %}
+                    <tr class="task-info">
+                        <td>
+                            <input type="checkbox" class="task-checkbox">
+                        </td>
+                        <td>{{ task[1] }}</td>
+                        <td class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}">{{ task[3] }}</td> <!-- sets the color of the pill to the color of the subject -->
+                        <td>{{ task[2] }}</td>
+                        <td class="pill" style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);">{{ task[4] }}</td> <!-- sets the pill color to the color associated with the status -->
+                        <td>
+                            <a href="javascript:void(0)"
+                                class="edit-link"
+                                onclick="prepareEditModal(this)"
+                                data-id="{{ task[0] }}"
+                                data-name="{{ task[1] }}"
+                                data-date="{{ task[9] }}"
+                                data-subject="{{ task[7] }}"
+                                data-status="{{ task[8] }}">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                            <a href="/delete-task/{{ task[0] }}" class="delete-link" onclick="return confirm('Are you sure you want to delete this task?');"><i class="fa-solid fa-trash"></i></a> <!-- warning message to prevent accidents -->
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
     </table>
-        {% if not tasks %}  
-            <div class="tasks-page-no-tasks-msg">
-                <p>You have no tasks, add a task</p> <!-- tells user to add a task if they have none -->
-            </div>
-        {% endif %}
+    {% if not tasks %}  
+        <div class="tasks-page-no-tasks-msg">
+            <p>You have no tasks, add a task</p> <!-- tells user to add a task if they have none -->
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}
