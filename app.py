@@ -74,7 +74,7 @@ def home():
     # display due dates correctly (day, month, year)
     formatted_list = []
     for task in tasks:
-        task_list = list(task) # convert to list 
+        task_list = list(task) 
         raw_date = task_list[2] # store original date 
         
         if task_list[2]:

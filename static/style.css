@@ -172,11 +172,13 @@ main {
 .add-subject-btn:hover {
     background-color: rgb(200, 200, 200);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 .add-task-btn:hover {
     background-color: rgb(93, 190, 250);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 .add-task-btn:active, .add-subject-btn:active {
@@ -397,7 +399,7 @@ th:last-child {
 }
 
 .tasks td {
-    padding: 1rem 0;
+    padding: 0.75rem 1rem 0.75rem 1rem;
     color: #000000;
     font-size: 1rem;
     border-bottom: 0.1rem solid #dfdfdf;
@@ -815,6 +817,30 @@ th:last-child {
     padding: 0.5rem 0 0.5rem 5rem;
 }
 
-.task-info {
-    border-bottom: 0.2rem solid #b7b7b7;
+.task-checkbox {
+    width: 6rem;
+}
+
+.list-edit-action {
+    color: #000000;
+    text-decoration: none;
+}
+
+.list-edit-action:hover {
+    color: rgb(120, 202, 252);
+    cursor: pointer;
+}
+
+.list-delete-action {
+    color: #000000;
+    padding-left: 0.5rem;
+}
+
+.list-delete-action:hover {
+    color: rgb(255, 0, 0);
+    cursor: pointer;
+}
+
+.tasks-page-no-tasks-msg {
+    background-color: #ffffff;
 }
