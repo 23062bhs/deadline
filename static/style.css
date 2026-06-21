@@ -791,9 +791,10 @@ th:last-child {
     background-color: rgb(231, 231, 231);
 }
 
-.list-headers {
+thead .list-headers th {
+    text-align: left;
     background-color: #ffffff;
-    padding: 0.5rem 0 0.5rem 2rem;
+    padding: 0.5rem 0 0.5rem 3.5rem;
     border-bottom: #b7b7b7 0.2rem solid;
 }
 
@@ -801,8 +802,6 @@ th:last-child {
     width: 100%;
     border-collapse: collapse;
     background-color: #ffffff;
-    border-bottom-left-radius: 0.85rem;
-    border-bottom-right-radius: 0.85rem;
 }
 
 .task-list thead tr {
@@ -817,8 +816,13 @@ th:last-child {
     padding: 0.5rem 0 0.5rem 5rem;
 }
 
+.task-info {
+    border-bottom-left-radius: 0.85rem;
+    border-bottom-right-radius: 0.85rem;
+}
+
 .task-checkbox {
-    width: 6rem;
+    width: 4rem;
 }
 
 .list-edit-action {
@@ -842,5 +846,13 @@ th:last-child {
 }
 
 .tasks-page-no-tasks-msg {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: 550;
+    padding: 1rem 0 1rem 0;
     background-color: #ffffff;
+    border-bottom-left-radius: 0.85rem;
+    border-bottom-right-radius: 0.85rem;
+    justify-content: center;
+    align-items: center;
 }
