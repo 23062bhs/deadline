@@ -30,10 +30,11 @@
     <table class="task-list">
         <thead>
             <tr class="list-headers">
-                <th>Task Name</th>
-                <th>Subject</th>
-                <th>Due Date</th>
-                <th>Status</th>
+                <th class="checkbox-header" style="width:1%; white-space:nowrap;"></th>
+                <th class="name-header">Task Name</th>
+                <th class="subject-header">Subject</th>
+                <th class="date-header">Due Date</th>
+                <th class="status-header">Status</th>
                 <th class="actions-header">Actions</th>
             </tr>
         </thead>
@@ -41,13 +42,13 @@
             {% if tasks %}
                 {% for task in tasks %}
                     <tr class="task-info">
-                        <td>
+                        <td class="checkbox-cell">
                             <input type="checkbox" class="task-checkbox">
                         </td>
-                        <td>{{ task[1] }}</td>
-                        <td class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}">{{ task[3] }}</td> <!-- sets the color of the pill to the color of the subject -->
-                        <td>{{ task[2] }}</td>
-                        <td class="pill" style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);">{{ task[4] }}</td> <!-- sets the pill color to the color associated with the status -->
+                        <td class="name-cell">{{ task[1] }}</td>
+                        <td class="subject-cell pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}">{{ task[3] }}</td> <!-- sets the color of the pill to the color of the subject -->
+                        <td class="date-cell">{{ task[2] }}</td>
+                        <td class="status-cell pill" style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);">{{ task[4] }}</td> <!-- sets the pill color to the color associated with the status -->
                         <td>
                             <div>
                                 <a href="javascript:void(0)"
