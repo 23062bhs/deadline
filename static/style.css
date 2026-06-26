@@ -816,11 +816,6 @@ thead .list-headers th {
     font-size: 0.95rem;
 }
 
-.task-info {
-    border-bottom-left-radius: 0.85rem;
-    border-bottom-right-radius: 0.85rem;
-}
-
 .task-checkbox {
     width: 4rem;
 }

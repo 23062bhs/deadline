@@ -164,7 +164,7 @@ def edit_subject(subject_id):
         #update the subject row that matches the subject id
         sql = """
             UPDATE Subjects
-            SET SubjectName = ?, SubjectID = ?, SubjectColor = ?
+            SET SubjectName = ?, SubjectColor = ?
             WHERE SubjectID = ?
         """
         db.execute(sql, (subject_name, subject_id, subject_color))

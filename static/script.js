@@ -93,6 +93,9 @@ document.querySelectorAll('.close-modal').forEach(btn => {
             if (saveBtn) saveBtn.innerText = "Save Task"; // resets the button text
         }
         if (subjectModal) subjectModal.style.display = 'none'; // hides subject modal
+
+        const editSubjectModal = document.getElementById('edit-subject-modal'); // allows the clsoe modal button for the edit subject modal to work
+        if (editSubjectModal) editSubjectModal.style.display = 'none';
     }
 });
 
