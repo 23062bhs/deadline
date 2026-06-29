@@ -399,7 +399,7 @@ th:last-child {
 }
 
 .tasks td {
-    padding: 0.75rem 1rem 0.75rem 1rem;
+    padding: 0.75rem 1rem 0.75rem 0rem;
     color: #000000;
     font-size: 1rem;
     border-bottom: 0.1rem solid #dfdfdf;
@@ -499,7 +499,7 @@ th:last-child {
     border-radius: 2rem;
     display: inline-block;
     white-space: nowrap;
-    max-width: 100%;
+    max-width: 6rem;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
@@ -729,6 +729,7 @@ th:last-child {
     border-top-right-radius: 0.85rem;
     display: flex;
     border-bottom: #b7b7b7 0.2rem solid;
+    justify-content: space-between;
 }
 
 .filter-subject-btn {
@@ -747,7 +748,6 @@ th:last-child {
 .status-options {
     display: flex;
     border: #b7b7b7 0.1rem solid;
-    margin: 0 3rem 0 18.5rem;
     padding: 0rem 1rem 0rem 1rem;
     justify-content: center;
     border-radius: 0.75rem;
@@ -786,6 +786,7 @@ th:last-child {
     padding: 0.5rem 1.5rem 0.5rem 1.5rem;
     border-radius: 0.75rem;
     border: #b7b7b7 0.1rem solid;
+    margin-right: 3rem;
 }
 
 .sort-btn:hover {
@@ -797,6 +798,22 @@ thead .list-headers th {
     background-color: #ffffff;
     padding: 0.5rem 0 0.5rem 0rem;
     border-bottom: #b7b7b7 0.2rem solid;
+}
+
+.name-header {
+    padding-right: 1.5rem !important;
+}
+
+.subject-header {
+    padding-right: 3rem !important;
+}
+
+.status-header {
+    padding-left: 2rem !important; 
+}
+
+.date-header {
+    padding-left: 0.5rem !important;
 }
 
 .task-list {
@@ -814,6 +831,10 @@ thead .list-headers th {
     font-weight: 500;
     color: #000000;
     font-size: 0.95rem;
+}
+
+.task-list td {
+    padding: 0.5rem 0;
 }
 
 .task-checkbox {
@@ -854,4 +875,12 @@ thead .list-headers th {
 
 .checkbox-header, .checkbox-cell {
     width: 3rem;
+}
+
+.task-info td{
+    border-bottom: #b7b7b7 0.2rem solid;
+}
+
+.task-info:last-child td {
+    border-bottom: none;
 }

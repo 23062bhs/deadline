@@ -46,9 +46,13 @@
                             <input type="checkbox" class="task-checkbox">
                         </td>
                         <td class="name-cell">{{ task[1] }}</td>
-                        <td class="subject-cell pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}">{{ task[3] }}</td> <!-- sets the color of the pill to the color of the subject -->
+                        <td class="subject-cell">
+                            <span class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}">{{ task[3] }}</span> <!-- sets the color of the pill to the color of the subject -->
+                        </td> 
                         <td class="date-cell">{{ task[2] }}</td>
-                        <td class="status-cell pill" style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);">{{ task[4] }}</td> <!-- sets the pill color to the color associated with the status -->
+                        <td class="status-cell">
+                            <span class="pill"  style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);">{{ task[4] }}</span> <!-- sets the pill color to the color associated with the status -->
+                        </td> 
                         <td>
                             <div>
                                 <a href="javascript:void(0)"
