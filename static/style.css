@@ -577,6 +577,15 @@ th:last-child {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+.task-summary {
+    color: #000000;
+}
+
+.total-tasks span {
+    padding-top: 2rem;
+    font-size: 1.5rem;
+}
+
 /* error page */
 .error-page {
     margin-top: -2rem;
@@ -709,7 +718,8 @@ th:last-child {
 .no-subjects-msg {
     margin-top: -0.5rem;
     font-size: 1.1rem;
-    width: 120%;
+    width: 250%;
+    font-weight: 600;
 }
 
 /* tasks page */
@@ -796,12 +806,16 @@ th:last-child {
 thead .list-headers th {
     text-align: left;
     background-color: #ffffff;
-    padding: 0.5rem 0 0.5rem 0rem;
+    padding: 0.5rem 0;
     border-bottom: #b7b7b7 0.2rem solid;
 }
 
+.checkbox-header {
+    width: 5% !important;
+}
+
 .name-header {
-    padding-right: 1.5rem !important;
+    padding-right: 1rem !important;
 }
 
 .subject-header {
@@ -809,7 +823,7 @@ thead .list-headers th {
 }
 
 .status-header {
-    padding-left: 2rem !important; 
+    padding-left: 1rem !important; 
 }
 
 .date-header {
@@ -863,7 +877,7 @@ thead .list-headers th {
 
 .tasks-page-no-tasks-msg {
     display: flex;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 550;
     padding: 1rem 0 1rem 0;
     background-color: #ffffff;
@@ -871,10 +885,6 @@ thead .list-headers th {
     border-bottom-right-radius: 0.85rem;
     justify-content: center;
     align-items: center;
-}
-
-.checkbox-header, .checkbox-cell {
-    width: 3rem;
 }
 
 .task-info td{

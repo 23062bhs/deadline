@@ -88,8 +88,10 @@ def home():
         formatted_list.append(task_list)
 
     tasks = formatted_list
+
+    total = len(tasks)
     
-    return render_template("index.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())
+    return render_template("index.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), total=total)
 
 # home page subject section
 @app.route('/add-subject', methods=['POST'])
@@ -211,7 +213,7 @@ def tasks_page():
         formatted_list.append(task_list)
 
     task = formatted_list
-    
+
     return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())
 
 # error 404 handler
