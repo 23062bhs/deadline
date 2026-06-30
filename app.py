@@ -190,15 +190,32 @@ def delete_subject(subject_id):
 def tasks_page():
     today = datetime.now().date() # used to set the minimum selectable date in forms 
     subjects = query_db("SELECT SubjectID, SubjectName, SubjectColor FROM Subjects")
-    sql = """ 
-        SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
-        Subjects.SubjectName, Status.StatusName, Subjects.SubjectColor, Status.StatusColor,
-        Tasks.SubjectID, Tasks.StatusID
-        FROM Tasks
-        LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
-        LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
-    """
-    tasks = query_db(sql)
+
+    subject_filter = request.args.get('subject') # gets the subject filter from the URL query string
+
+    if subject_filter:
+        # if a subject is selected, only return tasks that match that subject
+        sql = """
+            SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
+            Subjects.SubjectName, Status.StatusName, Subjects.SubjectColor, Status.StatusColor,
+            Tasks.SubjectID, Tasks.StatusID
+            FROM Tasks
+            LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
+            LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
+            WHERE Tasks.SubjectID = ?
+        """
+        tasks = query_db(sql, (subject_filter,))
+    else:
+        # if no subject is selected, return all subjects
+        sql = """
+            SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
+            Subjects.SubjectName, Status.StatusName, Subjects.SubjectColor, Status.StatusColor,
+            Tasks.SubjectID, Tasks.StatusID
+            FROM Tasks
+            LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
+            LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
+        """
+        tasks = query_db(sql)
 
     formatted_list = []
     for task in tasks:
@@ -216,7 +233,6 @@ def tasks_page():
         formatted_list.append(task_list)
 
     task = formatted_list
-
     return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())
 
 # error 404 handler

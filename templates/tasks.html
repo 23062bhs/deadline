@@ -81,3 +81,14 @@
 </div>
 
 {% endblock %}
+
+<form method="GET" action="/tasks" style="display:inline;">
+    <select name="subject" class="filter-subject-btn" onchange="this.form.submit()">
+        <option value="">Filter by subject ▾</option>
+        {% for subject in subjects %}
+        <option value="{{ subject[0] }}" {% if request.args.get('subject') == subject[0]|string %}selected{% endif %}>
+            {{ subject[1] }}
+        </option>
+        {% endfor %}
+    </select>
+</form>
