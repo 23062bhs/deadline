@@ -581,8 +581,9 @@ th:last-child {
     color: #000000;
 }
 
-.total-tasks span {
-    padding-top: 2rem;
+.task-summary span {
+    display: block;
+    margin-top: 1rem;
     font-size: 1.5rem;
 }
 

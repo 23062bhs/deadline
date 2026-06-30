@@ -90,8 +90,11 @@ def home():
     tasks = formatted_list
 
     total = len(tasks)
+    completed = sum(1 for t in tasks if t[8] == 1)
+    overdue = sum(1 for t in tasks if t[8] == 4)   
+    incomplete = total - completed - overdue
     
-    return render_template("index.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), total=total)
+    return render_template("index.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), total=total, completed=completed, incomplete=incomplete, overdue=overdue)
 
 # home page subject section
 @app.route('/add-subject', methods=['POST'])
