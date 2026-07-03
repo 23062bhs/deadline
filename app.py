@@ -229,8 +229,8 @@ def tasks_page():
             except ValueError:
                 pass # leaves date unchanged if it cant be fixed
 
-        task_list.append(raw_date) 
-        formatted_list.append(task_list)
+            task_list.append(raw_date) 
+            formatted_list.append(task_list)
 
     task = formatted_list
     return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())

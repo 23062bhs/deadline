@@ -21,6 +21,7 @@
         <button class="filter-subject-btn">Filter by subject <i class="fa-solid fa-chevron-down"></i></button>
         <div class="status-options">
             <button class="all-status-btn">All</button> 
+            <button class="progress-status-btn">In Progress</button>
             <button class="pending-status-btn">Pending</button>
             <button class="overdue-status-btn">Overdue</button>
             <button class="complete-status-btn">Complete</button>
@@ -45,7 +46,7 @@
                         <td class="checkbox-cell">
                             <input type="checkbox" class="task-checkbox">
                         </td>
-                        <td class="name-cell">{{ task[1] }}</td>
+                        <td class="name-cell name-truncate">{{ task[1] }}</td>
                         <td class="subject-cell">
                             <span class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}">{{ task[3] }}</span> <!-- sets the color of the pill to the color of the subject -->
                         </td> 
@@ -81,14 +82,3 @@
 </div>
 
 {% endblock %}
-
-<form method="GET" action="/tasks" style="display:inline;">
-    <select name="subject" class="filter-subject-btn" onchange="this.form.submit()">
-        <option value="">Filter by subject ▾</option>
-        {% for subject in subjects %}
-        <option value="{{ subject[0] }}" {% if request.args.get('subject') == subject[0]|string %}selected{% endif %}>
-            {{ subject[1] }}
-        </option>
-        {% endfor %}
-    </select>
-</form>
