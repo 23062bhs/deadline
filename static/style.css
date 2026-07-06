@@ -70,6 +70,7 @@ footer {
     display: flex;
     flex: 1;
     overflow: hidden;
+    min-height: 0;
 }
 
 .navbar {
@@ -114,6 +115,7 @@ main {
     padding: 2.5rem;
     overflow-y: auto;
     background-color: #dfdfdf;
+    min-height: 0;
     display: flex;
     flex-direction: column;
 }
@@ -736,6 +738,8 @@ th:last-child {
     border-radius: 1rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
     overflow: hidden;
+    flex-shrink: 0;
+    margin-bottom: 2.5rem;
 }
 
 .tasks-toolbar {
@@ -865,11 +869,7 @@ thead .list-headers th {
 }
 
 .status-header {
-    padding-left: 1rem !important; 
-}
-
-.date-header {
-    padding-left: 0.5rem !important;
+    padding-left: 0.25rem !important; 
 }
 
 .task-list {
@@ -935,6 +935,14 @@ thead .list-headers th {
 
 .task-info:last-child td {
     border-bottom: none;
+}
+
+.task-info:last-child td:first-child {
+    border-bottom-left-radius: 1rem;
+}
+
+.task-info:last-child td:last-child {
+    border-bottom-right-radius: 1rem;
 }
 
 .name-truncate {

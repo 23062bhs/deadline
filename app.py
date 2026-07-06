@@ -232,7 +232,7 @@ def tasks_page():
             task_list.append(raw_date) 
             formatted_list.append(task_list)
 
-    task = formatted_list
+    tasks = formatted_list
     return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())
 
 # error 404 handler
