@@ -46,7 +46,9 @@
                         <td class="checkbox-cell">
                             <input type="checkbox" class="task-checkbox">
                         </td>
-                        <td class="name-cell name-truncate">{{ task[1] }}</td>
+                        <td class="name-cell">
+                            <span class="name-truncate">{{ task[1] }}</span>
+                        </td>
                         <td class="subject-cell">
                             <span class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}">{{ task[3] }}</span> <!-- sets the color of the pill to the color of the subject -->
                         </td> 

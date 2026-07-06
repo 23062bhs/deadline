@@ -868,6 +868,11 @@ thead .list-headers th {
     padding-right: 2rem !important;
 }
 
+.subject-cell {
+    padding-left: 3rem;
+    width: 20%;
+}
+
 .status-header {
     padding-left: 0.25rem !important; 
 }
@@ -946,7 +951,8 @@ thead .list-headers th {
 }
 
 .name-truncate {
-    max-width: 5rem;
+    display: block;
+    max-width: 7rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
