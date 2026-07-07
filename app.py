@@ -191,6 +191,12 @@ def tasks_page():
     today = datetime.now().date() # used to set the minimum selectable date in forms 
     subjects = query_db("SELECT SubjectID, SubjectName, SubjectColor FROM Subjects")
 
+    # truncate long subject names in the dropdown
+    subjects = [
+        (s[0], s[1][:17] + '...' if len(s[1]) > 20 else s[1], s[2])
+        for s in subjects
+    ]
+
     subject_filter = request.args.get('subject') # gets the subject filter from the URL query string
 
     if subject_filter:
@@ -229,11 +235,11 @@ def tasks_page():
             except ValueError:
                 pass # leaves date unchanged if it cant be fixed
 
-            task_list.append(raw_date) 
-            formatted_list.append(task_list)
+        task_list.append(raw_date) 
+        formatted_list.append(task_list)
 
     tasks = formatted_list
-    return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat())
+    return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), selected_subject=subject_filter)
 
 # error 404 handler
 @app.errorhandler(404)

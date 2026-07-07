@@ -759,6 +759,7 @@ th:last-child {
     border-radius: 0.75rem;
     border: #b7b7b7 0.1rem solid;
     margin-left: 1rem;
+    max-width: 17rem;
 }
 
 .filter-subject-btn:hover {
@@ -866,11 +867,6 @@ thead .list-headers th {
 
 .subject-header {
     padding-right: 2rem !important;
-}
-
-.subject-cell {
-    padding-left: 3rem;
-    width: 20%;
 }
 
 .status-header {

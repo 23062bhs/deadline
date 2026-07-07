@@ -18,7 +18,14 @@
 <!-- task list -->
 <div class="task-list-container">
     <div class="tasks-toolbar">
-        <button class="filter-subject-btn">Filter by subject <i class="fa-solid fa-chevron-down"></i></button>
+        <form method="GET" action="/tasks" style="display:flex;">
+            <select name="subject" class="filter-subject-btn" onchange="this.form.submit()">
+                <option value="">Filter by subject<i class="fa-solid fa-chevron-down"></i></option>
+                {% for subject in subjects %}
+                <option value="{{ subject[0] }}" {% if selected_subject == subject[0]|string %}selected{% endif %}>{{ subject[1] }}</option>
+                {% endfor %}
+            </select>
+        </form>
         <div class="status-options">
             <button class="all-status-btn">All</button> 
             <button class="progress-status-btn">In Progress</button>
@@ -78,7 +85,11 @@
     </table>
     {% if not tasks %}  
         <div class="tasks-page-no-tasks-msg">
-            <p>You have no tasks, add a task</p> <!-- tells user to add a task if they have none -->
+            {% if selected_subject %}
+                <p>You have no tasks for this subject</p> <!-- tells user that they have no tasks for a specific subject -->
+            {% else %}
+                <p>You have no tasks, add a task</p> <!-- tells user to add a task if they have none -->
+            {% endif %}
         </div>
     {% endif %}
 </div>
