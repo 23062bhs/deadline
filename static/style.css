@@ -763,7 +763,8 @@ th:last-child {
 }
 
 .filter-subject-btn:hover {
-    background-color: rgb(231, 231, 231);
+    border-color: rgb(120, 202, 252);
+    cursor: pointer;
 }
 
 .status-options {
@@ -785,6 +786,7 @@ th:last-child {
 
 .all-status-btn:hover {
     background-color: rgb(231, 231, 231);
+    cursor: pointer;
 }
 
 .progress-status-btn {
@@ -797,6 +799,7 @@ th:last-child {
 
 .progress-status-btn:hover {
     background-color: rgb(231, 231, 231);
+    cursor: pointer;
 }
 
 .pending-status-btn {
@@ -809,6 +812,7 @@ th:last-child {
 
 .pending-status-btn:hover {
     background-color: rgb(231, 231, 231);
+    cursor: pointer;
 }
 
 .overdue-status-btn {
@@ -821,6 +825,7 @@ th:last-child {
 
 .overdue-status-btn:hover {
     background-color: rgb(231, 231, 231);
+    cursor: pointer;
 }
 
 .complete-status-btn {
@@ -835,6 +840,7 @@ th:last-child {
 
 .complete-status-btn:hover {
     background-color: rgb(231, 231, 231);
+    cursor: pointer;
 }
 
 .sort-btn {
@@ -847,7 +853,8 @@ th:last-child {
 }
 
 .sort-btn:hover {
-    background-color: rgb(231, 231, 231);
+    border-color: rgb(120, 202, 252);
+    cursor: pointer;
 }
 
 thead .list-headers th {

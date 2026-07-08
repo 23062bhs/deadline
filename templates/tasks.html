@@ -20,7 +20,7 @@
     <div class="tasks-toolbar">
         <form method="GET" action="/tasks" style="display:flex;">
             <select name="subject" class="filter-subject-btn" onchange="this.form.submit()">
-                <option value="">Filter by subject<i class="fa-solid fa-chevron-down"></i></option>
+                <option value="">All Subjects<i class="fa-solid fa-chevron-down"></i></option>
                 {% for subject in subjects %}
                 <option value="{{ subject[0] }}" {% if selected_subject == subject[0]|string %}selected{% endif %}>{{ subject[1] }}</option>
                 {% endfor %}
@@ -33,7 +33,11 @@
             <button class="overdue-status-btn">Overdue</button>
             <button class="complete-status-btn">Complete</button>
         </div>
-        <button class="sort-btn">Sort by <i class="fa-solid fa-chevron-down"></i></button>
+        <form>
+            <select name="" class="sort-btn">
+                <option value="">Sort by <i class="fa-solid fa-chevron-down"></i></option>
+            </select>
+        </form>
     </div>
     <table class="task-list">
         <thead>
