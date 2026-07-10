@@ -33,9 +33,12 @@
             <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=4" class="overdue-status-btn">Overdue</a>
             <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=1" class="complete-status-btn">Complete</a>
         </div>
-        <form>
-            <select name="" class="sort-btn">
+        <form method="GET" action="/tasks">
+            <select name="sort" class="sort-btn" onchange="this.form.submit()">
                 <option value="">Sort by <i class="fa-solid fa-chevron-down"></i></option>
+                <option value="due_soonest" {% if selected_sort == 'due_soonest' %}selected{% endif %}>Due Soonest</option>
+                <option value="due_latest" {% if selected_sort == 'due_latest' %}selected{% endif %}>Due Latest</option>
+                <option value="name_az" {% if selected_sort == 'name_az' %}selected{% endif %}>Name</option>
             </select>
         </form>
     </div>

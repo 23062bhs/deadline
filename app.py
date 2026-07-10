@@ -199,6 +199,7 @@ def tasks_page():
 
     subject_filter = request.args.get('subject') # gets the subject filter from the URL query string
     status_filter = request.args.get('status') # gets the status filter from the URL query string
+    sort = request.args.get('sort') # gets the sort option from the URL
 
     conditions = []
     args = []
@@ -213,6 +214,15 @@ def tasks_page():
 
     where_clause = "WHERE " + " AND ".join(conditions) if conditions else ""
 
+    if sort == 'due_soonest':
+        order_clause = "ORDER BY Tasks.DueDate ASC"
+    elif sort == 'due_latest':
+        order_clause = "ORDER BY Tasks.DueDate DESC"
+    elif sort == 'name_az':
+        order_clause = "ORDER BY Tasks.TaskName ASC"
+    else:
+        order_clause = ""
+
     sql = f"""
         SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
         Subjects.SubjectName, Status.StatusName, Subjects.SubjectColor, Status.StatusColor,
@@ -221,6 +231,7 @@ def tasks_page():
         LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
         LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
         {where_clause}
+        {order_clause}
     """
     tasks = query_db(sql, args)
 
@@ -240,7 +251,7 @@ def tasks_page():
         formatted_list.append(task_list)
 
     tasks = formatted_list
-    return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), selected_subject=subject_filter, selected_status=status_filter)
+    return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), selected_subject=subject_filter, selected_status=status_filter, selected_sort=sort)
 
 # error 404 handler
 @app.errorhandler(404)

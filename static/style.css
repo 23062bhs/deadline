@@ -778,6 +778,7 @@ th:last-child {
     text-decoration: none;
     color: #000000;
     font-size: 0.9rem;
+    padding-top: 0.4rem;
 }
 
 .all-status-btn {
