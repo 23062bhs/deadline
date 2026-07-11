@@ -58,7 +58,7 @@
                 {% for task in tasks %}
                     <tr class="task-info">
                         <td class="checkbox-cell">
-                            <input type="checkbox" class="task-checkbox">
+                            <input type="checkbox" class="task-checkbox" data-id="{{ task[0] }}" {% if task[8] == 1 %}checked{% endif %}>
                         </td>
                         <td class="name-cell">
                             <span class="name-truncate">{{ task[1] }}</span>

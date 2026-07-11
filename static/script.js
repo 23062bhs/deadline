@@ -151,3 +151,21 @@ function prepareEditSubjectModal(element) {
 
     document.getElementById('edit-subject-modal').style.display = 'flex';
 }
+
+// marks task as complete when checkbox is clicked
+document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        const taskId = this.getAttribute('data-id');
+        const statusId = this.checked ? 1 : 2; // 1 = Completed, 2 = Incomplete
+
+        fetch(`/update-status/${taskId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status_id: statusId })
+        }).then(response => {
+            if (!response.ok) {
+                this.checked = !this.checked; // revert checkbox if request failed
+            }
+        });
+    });
+});
