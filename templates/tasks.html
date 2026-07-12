@@ -45,7 +45,9 @@
     <table class="task-list">
         <thead>
             <tr class="list-headers">
-                <th class="checkbox-header" style="width:1%; white-space:nowrap;"></th>
+                <th class="checkbox-header" style="width:1%; white-space:nowrap;">
+                    <input type="checkbox" id="select-all-checkbox">
+                </th>
                 <th class="name-header">Task Name</th>
                 <th class="subject-header">Subject</th>
                 <th class="date-header">Due Date</th>
@@ -99,6 +101,14 @@
             {% endif %}
         </div>
     {% endif %}
+</div>
+<div class="delete-selected-btn-container">
+    <form method="POST" action="/delete-selected">
+        <div id="delete-selected-container" style="display:none; padding: 0.75rem 1rem;">
+            <button type="submit" class="delete-selected-btn">Delete Selected</button>
+            <input type="hidden" name="selected_tasks" id="selected-tasks-input" value="">
+        </div>
+    </form>
 </div>
 
 {% endblock %}

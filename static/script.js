@@ -152,20 +152,28 @@ function prepareEditSubjectModal(element) {
     document.getElementById('edit-subject-modal').style.display = 'flex';
 }
 
-// marks task as complete when checkbox is clicked
-document.querySelectorAll('.task-checkbox').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        const taskId = this.getAttribute('data-id');
-        const statusId = this.checked ? 1 : 2; // 1 = Completed, 2 = Incomplete
-
-        fetch(`/update-status/${taskId}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status_id: statusId })
-        }).then(response => {
-            if (!response.ok) {
-                this.checked = !this.checked; // revert checkbox if request failed
-            }
-        });
+// select all checkbox
+document.getElementById('select-all-checkbox').addEventListener('change', function() {
+    document.querySelectorAll('.task-checkbox').forEach(cb => {
+        cb.checked = this.checked;
     });
+    updateDeleteButton();
 });
+
+// show/hide delete button and update selected tasks
+document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', updateDeleteButton);
+});
+
+function updateDeleteButton() {
+    const checked = document.querySelectorAll('.task-checkbox:checked');
+    const container = document.getElementById('delete-selected-container');
+    const input = document.getElementById('selected-tasks-input');
+    
+    if (checked.length > 0) {
+        container.style.display = 'block'; // shows delete button when tasks are checked
+        input.value = Array.from(checked).map(cb => cb.getAttribute('data-id')).join(','); // stores checked task IDs
+    } else {
+        container.style.display = 'none'; // hides delete button when no tasks are checked
+    }
+}

@@ -873,6 +873,7 @@ thead .list-headers th {
 
 .checkbox-header {
     width: 5% !important;
+    padding-left: 1.6rem !important;
 }
 
 .name-header {
@@ -966,4 +967,19 @@ thead .list-headers th {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.delete-selected-btn-container {
+    margin-top: -2rem;
+}
+
+.delete-selected-btn {
+    font-family: 'Satoshi';
+    background-color: #ef4444;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.6rem 1.25rem;
+    cursor: pointer;
+    font-size: 0.95rem;
 }

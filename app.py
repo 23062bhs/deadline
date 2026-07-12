@@ -253,17 +253,17 @@ def tasks_page():
     tasks = formatted_list
     return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), selected_subject=subject_filter, selected_status=status_filter, selected_sort=sort)
 
-# allows the checkbox to work
-@app.route('/update-status/<int:task_id>', methods=['POST'])
-def update_status(task_id):
-    data = request.get_json() # gets the JSON data from the request body
-    status_id = data.get('status_id')
-    
-    db = get_db()
-    db.execute("UPDATE Tasks SET StatusID = ? WHERE TaskID = ?", (status_id, task_id))
-    db.commit()
-    
-    return '', 204 # returns empty response with success status code
+# checkbox
+@app.route('/delete-selected', methods=['POST'])
+def delete_selected():
+    selected_tasks = request.form.get('selected_tasks') # gets the selected task IDs
+    if selected_tasks:
+        task_ids = selected_tasks.split(',') # splits the comma separated IDs into a list
+        db = get_db()
+        for task_id in task_ids:
+            db.execute("DELETE FROM Tasks WHERE TaskID = ?", (task_id,)) # deletes each selected task
+        db.commit()
+    return redirect(url_for('tasks_page'))
 
 # error 404 handler
 @app.errorhandler(404)
