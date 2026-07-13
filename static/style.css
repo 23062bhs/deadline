@@ -62,7 +62,7 @@ footer {
     font-weight: 500;
     background-color: rgb(120, 202, 252);
     flex-shrink: 0;
-    margin: auto -2.5rem -2.5rem -2.5rem;
+    margin: auto -2.5rem -5rem -2.5rem;
 }
 
 /* navigation bar (sidebar) */
@@ -982,4 +982,5 @@ thead .list-headers th {
     padding: 0.6rem 1.25rem;
     cursor: pointer;
     font-size: 0.95rem;
+    margin: 0 0 1rem -1rem;
 }
