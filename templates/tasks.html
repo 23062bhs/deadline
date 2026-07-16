@@ -60,7 +60,7 @@
                 {% for task in tasks %}
                     <tr class="task-info">
                         <td class="checkbox-cell">
-                            <input type="checkbox" class="task-checkbox" data-id="{{ task[0] }}" {% if task[8] == 1 %}checked{% endif %}>
+                            <input type="checkbox" class="task-checkbox" data-id="{{ task[0] }}" autocomplete="off">
                         </td>
                         <td class="name-cell">
                             <span class="name-truncate">{{ task[1] }}</span>
@@ -96,6 +96,8 @@
         <div class="tasks-page-no-tasks-msg">
             {% if selected_subject %}
                 <p>You have no tasks for this subject</p> <!-- tells user that they have no tasks for a specific subject -->
+            {% elif selected_status %}
+                <p>You have no tasks with this status</p> <!-- tells user that they have no tasks with a specific status -->
             {% else %}
                 <p>You have no tasks, add a task</p> <!-- tells user to add a task if they have none -->
             {% endif %}

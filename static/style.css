@@ -62,7 +62,7 @@ footer {
     font-weight: 500;
     background-color: rgb(120, 202, 252);
     flex-shrink: 0;
-    margin: auto -2.5rem -5rem -2.5rem;
+    margin: auto -2.5rem -2.5rem -2.5rem;
 }
 
 /* navigation bar (sidebar) */
@@ -113,6 +113,7 @@ nav li i {
 main {
     flex-grow: 1;
     padding: 2.5rem;
+    padding-bottom: 0;
     overflow-y: auto;
     background-color: #dfdfdf;
     min-height: 0;
@@ -739,7 +740,7 @@ th:last-child {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
     overflow: hidden;
     flex-shrink: 0;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.5rem !important;
 }
 
 .tasks-toolbar {
