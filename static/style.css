@@ -525,7 +525,7 @@ th:last-child {
 
 .task-summary {
     font-family: 'Satoshi';
-    margin: 1.5rem 0 3rem 0;
+    margin: 1.5rem 0 1rem 0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 100%;
@@ -849,6 +849,10 @@ th:last-child {
 .complete-status-btn:hover {
     background-color: rgb(231, 231, 231);
     cursor: pointer;
+}
+
+.active-status {
+    background-color: rgb(231, 231, 231);
 }
 
 .sort-btn {

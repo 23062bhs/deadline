@@ -27,11 +27,11 @@
             </select>
         </form>
         <div class="status-options">
-            <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}" class="all-status-btn">All</a>
-            <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=3" class="progress-status-btn">In Progress</a>
-            <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=2" class="pending-status-btn">Pending</a>
-            <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=4" class="overdue-status-btn">Overdue</a>
-            <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=1" class="complete-status-btn">Complete</a>
+            <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}" class="all-status-btn {% if not selected_status %}active-status{% endif %}">All</a>
+            <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=3" class="progress-status-btn {% if selected_status == '3' %}active-status{% endif %}">In Progress</a>
+            <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=2" class="pending-status-btn {% if selected_status == '2' %}active-status{% endif %}">Pending</a>
+            <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=4" class="overdue-status-btn {% if selected_status == '4' %}active-status{% endif %}">Overdue</a>
+            <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=1" class="complete-status-btn {% if selected_status == '1' %}active-status{% endif %}">Complete</a>
         </div>
         <form method="GET" action="/tasks">
             <select name="sort" class="sort-btn" onchange="this.form.submit()">
