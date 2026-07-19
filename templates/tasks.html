@@ -107,7 +107,7 @@
 <div class="delete-selected-btn-container">
     <form method="POST" action="/delete-selected">
         <div id="delete-selected-container" style="display:none; padding: 0.75rem 1rem;">
-            <button type="submit" class="delete-selected-btn">Delete Selected</button>
+            <button type="submit" class="delete-selected-btn" onclick="return confirm('Are you sure you want to delete these tasks?')">Delete Selected</button>
             <input type="hidden" name="selected_tasks" id="selected-tasks-input" value="">
         </div>
     </form>

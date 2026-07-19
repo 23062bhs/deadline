@@ -1,11 +1,13 @@
-from flask import Flask, g, render_template, request, redirect, url_for
+from flask import Flask, g, render_template, request, redirect, url_for, session
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
 DATABASE = "deadline.db"
 
-# initialise app
+# initialise app and secret key
 app = Flask(__name__)
+app.secret_key = 'deadlinesecretkey'
 
 #connect to .db file
 def get_db():
@@ -264,6 +266,59 @@ def delete_selected():
             db.execute("DELETE FROM Tasks WHERE TaskID = ?", (task_id,)) # deletes each selected task
         db.commit()
     return redirect(url_for('tasks_page'))
+
+# signup page
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        existing_user = query_db("SELECT * FROM Users WHERE Username = ?", (username,), one=True)
+        if existing_user:
+            return render_template('signup.html', error='Username already taken')
+        if len(username) < 5:
+            return render_template("signup.html", error="Username must be at least 5 characters")   
+        if len(username) > 20:
+            return render_template("signup.html", error="Username must be less than 20 characters")  
+        if ' ' in username:
+            return render_template("signup.html", error="Username cannot contain spaces")
+        if len(password) < 8:
+            return render_template("signup.html", error="Password must be more than 8 characters")
+
+        # hash the password and insert the new user
+        hashed_password = generate_password_hash(password)
+        db = get_db()
+        db.execute("INSERT INTO Users (Username, Password) VALUES (?, ?)", (username, hashed_password))
+        db.commit()
+
+        return redirect(url_for('login'))
+
+    return render_template('signup.html')
+
+# login page
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        # check if user exists and password is correct
+        user = query_db("SELECT * FROM Users WHERE Username = ?", (username,), one=True)
+        if user and check_password_hash(user[2], password):
+            session['user_id'] = user[0] # stores user ID in session
+            session['username'] = user[1] # stores username in session
+            return redirect(url_for('home'))
+        else:
+            return render_template('login.html', error='Invalid username or password')
+
+    return render_template('login.html')
+
+# logout
+@app.route('/logout')
+def logout():
+    session.clear() # clears the session
+    return redirect(url_for('login'))
 
 # error 404 handler
 @app.errorhandler(404)
