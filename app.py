@@ -285,6 +285,8 @@ def signup():
             return render_template("signup.html", error="Username cannot contain spaces")
         if len(password) < 8:
             return render_template("signup.html", error="Password must be more than 8 characters")
+        if request.form['password'] != request.form['confirm_password']:
+            return render_template("signup.html", error="Passwords do not match")
 
         # hash the password and insert the new user
         hashed_password = generate_password_hash(password)

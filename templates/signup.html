@@ -4,4 +4,28 @@
 
 {% block content %}
 
+<!-- sign up page -->
+<div class="auth-container">
+    <h1>Sign Up</h1>
+    {% if error %}
+        <p class="auth-error">{{ error }}</p>
+    {% endif %}
+    <form method="POST" action="/signup">
+        <div class="input-group">
+            <label>Username</label>
+            <input type="text" name="username" required>
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </div>
+        <div class="input-group">
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" required>
+        </div>
+        <button type="submit" class="save-btn">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="/login">Log in</a></p>
+</div>
+
 {% endblock %}
