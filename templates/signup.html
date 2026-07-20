@@ -1,31 +1,43 @@
-{% extends "layout.html" %}
-
-{% block title %}Sign Up | Deadline{% endblock %} <!-- sets page title -->
-
-{% block content %}
-
-<!-- sign up page -->
-<div class="auth-container">
-    <h1>Sign Up</h1>
-    {% if error %}
-        <p class="auth-error">{{ error }}</p>
-    {% endif %}
-    <form method="POST" action="/signup">
-        <div class="input-group">
-            <label>Username</label>
-            <input type="text" name="username" required>
+<!DOCTYPE html> <!-- only one page for account sign up, doesn't need to extend layout.html -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Deadline</title> <!-- page title set by each template -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"> <!-- favicon icon in browser tab -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- link to css file -->
+    <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet"> <!-- import satoshi font -->
+    <script src="https://kit.fontawesome.com/ada09c2be0.js" crossorigin="anonymous"></script> <!-- import icons -->
+</head>
+<body class="auth-body">
+    <header>
+        <div class="header-content">
+            <img src="{{ url_for('static', filename='images/favicon.png') }}" class="header-logo" alt="Logo">
+            <a href="/">Deadline</a>
         </div>
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" name="password" required>
-        </div>
-        <div class="input-group">
-            <label>Confirm Password</label>
-            <input type="password" name="confirm_password" required>
-        </div>
-        <button type="submit" class="save-btn">Sign Up</button>
-    </form>
-    <p>Already have an account? <a href="/login">Log in</a></p>
-</div>
-
-{% endblock %}
+    </header>
+    <!-- sign up page -->
+    <div class="auth-container">
+        <h1>Sign Up</h1>
+        {% if error %}
+            <p class="auth-error">{{ error }}</p>
+        {% endif %}
+        <form method="POST" action="/signup">
+            <div class="auth-input-group">
+                <label>Username</label>
+                <input type="text" name="username" required>
+            </div>
+            <div class="auth-input-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <div class="auth-input-group">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" required>
+            </div>
+            <button type="submit" class="save-btn">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="/login">Log in</a></p>
+    </div>
+</body>
+<footer class="auth-footer">&copy; Deadline 2026</footer> <!-- footer -->

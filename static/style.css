@@ -989,3 +989,75 @@ thead .list-headers th {
     font-size: 0.95rem;
     margin: 0 0 1rem -1rem;
 }
+
+/* sign up page */
+.auth-body {
+    background-color: #dfdfdf;
+}
+
+.auth-container {
+    margin: 2.5rem 25rem;
+    padding: 3rem;
+    border-radius: 2.5rem;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.auth-container h1 {
+    font-family: 'Satoshi';
+    margin-bottom: 1rem;
+}
+
+.auth-container p {
+    font-family: 'Satoshi';
+    margin-top: 1rem;
+}
+
+.auth-input-group {
+    padding-bottom: 1rem;
+}
+
+.auth-input-group label {
+    font-family: 'Satoshi';
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #000000;
+}
+
+.auth-input-group input, .auth-input-group select {
+    padding: 0.5rem 0.7rem;
+    border: 0.1rem solid #dddddd;
+    background-color: #f9f9f9;
+    border-radius: 0.8rem;
+    font-family: 'Satoshi';
+    font-size: 0.7rem;
+    transition: all 0.2s ease;
+    margin-left: 1rem;
+}
+
+.auth-input-group input:focus, .auth-input-group select:focus {
+    outline: none;
+    border-color: rgb(120, 202, 252);
+}
+
+.auth-container p a {
+    text-decoration: none;
+    color: rgb(120, 202, 252);
+}
+
+.auth-container p a:hover {
+    text-decoration: underline;
+}
+
+.auth-footer {
+    font-family: 'Satoshi';
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 500;
+    background-color: rgb(120, 202, 252);
+    flex-shrink: 0;
+    margin: auto 0 0 0;
+}

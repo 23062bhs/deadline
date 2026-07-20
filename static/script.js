@@ -165,6 +165,7 @@ document.querySelectorAll('.task-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', updateDeleteButton);
 });
 
+// delete checkbox
 function updateDeleteButton() {
     const checked = document.querySelectorAll('.task-checkbox:checked');
     const container = document.getElementById('delete-selected-container');
