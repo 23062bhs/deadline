@@ -720,7 +720,7 @@ th:last-child {
 }
 
 .subject-card-actions a:hover {
-    background-color: #c3c3c3;
+    color: #686868;
     border-radius: 25%;
 }
 
