@@ -206,6 +206,7 @@ def tasks_page():
     conditions = []
     args = []
 
+    #subject filter
     if subject_filter:
         conditions.append("Tasks.SubjectID = ?")
         args.append(subject_filter)
@@ -216,6 +217,7 @@ def tasks_page():
 
     where_clause = "WHERE " + " AND ".join(conditions) if conditions else ""
 
+    # sort button
     if sort == 'due_soonest':
         order_clause = "ORDER BY Tasks.DueDate ASC"
     elif sort == 'due_latest':
@@ -274,6 +276,7 @@ def signup():
         username = request.form.get('username')
         password = request.form.get('password')
 
+        # username and password requirements
         existing_user = query_db("SELECT * FROM Users WHERE Username = ?", (username,), one=True)
         if existing_user:
             return render_template('signup.html', error='Username already taken')
