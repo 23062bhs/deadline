@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Deadline</title> <!-- page title set by each template -->
+    <title>Log In | Deadline</title> <!-- page title set by each template -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"> <!-- favicon icon in browser tab -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- link to css file -->
     <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet"> <!-- import satoshi font -->
@@ -19,9 +19,13 @@
     <!-- login page -->
     <div class="auth-container">
         <h1>Log In</h1>
-        {% if error %}
-            <p class="auth-error">{{ error }}</p>
-        {% endif %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="auth-error">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <form method="POST" action="/login">
             <div class="auth-input-group">
                 <label>Username</label>

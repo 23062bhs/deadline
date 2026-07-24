@@ -1,4 +1,4 @@
-from flask import Flask, g, render_template, request, redirect, url_for, session
+from flask import Flask, g, render_template, request, redirect, url_for, session, flash
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
@@ -279,17 +279,23 @@ def signup():
         # username and password requirements
         existing_user = query_db("SELECT * FROM Users WHERE Username = ?", (username,), one=True)
         if existing_user:
-            return render_template('signup.html', error='Username already taken')
+            flash('Username already taken')
+            return redirect(url_for('signup'))
         if len(username) < 5:
-            return render_template("signup.html", error="Username must be at least 5 characters")   
+            flash('Username must be at least 5 characters')
+            return redirect(url_for('signup'))  
         if len(username) > 20:
-            return render_template("signup.html", error="Username must be less than 20 characters")  
+            flash('Username must be less than 20 characters')
+            return redirect(url_for('signup'))
         if ' ' in username:
-            return render_template("signup.html", error="Username cannot contain spaces")
+            flash('Username cannot contain spaces')
+            return redirect(url_for('signup'))
         if len(password) < 8:
-            return render_template("signup.html", error="Password must be more than 8 characters")
+            flash('Password must be more than 8 characters')
+            return redirect(url_for('signup'))
         if request.form['password'] != request.form['confirm_password']:
-            return render_template("signup.html", error="Passwords do not match")
+            flash('Passwords do not match')
+            return redirect(url_for('signup'))
 
         # hash the password and insert the new user
         hashed_password = generate_password_hash(password)
@@ -314,8 +320,9 @@ def login():
             session['user_id'] = user[0] # stores user ID in session
             session['username'] = user[1] # stores username in session
             return redirect(url_for('home'))
-        else:
-            return render_template('login.html', error='Invalid username or password')
+
+        flash('Invalid username or password')
+        return redirect(url_for('login'))
 
     return render_template('login.html')
 

@@ -19,9 +19,13 @@
     <!-- sign up page -->
     <div class="auth-container">
         <h1>Sign Up</h1>
-        {% if error %}
-            <p class="auth-error">{{ error }}</p>
-        {% endif %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="auth-error">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <form method="POST" action="/signup">
             <div class="auth-input-group">
                 <label>Username</label>
