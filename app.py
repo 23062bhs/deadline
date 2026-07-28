@@ -222,7 +222,7 @@ def tasks_page():
         order_clause = "ORDER BY Tasks.DueDate ASC"
     elif sort == 'due_latest':
         order_clause = "ORDER BY Tasks.DueDate DESC"
-    elif sort == 'name_az':
+    elif sort == 'name':
         order_clause = "ORDER BY Tasks.TaskName ASC"
     else:
         order_clause = ""
@@ -280,21 +280,27 @@ def signup():
         existing_user = query_db("SELECT * FROM Users WHERE Username = ?", (username,), one=True)
         if existing_user:
             flash('Username already taken')
+            session['form_username'] = username
             return redirect(url_for('signup'))
         if len(username) < 5:
             flash('Username must be at least 5 characters')
+            session['form_username'] = username
             return redirect(url_for('signup'))  
         if len(username) > 20:
             flash('Username must be less than 20 characters')
+            session['form_username'] = username
             return redirect(url_for('signup'))
         if ' ' in username:
             flash('Username cannot contain spaces')
+            session['form_username'] = username
             return redirect(url_for('signup'))
         if len(password) < 8:
             flash('Password must be more than 8 characters')
+            session['form_username'] = username
             return redirect(url_for('signup'))
         if request.form['password'] != request.form['confirm_password']:
             flash('Passwords do not match')
+            session['form_username'] = username
             return redirect(url_for('signup'))
 
         # hash the password and insert the new user
@@ -322,6 +328,7 @@ def login():
             return redirect(url_for('home'))
 
         flash('Invalid username or password')
+        session['form_username'] = username
         return redirect(url_for('login'))
 
     return render_template('login.html')

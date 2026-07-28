@@ -19,7 +19,8 @@
     <!-- login page -->
     <div class="auth-container">
         <h1>Log In</h1>
-        {% with messages = get_flashed_messages() %}
+        <!-- allows the error message to disappear after reloading -->
+        {% with messages = get_flashed_messages() %} 
             {% if messages %}
                 {% for message in messages %}
                     <p class="auth-error">{{ message }}</p>
@@ -29,7 +30,7 @@
         <form method="POST" action="/login">
             <div class="auth-input-group">
                 <label>Username</label>
-                <input type="text" name="username" required>
+                <input type="text" name="username" value="{{ session.pop('form_username', '') }}" required>
             </div>
             <div class="auth-input-group">
                 <label>Password</label>
