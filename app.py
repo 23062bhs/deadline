@@ -107,8 +107,8 @@ def add_subject():
 
         db = get_db()
         
-        sql = "INSERT INTO Subjects (SubjectName, SubjectColor) VALUES (?, ?)"
-        db.execute(sql, (subject_name, subject_color))
+        sql = "INSERT INTO Subjects (SubjectName, SubjectColor, UserID) VALUES (?, ?, ?)"
+        db.execute(sql, (subject_name, subject_color, session['user_id']))
         db.commit()
         
         return redirect(url_for('home'))
@@ -117,7 +117,7 @@ def add_subject():
 @app.route('/delete-task/<int:task_id>')
 def delete_task(task_id):
     db = get_db()
-    db.execute("DELETE FROM Tasks WHERE TaskID = ?", (task_id,))
+    db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id,))
     db.commit()
     return redirect(url_for('home'))
 
@@ -136,7 +136,7 @@ def edit_task(task_id):
         sql = """
             UPDATE Tasks 
             SET TaskName = ?, SubjectID = ?, DueDate = ?, StatusID = ? 
-            WHERE TaskID = ?
+            WHERE TaskID = ? AND UserID = ?
         """
         db.execute(sql, (task_name, subject_id, due_date, status_id, task_id))
         db.commit()
@@ -172,7 +172,7 @@ def edit_subject(subject_id):
         sql = """
             UPDATE Subjects
             SET SubjectName = ?, SubjectColor = ?
-            WHERE SubjectID = ?
+            WHERE SubjectID = ? AND UserID = ?
         """
         db.execute(sql, (subject_name, subject_id, subject_color))
         db.commit()
@@ -183,7 +183,7 @@ def edit_subject(subject_id):
 @app.route('/delete-subject/<int:subject_id>')
 def delete_subject(subject_id):
     db = get_db()
-    db.execute("DELETE FROM Subjects WHERE SubjectID = ?", (subject_id,))
+    db.execute("DELETE FROM Subjects WHERE SubjectID = ? AND UserID = ?", (subject_id,))
     db.commit()
     return redirect(url_for('subjects_page'))
 
@@ -265,7 +265,7 @@ def delete_selected():
         task_ids = selected_tasks.split(',') # splits the comma separated IDs into a list
         db = get_db()
         for task_id in task_ids:
-            db.execute("DELETE FROM Tasks WHERE TaskID = ?", (task_id,)) # deletes each selected task
+            db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id,)) # deletes each selected task
         db.commit()
     return redirect(url_for('tasks_page'))
 
