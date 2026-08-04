@@ -46,8 +46,8 @@ def home():
         #insert dates
         if due_date_str: 
             try:
-                sql_insert = "INSERT INTO Tasks (TaskName, DueDate, SubjectID, StatusID) VALUES (?, ?, ?, ?)"
-                db.execute(sql_insert, (task_name, due_date_str, subject_id, status_id))
+                sql_insert = "INSERT INTO Tasks (TaskName, DueDate, SubjectID, StatusID, UserID) VALUES (?, ?, ?, ?, ?)"
+                db.execute(sql_insert, (task_name, due_date_str, subject_id, status_id, session['user_id'],))
                 db.commit()
                 return redirect(url_for('home'))
             
@@ -61,17 +61,19 @@ def home():
         FROM Tasks
         LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
         LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
+        WHERE UserID = ?
         """
-    tasks = query_db(sql)
+    tasks = query_db(sql, (session['user_id'],))
     
     sql_subjects = """
         SELECT Subjects.SubjectID, Subjects.SubjectName, Subjects.SubjectColor, 
                COUNT(Tasks.TaskID) AS TaskCount
         FROM Subjects
         LEFT JOIN Tasks ON Subjects.SubjectID = Tasks.SubjectID
+        WHERE UserID = ?    
         GROUP BY Subjects.SubjectID;
     """
-    subjects = query_db(sql_subjects)
+    subjects = query_db(sql_subjects, (session['user_id'],))
 
     # display due dates correctly (day, month, year)
     formatted_list = []
@@ -108,7 +110,7 @@ def add_subject():
         db = get_db()
         
         sql = "INSERT INTO Subjects (SubjectName, SubjectColor, UserID) VALUES (?, ?, ?)"
-        db.execute(sql, (subject_name, subject_color, session['user_id']))
+        db.execute(sql, (subject_name, subject_color, session['user_id'],))
         db.commit()
         
         return redirect(url_for('home'))
@@ -117,7 +119,7 @@ def add_subject():
 @app.route('/delete-task/<int:task_id>')
 def delete_task(task_id):
     db = get_db()
-    db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id,))
+    db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id'],))
     db.commit()
     return redirect(url_for('home'))
 
@@ -138,7 +140,7 @@ def edit_task(task_id):
             SET TaskName = ?, SubjectID = ?, DueDate = ?, StatusID = ? 
             WHERE TaskID = ? AND UserID = ?
         """
-        db.execute(sql, (task_name, subject_id, due_date, status_id, task_id))
+        db.execute(sql, (task_name, subject_id, due_date, status_id, task_id, session['user_id'],))
         db.commit()
         
     return redirect(url_for('home'))
@@ -153,9 +155,10 @@ def subjects_page():
         COUNT(Tasks.TaskID) AS TaskCount
         FROM Subjects
         LEFT JOIN Tasks ON Subjects.SubjectID = Tasks.SubjectID
+        WHERE UserID = ?
         GROUP BY Subjects.SubjectID
     """
-    subjects = query_db(sql_subjects)
+    subjects = query_db(sql_subjects, (session['user_id'],))
     
     return render_template("subjects.html", subjects=subjects)
 
@@ -174,7 +177,7 @@ def edit_subject(subject_id):
             SET SubjectName = ?, SubjectColor = ?
             WHERE SubjectID = ? AND UserID = ?
         """
-        db.execute(sql, (subject_name, subject_id, subject_color))
+        db.execute(sql, (subject_name, subject_id, subject_color, session['user_id']))
         db.commit()
         
     return redirect(url_for('home'))
@@ -183,7 +186,7 @@ def edit_subject(subject_id):
 @app.route('/delete-subject/<int:subject_id>')
 def delete_subject(subject_id):
     db = get_db()
-    db.execute("DELETE FROM Subjects WHERE SubjectID = ? AND UserID = ?", (subject_id,))
+    db.execute("DELETE FROM Subjects WHERE SubjectID = ? AND UserID = ?", (subject_id, session['user_id'],))
     db.commit()
     return redirect(url_for('subjects_page'))
 
@@ -191,7 +194,7 @@ def delete_subject(subject_id):
 @app.route('/tasks')
 def tasks_page():
     today = datetime.now().date() # used to set the minimum selectable date in forms 
-    subjects = query_db("SELECT SubjectID, SubjectName, SubjectColor FROM Subjects")
+    subjects = query_db("SELECT SubjectID, SubjectName, SubjectColor FROM Subjects WHERE UserID = ?", (session['user_id'],))
 
     # truncate long subject names in the dropdown
     subjects = [
@@ -203,8 +206,8 @@ def tasks_page():
     status_filter = request.args.get('status') # gets the status filter from the URL query string
     sort = request.args.get('sort') # gets the sort option from the URL
 
-    conditions = []
-    args = []
+    conditions = ["Tasks.UserID = ?"]
+    args = [session['user_id']]
 
     #subject filter
     if subject_filter:
@@ -265,7 +268,7 @@ def delete_selected():
         task_ids = selected_tasks.split(',') # splits the comma separated IDs into a list
         db = get_db()
         for task_id in task_ids:
-            db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id,)) # deletes each selected task
+            db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id'],)) # deletes each selected task
         db.commit()
     return redirect(url_for('tasks_page'))
 
