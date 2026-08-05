@@ -1,6 +1,7 @@
 from flask import Flask, g, render_template, request, redirect, url_for, session, flash
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
 import sqlite3
 
 DATABASE = "deadline.db"
@@ -30,8 +31,18 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
+# user needs to be logged in to access the app
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session: # redirects to login page if not logged in
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 # home page
 @app.route('/', methods=['GET', 'POST'])
+@login_required
 def home(): 
     db = get_db()
     today = datetime.now().date() # used to set the minimum selectable date in forms    
@@ -61,7 +72,7 @@ def home():
         FROM Tasks
         LEFT JOIN Subjects ON Tasks.SubjectID = Subjects.SubjectID
         LEFT JOIN Status ON Tasks.StatusID = Status.StatusID
-        WHERE UserID = ?
+        WHERE Tasks.UserID = ?
         """
     tasks = query_db(sql, (session['user_id'],))
     
@@ -70,7 +81,7 @@ def home():
                COUNT(Tasks.TaskID) AS TaskCount
         FROM Subjects
         LEFT JOIN Tasks ON Subjects.SubjectID = Tasks.SubjectID
-        WHERE UserID = ?    
+        WHERE Subjects.UserID = ?    
         GROUP BY Subjects.SubjectID;
     """
     subjects = query_db(sql_subjects, (session['user_id'],))
@@ -102,6 +113,7 @@ def home():
 
 # home page subject section
 @app.route('/add-subject', methods=['POST'])
+@login_required
 def add_subject():
     if request.method == 'POST':
         subject_name = request.form.get('subject_name')
@@ -117,6 +129,7 @@ def add_subject():
     
 # delete tasks
 @app.route('/delete-task/<int:task_id>')
+@login_required
 def delete_task(task_id):
     db = get_db()
     db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id'],))
@@ -125,6 +138,7 @@ def delete_task(task_id):
 
 # edit tasks
 @app.route('/edit-task/<int:task_id>', methods=['POST'])
+@login_required
 def edit_task(task_id):
     if request.method == 'POST':
         # gets updated values from edit form 
@@ -147,6 +161,7 @@ def edit_task(task_id):
 
 # subjects page
 @app.route('/subjects')
+@login_required
 def subjects_page():
     db = get_db()
     
@@ -155,7 +170,7 @@ def subjects_page():
         COUNT(Tasks.TaskID) AS TaskCount
         FROM Subjects
         LEFT JOIN Tasks ON Subjects.SubjectID = Tasks.SubjectID
-        WHERE UserID = ?
+        WHERE Subjects.UserID = ?
         GROUP BY Subjects.SubjectID
     """
     subjects = query_db(sql_subjects, (session['user_id'],))
@@ -164,6 +179,7 @@ def subjects_page():
 
 # edit subjects
 @app.route('/edit-subject/<int:subject_id>', methods=['POST'])
+@login_required
 def edit_subject(subject_id):
     if request.method == 'POST':
         subject_name = request.form.get('subject_name')
@@ -177,13 +193,14 @@ def edit_subject(subject_id):
             SET SubjectName = ?, SubjectColor = ?
             WHERE SubjectID = ? AND UserID = ?
         """
-        db.execute(sql, (subject_name, subject_id, subject_color, session['user_id']))
+        db.execute(sql, (subject_name, subject_color, subject_id, session['user_id']))
         db.commit()
         
     return redirect(url_for('home'))
 
 # delete subjects
 @app.route('/delete-subject/<int:subject_id>')
+@login_required
 def delete_subject(subject_id):
     db = get_db()
     db.execute("DELETE FROM Subjects WHERE SubjectID = ? AND UserID = ?", (subject_id, session['user_id'],))
@@ -192,6 +209,7 @@ def delete_subject(subject_id):
 
 # tasks page
 @app.route('/tasks')
+@login_required
 def tasks_page():
     today = datetime.now().date() # used to set the minimum selectable date in forms 
     subjects = query_db("SELECT SubjectID, SubjectName, SubjectColor FROM Subjects WHERE UserID = ?", (session['user_id'],))
@@ -262,6 +280,7 @@ def tasks_page():
 
 # checkbox
 @app.route('/delete-selected', methods=['POST'])
+@login_required
 def delete_selected():
     selected_tasks = request.form.get('selected_tasks') # gets the selected task IDs
     if selected_tasks:
