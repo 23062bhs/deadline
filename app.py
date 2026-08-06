@@ -361,6 +361,13 @@ def logout():
     session.clear() # clears the session
     return redirect(url_for('login'))
 
+# profile page
+@app.route('/profile')
+@login_required 
+def profile():
+    users = query_db("SELECT * FROM Users WHERE UserID = ?", (session['user_id'],), one=True)
+    return render_template("profile.html")
+
 # error 404 handler
 @app.errorhandler(404)
 def not_found(e):
