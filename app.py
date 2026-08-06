@@ -134,7 +134,7 @@ def delete_task(task_id):
     db = get_db()
     db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id'],))
     db.commit()
-    return redirect(url_for('home'))
+    return redirect(request.referrer or url_for('home'))
 
 # edit tasks
 @app.route('/edit-task/<int:task_id>', methods=['POST'])
@@ -157,7 +157,7 @@ def edit_task(task_id):
         db.execute(sql, (task_name, subject_id, due_date, status_id, task_id, session['user_id'],))
         db.commit()
         
-    return redirect(url_for('home'))
+    return redirect(request.referrer or url_for('home'))
 
 # subjects page
 @app.route('/subjects')
@@ -196,7 +196,7 @@ def edit_subject(subject_id):
         db.execute(sql, (subject_name, subject_color, subject_id, session['user_id']))
         db.commit()
         
-    return redirect(url_for('home'))
+    return redirect(request.referrer or url_for('home'))
 
 # delete subjects
 @app.route('/delete-subject/<int:subject_id>')
@@ -205,7 +205,7 @@ def delete_subject(subject_id):
     db = get_db()
     db.execute("DELETE FROM Subjects WHERE SubjectID = ? AND UserID = ?", (subject_id, session['user_id'],))
     db.commit()
-    return redirect(url_for('subjects_page'))
+    return redirect(request.referrer or url_for('subjects_page'))
 
 # tasks page
 @app.route('/tasks')
@@ -289,7 +289,7 @@ def delete_selected():
         for task_id in task_ids:
             db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id'],)) # deletes each selected task
         db.commit()
-    return redirect(url_for('tasks_page'))
+    return redirect(request.referrer or url_for('tasks_page'))
 
 # signup page
 @app.route('/signup', methods=['GET', 'POST'])
