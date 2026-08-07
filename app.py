@@ -363,10 +363,31 @@ def logout():
 
 # profile page
 @app.route('/profile')
-@login_required 
+@login_required
 def profile():
-    users = query_db("SELECT * FROM Users WHERE UserID = ?", (session['user_id'],), one=True)
-    return render_template("profile.html")
+    user = query_db("SELECT * FROM Users WHERE UserID = ?", (session['user_id'],), one=True)
+    join_date = user[3] if len(user) > 3 else 'Unknown'
+
+    # get task counts
+    total = query_db("SELECT COUNT(*) FROM Tasks WHERE UserID = ?", (session['user_id'],), one=True)[0]
+    completed = query_db("SELECT COUNT(*) FROM Tasks WHERE UserID = ? AND StatusID = 1", (session['user_id'],), one=True)[0]
+    overdue = query_db("SELECT COUNT(*) FROM Tasks WHERE UserID = ? AND StatusID = 4", (session['user_id'],), one=True)[0]
+    incomplete = total - completed - overdue
+
+    # get subjects with task counts
+    subjects = query_db("""
+        SELECT Subjects.SubjectID, Subjects.SubjectName, Subjects.SubjectColor,
+        COUNT(Tasks.TaskID) AS TaskCount
+        FROM Subjects
+        LEFT JOIN Tasks ON Subjects.SubjectID = Tasks.SubjectID
+        WHERE Subjects.UserID = ?
+        GROUP BY Subjects.SubjectID
+        ORDER BY TaskCount DESC
+    """, (session['user_id'],))
+
+    subject_count = len(subjects)
+
+    return render_template("profile.html", join_date=join_date, total=total, completed=completed, incomplete=incomplete, overdue=overdue, subjects=subjects, subject_count=subject_count)
 
 # error 404 handler
 @app.errorhandler(404)

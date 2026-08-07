@@ -1072,3 +1072,21 @@ thead .list-headers th {
     padding: 0.5rem;
     border-radius: 0.5rem;
 }
+
+/* profile page */
+.user-information {
+    font-family: 'Satoshi';
+    background-color: #ffffff;
+    padding: 2rem;
+    margin-top: 2rem;
+    border-radius: 2rem;
+    width: 20%;
+}
+
+.profile-username {
+    margin-top: 1rem;
+}
+
+.join-date {
+    margin-top: 1rem;
+}
