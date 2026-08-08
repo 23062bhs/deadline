@@ -14,6 +14,7 @@
         <div class="header-content">
             <img src="{{ url_for('static', filename='images/favicon.png') }}" class="header-logo" alt="Logo">
             <a href="/">Deadline</a>
+            <a href="/profile" class="profile-icon">{{ session['username'][0].upper() }}{{ session['username'][1].upper() if session['username']|length > 1 else '' }}</a>
         </div>
     </header>
     <!-- navigation bar -->

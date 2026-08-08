@@ -12,7 +12,7 @@
     </div>
 </div>
 <div class="user-information">
-    <div class="profile-avatar"></div>
+    <div class="profile-avatar">{{ session['username'][0].upper() }}{{ session['username'][1].upper() if session['username']|length > 1 else '' }}</div>
     <div class="profile-username">{{ session['username'] }}</div>
     <div class="join-date">Joined {{ join_date }}</div>
 </div>

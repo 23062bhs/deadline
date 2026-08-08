@@ -325,10 +325,11 @@ def signup():
             session['form_username'] = username
             return redirect(url_for('signup'))
 
-        # hash the password and insert the new user
+        # hash the password, get the join date and insert the new user
         hashed_password = generate_password_hash(password)
+        join_date = datetime.now().strftime('%d-%m-%Y')
         db = get_db()
-        db.execute("INSERT INTO Users (Username, Password) VALUES (?, ?)", (username, hashed_password))
+        db.execute("INSERT INTO Users (Username, Password, JoinDate) VALUES (?, ?, ?)", (username, hashed_password, join_date))
         db.commit()
 
         return redirect(url_for('login'))

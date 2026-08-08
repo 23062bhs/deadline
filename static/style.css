@@ -40,6 +40,7 @@ header {
     display: flex;
     align-items: center;
     gap: 1.25rem;
+    width: 100%;
 }
 
 .header-content a {
@@ -63,6 +64,16 @@ footer {
     background-color: rgb(120, 202, 252);
     flex-shrink: 0;
     margin: auto -2.5rem -2.5rem -2.5rem;
+}
+
+.profile-icon {
+    font-size: 1.1rem;
+    background-color: #2563eb;
+    padding: 0.5rem;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: 2rem;
+    width: 1.4rem;
 }
 
 /* navigation bar (sidebar) */
@@ -1075,18 +1086,38 @@ thead .list-headers th {
 
 /* profile page */
 .user-information {
+    display: grid;
     font-family: 'Satoshi';
     background-color: #ffffff;
-    padding: 2rem;
+    padding: 1rem;
     margin-top: 2rem;
     border-radius: 2rem;
     width: 20%;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar {
+    background-color: #2563eb;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 1rem auto 1rem;
 }
 
 .profile-username {
     margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
 }
 
 .join-date {
     margin-top: 1rem;
+    text-align: center;
 }
