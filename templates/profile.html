@@ -19,7 +19,16 @@
     <div class="profile-info-row">
             <span class="profile-info-label">Username</span>
             <span>{{ session['username'] }}</span>
-        </div>
+    </div>
+    <div class="profile-info-row">
+        <span class="profile-info-label">Total tasks</span>
+        <span>{{ total }}</span>
+    </div>
+    <div class="profile-info-row">
+        <span class="profile-info-label">Subjects</span>
+        <span>{{ subject_count }}</span>
+    </div>
+    <a href="/logout" class="profile-logout-btn">Log out</a>
 </div>
 
 {% endblock %}
