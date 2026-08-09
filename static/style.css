@@ -76,6 +76,14 @@ footer {
     width: 1.4rem;
 }
 
+.profile-icon:hover {
+    background-color: #4176e8;
+}
+
+.profile-icon:active {
+    transform: scale(0.95);
+}
+
 /* navigation bar (sidebar) */
 .main-container {
     display: flex;
@@ -1120,4 +1128,9 @@ thead .list-headers th {
 .join-date {
     margin-top: 1rem;
     text-align: center;
+}
+
+.profile-divider {
+    margin-top: 1.5rem;
+    width: 100%;
 }
