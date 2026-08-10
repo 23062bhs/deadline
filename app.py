@@ -390,6 +390,55 @@ def profile():
 
     return render_template("profile.html", join_date=join_date, total=total, completed=completed, incomplete=incomplete, overdue=overdue, subjects=subjects, subject_count=subject_count)
 
+# edit profile
+@app.route('/edit-profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    if request.method == 'POST':
+        new_username = request.form.get('username')
+        new_password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        db = get_db()
+
+        # only check username rules if it's actually being changed
+        if new_username != session['username']:
+            existing_user = query_db("SELECT * FROM Users WHERE Username = ?", (new_username,), one=True)
+            if existing_user:
+                flash('Username already taken')
+                return redirect(url_for('edit_profile'))
+            if len(new_username) < 5:
+                flash('Username must be at least 5 characters')
+                return redirect(url_for('edit_profile'))
+            if len(new_username) > 20:
+                flash('Username must be less than 20 characters')
+                return redirect(url_for('edit_profile'))
+            if ' ' in new_username:
+                flash('Username cannot contain spaces')
+                return redirect(url_for('edit_profile'))
+
+        # only update password if the user typed one
+        if new_password:
+            if len(new_password) < 8:
+                flash('Password must be more than 8 characters')
+                return redirect(url_for('edit_profile'))
+            if new_password != confirm_password:
+                flash('Passwords do not match')
+                return redirect(url_for('edit_profile'))
+            hashed_password = generate_password_hash(new_password)
+            db.execute("UPDATE Users SET Username = ?, Password = ? WHERE UserID = ?",
+                       (new_username, hashed_password, session['user_id']))
+        else:
+            db.execute("UPDATE Users SET Username = ? WHERE UserID = ?",
+                       (new_username, session['user_id']))
+
+        db.commit()
+        session['username'] = new_username  # keep session in sync
+        flash('Profile updated successfully')
+        return redirect(url_for('profile'))
+
+    return render_template('edit_profile.html')
+
 # error 404 handler
 @app.errorhandler(404)
 def not_found(e):
