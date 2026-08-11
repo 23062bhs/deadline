@@ -1198,3 +1198,68 @@ thead .list-headers th {
     background-color: #dc1717;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+
+/* edit profile page */
+.edit-user-information {
+    display: grid;
+    font-family: 'Satoshi';
+    background-color: #ffffff;
+    padding: 2.5rem 1rem 1.5rem 1rem;
+    margin-top: 2rem;
+    border-radius: 2rem;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-input-group {
+    padding-bottom: 1.5rem;
+}
+
+.edit-input-group label {
+    font-family: 'Satoshi';
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #000000;
+}
+
+.edit-input-group input, .edit-input-group select {
+    padding: 0.5rem 0.7rem;
+    border: 0.1rem solid #dddddd;
+    background-color: #f9f9f9;
+    border-radius: 0.8rem;
+    font-family: 'Satoshi';
+    font-size: 0.7rem;
+    transition: all 0.2s ease;
+    margin-left: 1rem;
+}
+
+.edit-input-group input:focus, .edit-input-group select:focus {
+    outline: none;
+    border-color: rgb(120, 202, 252);
+}
+
+.edit-save-btn {
+    width: 50%;
+    padding: 0.8rem;
+    background-color: rgb(120, 202, 252);
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    font-family: 'Satoshi';
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.2s;
+    margin: 0 0 1.5rem 0;
+}
+
+.edit-save-btn:hover {
+    background-color: rgb(92, 193, 255);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.edit-save-btn:active {
+    transform: scale(0.97); 
+}
