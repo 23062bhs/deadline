@@ -11,4 +11,21 @@
     </div>
 </div>
 
+<div class="user-information">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="auth-error">{{ messages[0] }}</div>
+        {% endif %}
+    {% endwith %}
+    <form method="POST" action="/edit-profile">
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="{{ session['username'] }}" required>
+        </div>
+        <div>
+    
+        </div>
+    </form>
+</div>
+
 {% endblock %}

@@ -426,11 +426,9 @@ def edit_profile():
                 flash('Passwords do not match')
                 return redirect(url_for('edit_profile'))
             hashed_password = generate_password_hash(new_password)
-            db.execute("UPDATE Users SET Username = ?, Password = ? WHERE UserID = ?",
-                       (new_username, hashed_password, session['user_id']))
+            db.execute("UPDATE Users SET Username = ?, Password = ? WHERE UserID = ?", (new_username, hashed_password, session['user_id']))
         else:
-            db.execute("UPDATE Users SET Username = ? WHERE UserID = ?",
-                       (new_username, session['user_id']))
+            db.execute("UPDATE Users SET Username = ? WHERE UserID = ?", (new_username, session['user_id']))
 
         db.commit()
         session['username'] = new_username  # keep session in sync

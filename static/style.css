@@ -1155,7 +1155,7 @@ thead .list-headers th {
     font-size: 1rem;
     text-decoration: none;
     text-align: center;
-    margin-bottom: 1rem;
+    margin: 0.5rem 0 1rem 0;
 }
 
 .profile-edit-btn:hover {
@@ -1178,5 +1178,23 @@ thead .list-headers th {
 
 .profile-logout-btn:hover {
     background-color: #fab7b7;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.profile-delete-btn {
+    background-color: #fa1b1b;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.6rem 1.25rem;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.profile-delete-btn:hover {
+    background-color: #dc1717;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
