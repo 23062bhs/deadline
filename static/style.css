@@ -1199,6 +1199,20 @@ thead .list-headers th {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+.profile-stats {
+    display: grid;
+    font-family: 'Satoshi';
+    background-color: #ffffff;
+    width: 70%;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.tasks-title {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
 /* edit profile page */
 .edit-user-information {
     display: grid;

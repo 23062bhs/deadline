@@ -433,7 +433,7 @@ def edit_profile():
         db.commit()
         session['username'] = new_username  # keep session in sync
         flash('Profile updated successfully')
-        return redirect(url_for('profile'))
+        return redirect(url_for('edit_profile'))
 
     return render_template('edit_profile.html')
 
