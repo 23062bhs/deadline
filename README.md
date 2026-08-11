@@ -1,0 +1,1 @@
+Deadline - An application for people to manage tasks, assignments and projects. Users can sign up for an account, organize their work into color-coded subjects, and track tasks with due dates and status updates.
