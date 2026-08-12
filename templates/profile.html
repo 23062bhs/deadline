@@ -39,7 +39,7 @@
     <div class="profile-right-column">
         <!-- profile stats -->
         <div class="profile-stats">
-            <h1 class="tasks-title">Task Summary</h1>
+            <h1 class="stats-title">Task Summary</h1>
             <div class="profile-stat-grid">
                 <div class="profile-stat">
                     <div class="total-stat-label">Total</div>
@@ -64,16 +64,16 @@
             <h3 class="cards-title">Tasks by subject</h3>
             {% if subjects %}
                 {% for subject in subjects %}
-                <div class="profile-subject-row">
-                    <span class="profile-subject-pill" style="--pill-color: {{ subject[2] }}">{{ subject[1] }}</span>
-                    <div class="profile-bar-bg">
-                        <div class="profile-bar-fill" style="--fill-width: {{ (subject[3] / total * 100) if total else 0 }}%; --fill-color: {{ subject[2] }}"></div>
+                    <div class="profile-subject-row">
+                        <span class="profile-subject-pill" style="--pill-color: {{ subject[2] }}">{{ subject[1] }}</span>
+                        <div class="profile-bar-bg">
+                            <div class="profile-bar-fill" style="--fill-width: {{ (subject[3] / total * 100) if total else 0 }}%; --fill-color: {{ subject[2] }}"></div>
+                        </div>
+                        <span class="subject-count">{{ subject[3] }} task{{ 's' if subject[3] != 1 }}</span>
                     </div>
-                    <span class="subject-count">{{ subject[3] }} tasks</span>
-                </div>
                 {% endfor %}
             {% else %}
-                <p class="no-subjects-alert">No subjects yet.</p>
+                <p class="profile-no-subjects-alert">No subjects yet, add a subject to get started</p>
             {% endif %}
         </div>
     </div>

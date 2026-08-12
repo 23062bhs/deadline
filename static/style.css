@@ -1217,9 +1217,9 @@ thead .list-headers th {
     height: 25%;
 }
 
-.tasks-title {
-    font-size: 1rem;
-    margin-top: 0rem;
+.stats-title {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
 }
 
 .profile-stat-grid {
@@ -1283,14 +1283,32 @@ thead .list-headers th {
     background-color: #ffffff;
     margin: 2rem 0 0 3rem;
     border-radius: 2rem;
+    padding: 2rem;
 }
 
-.cards-title {
-    margin: 1rem 0 0 1rem;
+.profile-subject-row {
+    display: flex;
 }
 
 .profile-subject-pill {
     background-color: var(--pill-color);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    display: inline-block;
+    white-space: nowrap;
+    max-width: 6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    margin-top: 1.5rem;
+}
+
+.profile-bar-bg {
+    flex: 1;
+    background-color: #b2b1b1;
+    height: 0.5rem;
+    border-radius: 0.25rem;
+    margin: 2.5rem 0 0 1.5rem;
 }
 
 .profile-bar-fill {
@@ -1298,6 +1316,15 @@ thead .list-headers th {
     border-radius: 0.25rem;
     width: var(--fill-width);
     background-color: var(--fill-color);
+}
+
+.subject-count {
+    margin-top: 2rem;
+}
+
+.profile-no-subjects-alert {
+    margin-top: 1.5rem;
+    font-weight: 500;
 }
 
 /* edit profile page */
