@@ -1093,9 +1093,13 @@ thead .list-headers th {
 }
 
 /* profile page */
+.profile {
+    display: flex;
+    font-family: 'Satoshi';
+}
+
 .user-information {
     display: grid;
-    font-family: 'Satoshi';
     background-color: #ffffff;
     padding: 1.5rem;
     margin-top: 2rem;
@@ -1200,17 +1204,29 @@ thead .list-headers th {
 }
 
 .profile-stats {
-    display: grid;
-    font-family: 'Satoshi';
     background-color: #ffffff;
     width: 70%;
-    border-radius: 1rem;
-    padding: 1rem;
+    border-radius: 2rem;
+    padding: 2rem;
+    margin: 2rem 0 0 2rem;
+    height: 50%;
 }
 
 .tasks-title {
     font-size: 1rem;
-    margin-top: 0.5rem;
+    margin-top: 0rem;
+}
+
+.profile-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    background-color: #b5b5b5;
+    border-radius: 1rem;
+}
+
+.profile-stat {
+    padding: 2rem;
 }
 
 /* edit profile page */

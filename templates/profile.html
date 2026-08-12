@@ -11,29 +11,49 @@
         <p>View your account information and statistics</p>
     </div>
 </div>
-<div class="user-information">
-    <div class="profile-avatar">{{ session['username'][0].upper() }}{{ session['username'][1].upper() if session['username']|length > 1 else '' }}</div>
-    <div class="profile-username">{{ session['username'] }}</div>
-    <div class="join-date">Joined {{ join_date }}</div>
-    <hr class="profile-divider">
-    <div class="profile-info-row">
-        <span class="profile-info-label">Username</span>
-        <span>{{ session['username'] }}</span>
+<div class="profile">
+    <div class="user-information">
+        <div class="profile-avatar">{{ session['username'][0].upper() }}{{ session['username'][1].upper() if session['username']|length > 1 else '' }}</div>
+        <div class="profile-username">{{ session['username'] }}</div>
+        <div class="join-date">Joined {{ join_date }}</div>
+        <hr class="profile-divider">
+        <div class="profile-info-row">
+            <span class="profile-info-label">Username</span>
+            <span>{{ session['username'] }}</span>
+        </div>
+        <div class="profile-info-row">
+            <span class="profile-info-label">Total tasks</span>
+            <span>{{ total }}</span>
+        </div>
+        <div class="profile-info-row">
+            <span class="profile-info-label">Subjects</span>
+            <span>{{ subject_count }}</span>
+        </div>
+        <a href="/edit-profile" class="profile-edit-btn">Edit profile</a>
+        <a href="/logout" class="profile-logout-btn">Log out</a>
+        <a href="/delete-account" class="profile-delete-btn">Delete account</a>
     </div>
-    <div class="profile-info-row">
-        <span class="profile-info-label">Total tasks</span>
-        <span>{{ total }}</span>
+    <div class="profile-stats">
+        <h1 class="tasks-title">Task Summary</h1>
+        <div class="profile-stat-grid">
+            <div class="profile-stat">
+                <div class="total-stat-label">Total</div>
+                <div class="total-stat-value">{{ total }}</div>
+            </div>
+            <div class="profile-stat">
+                <div class="incomplete-stat-label">Incomplete</div>
+                <div class="incomplete-stat-value">{{ incomplete }}</div>
+            </div>
+            <div class="profile-stat">
+                <div class="complete-stat-label">Complete</div>
+                <div class="complete-stat-value">{{ completed }}</div>
+            </div>
+            <div class="profile-stat">
+                <div class="overdue-stat-label">Overdue</div>
+                <div class="overdue-stat-value">{{ overdue }}</div>
+            </div>
+        </div>
     </div>
-    <div class="profile-info-row">
-        <span class="profile-info-label">Subjects</span>
-        <span>{{ subject_count }}</span>
-    </div>
-    <a href="/edit-profile" class="profile-edit-btn">Edit profile</a>
-    <a href="/logout" class="profile-logout-btn">Log out</a>
-    <a href="/delete-account" class="profile-delete-btn">Delete account</a>
-</div>
-<div class="profile-stats">
-    <h1 class="tasks-title">Task Summary</h1>
 </div>
 
 {% endblock %}
