@@ -33,7 +33,9 @@
         </div>
         <a href="/edit-profile" class="profile-edit-btn">Edit profile</a>
         <a href="/logout" class="profile-logout-btn">Log out</a>
-        <a href="/delete-account" class="profile-delete-btn">Delete account</a>
+        <form method="POST" action="/delete-account" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
+            <button type="submit" class="profile-delete-btn">Delete account</button>
+        </form>
     </div>
 
     <div class="profile-right-column">

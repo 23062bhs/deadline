@@ -1186,6 +1186,7 @@ thead .list-headers th {
 }
 
 .profile-delete-btn {
+    font-family: 'Satoshi';
     background-color: #fa1b1b;
     color: #ffffff;
     border: none;

@@ -437,6 +437,22 @@ def edit_profile():
 
     return render_template('edit_profile.html')
 
+# delete account
+@app.route('/delete-account', methods=['POST'])
+@login_required
+def delete_account():
+    db = get_db()
+    user_id = session['user_id']
+
+    db.execute("DELETE FROM Tasks WHERE UserID = ?", (user_id,))
+    db.execute("DELETE FROM Subjects WHERE UserID = ?", (user_id,))
+    db.execute("DELETE FROM Users WHERE UserID = ?", (user_id,))
+    db.commit()
+
+    session.clear()
+    flash('Your account has been deleted')
+    return redirect(url_for('signup'))
+
 # error 404 handler
 @app.errorhandler(404)
 def not_found(e):
