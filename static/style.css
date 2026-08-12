@@ -1203,13 +1203,18 @@ thead .list-headers th {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+.profile-right-column {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
 .profile-stats {
     background-color: #ffffff;
-    width: 70%;
     border-radius: 2rem;
     padding: 2rem;
-    margin: 2rem 0 0 2rem;
-    height: 50%;
+    margin: 2rem 0 0 3rem;
+    height: 25%;
 }
 
 .tasks-title {
@@ -1221,12 +1226,78 @@ thead .list-headers th {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    background-color: #b5b5b5;
     border-radius: 1rem;
 }
 
 .profile-stat {
-    padding: 2rem;
+    padding: 2rem 2rem 1.5rem 2rem;
+    background-color: #f1f1f1;
+    border-radius: 1rem;
+}
+
+.total-stat-label {
+    font-weight: 600;
+    margin: -0.5rem 0 0 -0.5rem;
+}
+
+.incomplete-stat-label {
+    font-weight: 600;
+    margin: -0.5rem 0 0 -0.5rem;
+    color: #ff9d00;
+}
+
+.complete-stat-label {
+    font-weight: 600;
+    margin: -0.5rem 0 0 -0.5rem;
+    color: #24b036;
+}
+
+.overdue-stat-label {
+    font-weight: 600;
+    margin: -0.5rem 0 0 -0.5rem;
+    color: #ec0b0b;
+}
+
+.total-stat-value {
+    margin: 0.5rem 0 0 -0.5rem;
+}
+
+.incomplete-stat-value {
+    margin: 0.5rem 0 0 -0.5rem;
+    color: #ff9d00;
+}
+
+.complete-stat-value {
+    margin: 0.5rem 0 0 -0.5rem;
+    color: #24b036;
+}
+
+.overdue-stat-value {
+    margin: 0.5rem 0 0 -0.5rem;
+    color: #ec0b0b;
+}
+
+.profile-subjects-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    margin: 2rem 0 0 3rem;
+    border-radius: 2rem;
+}
+
+.cards-title {
+    margin: 1rem 0 0 1rem;
+}
+
+.profile-subject-pill {
+    background-color: var(--pill-color);
+}
+
+.profile-bar-fill {
+    height: 0.5rem;
+    border-radius: 0.25rem;
+    width: var(--fill-width);
+    background-color: var(--fill-color);
 }
 
 /* edit profile page */

@@ -11,6 +11,8 @@
         <p>View your account information and statistics</p>
     </div>
 </div>
+
+<!-- profile page -->
 <div class="profile">
     <div class="user-information">
         <div class="profile-avatar">{{ session['username'][0].upper() }}{{ session['username'][1].upper() if session['username']|length > 1 else '' }}</div>
@@ -33,25 +35,46 @@
         <a href="/logout" class="profile-logout-btn">Log out</a>
         <a href="/delete-account" class="profile-delete-btn">Delete account</a>
     </div>
-    <div class="profile-stats">
-        <h1 class="tasks-title">Task Summary</h1>
-        <div class="profile-stat-grid">
-            <div class="profile-stat">
-                <div class="total-stat-label">Total</div>
-                <div class="total-stat-value">{{ total }}</div>
+
+    <div class="profile-right-column">
+        <!-- profile stats -->
+        <div class="profile-stats">
+            <h1 class="tasks-title">Task Summary</h1>
+            <div class="profile-stat-grid">
+                <div class="profile-stat">
+                    <div class="total-stat-label">Total</div>
+                    <div class="total-stat-value">{{ total }}</div>
+                </div>
+                <div class="profile-stat">
+                    <div class="incomplete-stat-label">Incomplete</div>
+                    <div class="incomplete-stat-value">{{ incomplete }}</div>
+                </div>
+                <div class="profile-stat">
+                    <div class="complete-stat-label">Complete</div>
+                    <div class="complete-stat-value">{{ completed }}</div>
+                </div>
+                <div class="profile-stat">
+                    <div class="overdue-stat-label">Overdue</div>
+                    <div class="overdue-stat-value">{{ overdue }}</div>
+                </div>
             </div>
-            <div class="profile-stat">
-                <div class="incomplete-stat-label">Incomplete</div>
-                <div class="incomplete-stat-value">{{ incomplete }}</div>
-            </div>
-            <div class="profile-stat">
-                <div class="complete-stat-label">Complete</div>
-                <div class="complete-stat-value">{{ completed }}</div>
-            </div>
-            <div class="profile-stat">
-                <div class="overdue-stat-label">Overdue</div>
-                <div class="overdue-stat-value">{{ overdue }}</div>
-            </div>
+        </div>
+        <!-- subject progress bars -->
+        <div class="profile-subjects-card">
+            <h3 class="cards-title">Tasks by subject</h3>
+            {% if subjects %}
+                {% for subject in subjects %}
+                <div class="profile-subject-row">
+                    <span class="profile-subject-pill" style="--pill-color: {{ subject[2] }}">{{ subject[1] }}</span>
+                    <div class="profile-bar-bg">
+                        <div class="profile-bar-fill" style="--fill-width: {{ (subject[3] / total * 100) if total else 0 }}%; --fill-color: {{ subject[2] }}"></div>
+                    </div>
+                    <span class="subject-count">{{ subject[3] }} tasks</span>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-subjects-alert">No subjects yet.</p>
+            {% endif %}
         </div>
     </div>
 </div>
