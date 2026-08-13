@@ -1289,6 +1289,7 @@ thead .list-headers th {
 
 .profile-subject-row {
     display: flex;
+    gap: 1.5rem;
 }
 
 .profile-subject-pill {
@@ -1309,7 +1310,7 @@ thead .list-headers th {
     background-color: #b2b1b1;
     height: 0.5rem;
     border-radius: 0.25rem;
-    margin: 2.5rem 0 0 1.5rem;
+    margin: 2.5rem 0 0 1rem;
 }
 
 .profile-bar-fill {
