@@ -60,7 +60,7 @@ def home():
                 sql_insert = "INSERT INTO Tasks (TaskName, DueDate, SubjectID, StatusID, UserID) VALUES (?, ?, ?, ?, ?)"
                 db.execute(sql_insert, (task_name, due_date_str, subject_id, status_id, session['user_id'],))
                 db.commit()
-                return redirect(url_for('home'))
+                return redirect(request.referrer or url_for('home'))
             
             except ValueError:
                 return "Invalid date format", 400
@@ -125,7 +125,7 @@ def add_subject():
         db.execute(sql, (subject_name, subject_color, session['user_id'],))
         db.commit()
         
-        return redirect(url_for('home'))
+        return redirect(request.referrer or url_for('home'))
     
 # delete tasks
 @app.route('/delete-task/<int:task_id>')
