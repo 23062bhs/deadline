@@ -779,7 +779,6 @@ th:last-child {
     padding: 0.5rem 1.5rem 0.5rem 1.5rem;
     border-radius: 0.75rem;
     border: #b7b7b7 0.1rem solid;
-    margin-left: 1rem;
     max-width: 17rem;
 }
 
@@ -1008,6 +1007,37 @@ thead .list-headers th {
     cursor: pointer;
     font-size: 0.95rem;
     margin: 0 0 1rem -1rem;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: #b7b7b7 0.1rem solid;
+    border-radius: 0.8rem;
+    padding: 0.4rem 0.8rem;
+}
+
+.search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: 'Satoshi';
+    font-size: 0.85rem;
+    width: 5rem;
+}
+
+.search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888888;
+    font-size: 0.9rem;
+    padding: 0;
+}
+
+.search-btn:hover {
+    color: #000000;
 }
 
 /* sign up page */

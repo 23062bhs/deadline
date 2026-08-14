@@ -223,6 +223,7 @@ def tasks_page():
     subject_filter = request.args.get('subject') # gets the subject filter from the URL query string
     status_filter = request.args.get('status') # gets the status filter from the URL query string
     sort = request.args.get('sort') # gets the sort option from the URL
+    search_query = request.args.get('q')
 
     conditions = ["Tasks.UserID = ?"]
     args = [session['user_id']]
@@ -235,6 +236,10 @@ def tasks_page():
     if status_filter:
         conditions.append("Tasks.StatusID = ?")
         args.append(status_filter)
+
+    if search_query: 
+        conditions.append("Tasks.TaskName LIKE ?")
+        args.append(f"%{search_query}%")
 
     where_clause = "WHERE " + " AND ".join(conditions) if conditions else ""
 
@@ -276,7 +281,7 @@ def tasks_page():
         formatted_list.append(task_list)
 
     tasks = formatted_list
-    return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), selected_subject=subject_filter, selected_status=status_filter, selected_sort=sort)
+    return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), selected_subject=subject_filter, selected_status=status_filter, selected_sort=sort, selected_search=search_query)
 
 # checkbox
 @app.route('/delete-selected', methods=['POST'])

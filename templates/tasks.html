@@ -18,11 +18,18 @@
 <!-- task list -->
 <div class="task-list-container">
     <div class="tasks-toolbar">
+        <form method="GET" action="/tasks" class="search-form">
+            <input type="hidden" name="subject" value="{{ selected_subject or '' }}">
+            <input type="hidden" name="status" value="{{ selected_status or '' }}">
+            <input type="hidden" name="sort" value="{{ selected_sort or '' }}">
+            <input type="text" name="q" class="search-input" placeholder="Search tasks" value="{{ selected_search or '' }}">
+            <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
         <form method="GET" action="/tasks" style="display:flex;">
             <select name="subject" class="filter-subject-btn" onchange="this.form.submit()">
                 <option value="">All Subjects<i class="fa-solid fa-chevron-down"></i></option>
                 {% for subject in subjects %}
-                <option value="{{ subject[0] }}" {% if selected_subject == subject[0]|string %}selected{% endif %}>{{ subject[1] }}</option>
+                    <option value="{{ subject[0] }}" {% if selected_subject == subject[0]|string %}selected{% endif %}>{{ subject[1] }}</option>
                 {% endfor %}
             </select>
         </form>
@@ -98,6 +105,8 @@
                 <p>You have no tasks for this subject</p> <!-- tells user that they have no tasks for a specific subject -->
             {% elif selected_status %}
                 <p>You have no tasks with this status</p> <!-- tells user that they have no tasks with a specific status -->
+            {% elif selected_search %}
+                <p>You have no tasks with this name</p> <!-- tells user that they have no tasks with the inputted name -->
             {% else %}
                 <p>You have no tasks, add a task</p> <!-- tells user to add a task if they have none -->
             {% endif %}
