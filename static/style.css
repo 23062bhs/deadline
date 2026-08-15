@@ -985,6 +985,11 @@ thead .list-headers th {
     border-bottom-right-radius: 1rem;
 }
 
+.name-cell {
+    display: flex;
+    margin-top: 0.5rem;
+}
+
 .name-truncate {
     display: block;
     max-width: 7rem;
@@ -1038,6 +1043,23 @@ thead .list-headers th {
 
 .search-btn:hover {
     color: #000000;
+}
+
+.subtask-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888888;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.subtask-toggle-btn.open i {
+    transform: rotate(90deg);
+}
+
+.subtask-toggle-btn i {
+    transition: transform 0.15s ease;
 }
 
 /* sign up page */

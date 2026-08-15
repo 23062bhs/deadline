@@ -178,3 +178,13 @@ function updateDeleteButton() {
         container.style.display = 'none'; // hides delete button when no tasks are checked
     }
 }
+
+// toggles subtask arrow
+function toggleSubtasks(taskId) {
+    const row = document.getElementById('subtask-row-' + taskId);
+    const chevron = document.getElementById('chevron-' + taskId).parentElement;
+
+    const isHidden = row.style.display === 'none';
+    row.style.display = isHidden ? 'table-row' : 'none';
+    chevron.classList.toggle('open', isHidden);
+}
