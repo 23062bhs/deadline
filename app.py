@@ -265,6 +265,15 @@ def tasks_page():
     """
     tasks = query_db(sql, args)
 
+    subtask_rows = query_db("""
+        SELECT SubtaskID, TaskID, SubtaskName, IsCompleted FROM Subtasks
+        WHERE TaskID IN (SELECT TaskID FROM Tasks WHERE UserID = ?)
+    """, (session['user_id'],))
+
+    subtasks_by_task = {}
+    for sub in subtask_rows:
+        subtasks_by_task.setdefault(sub[1], []).append(sub)
+
     formatted_list = []
     for task in tasks:
         task_list = list(task) # convert to list 
@@ -279,6 +288,7 @@ def tasks_page():
 
         task_list.append(raw_date) 
         formatted_list.append(task_list)
+        task_list.append(subtasks_by_task.get(task_list[0], []))
 
     tasks = formatted_list
     return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), selected_subject=subject_filter, selected_status=status_filter, selected_sort=sort, selected_search=search_query)
@@ -457,6 +467,20 @@ def delete_account():
     session.clear()
     flash('Your account has been deleted')
     return redirect(url_for('signup'))
+
+# add a subtask to a task
+@app.route('/add-subtask/<int:task_id>', methods=['POST'])
+@login_required
+def add_subtask(task_id):
+    subtask_name = request.form.get('subtask_name')
+    if subtask_name:
+        db = get_db()
+        # confirm the task belongs to the logged-in user before inserting
+        task = query_db("SELECT TaskID FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id']), one=True)
+        if task:
+            db.execute("INSERT INTO Subtasks (TaskID, SubtaskName, IsCompleted) VALUES (?, ?, 0)", (task_id, subtask_name))
+            db.commit()
+    return redirect(request.referrer or url_for('home'))
 
 # error 404 handler
 @app.errorhandler(404)

@@ -70,6 +70,9 @@
                             <input type="checkbox" class="task-checkbox" data-id="{{ task[0] }}" autocomplete="off">
                         </td>
                         <td class="name-cell">
+                            <button type="button" class="subtask-toggle-btn">
+                                <i class="fa-solid fa-chevron-right" id="chevron-{{ task[0] }}"></i>
+                            </button>
                             <span class="name-truncate">{{ task[1] }}</span>
                         </td>
                         <td class="subject-cell">
