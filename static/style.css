@@ -1062,6 +1062,78 @@ thead .list-headers th {
     transition: transform 0.15s ease;
 }
 
+.subtask-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.subtask-row {
+    background-color: #dfdfdf;
+}
+
+.subtask-row td {
+    padding: 0.5rem 0 0.5rem 4rem;
+}
+
+.subtask-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.subtask-item a {
+    text-decoration: none;
+}
+
+.subtask-completed {
+    text-decoration: line-through;
+    color: #888888;
+}
+
+.subtask-delete-link {
+    color: #000000;
+}
+
+.add-subtask-form input {
+    border: 0.1rem solid #aaaaaa;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    font-family: 'Satoshi';
+}
+
+.add-subtask-form input:focus {
+    outline: none;
+    border-color: rgb(120, 202, 252);
+}
+
+.add-subtask-form button {
+    background: none;
+    border: none;
+    color: rgb(120, 202, 252);
+    cursor: pointer;
+}
+
+.subtask-checkbox-link i {
+    font-size: 1.1rem;
+    color: #ffffff;
+    transition: color 0.15s ease, transform 0.1s ease;
+}
+
+.subtask-checkbox-link:hover i {
+    color: rgb(120, 202, 252);
+}
+
+.subtask-checkbox-link .fa-square-check {
+    color: #22c55e;
+}
+
+.subtask-checkbox-link:hover .fa-square-check {
+    color: #16a34a;
+}
+
 /* sign up page */
 .auth-body {
     background-color: #dfdfdf;
