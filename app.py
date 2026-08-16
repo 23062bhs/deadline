@@ -482,6 +482,32 @@ def add_subtask(task_id):
             db.commit()
     return redirect(request.referrer or url_for('home'))
 
+# toggle a subtask's completed state
+@app.route('/toggle-subtask/<int:subtask_id>')
+@login_required
+def toggle_subtask(subtask_id):
+    db = get_db()
+    subtask = query_db("""
+        SELECT Subtasks.SubtaskID, Subtasks.IsCompleted FROM Subtasks
+        JOIN Tasks ON Subtasks.TaskID = Tasks.TaskID
+        WHERE Subtasks.SubtaskID = ? AND Tasks.UserID = ?
+    """, (subtask_id, session['user_id']), one=True)
+
+    if subtask:
+        new_status = 0 if subtask[1] == 1 else 1
+        db.execute("UPDATE Subtasks SET IsCompleted = ? WHERE SubtaskID = ?", (new_status, subtask_id))
+        db.commit()
+    return redirect(request.referrer or url_for('tasks_page'))
+
+# delete subtasks
+@app.route('/delete-subtask/<int:subtask_id>')
+@login_required
+def delete_subtask(subtask_id):
+    db = get_db()
+    db.execute(""" DELETE FROM Subtasks WHERE SubtaskID = ? AND TaskID IN (SELECT TaskID FROM Tasks WHERE UserID = ?) """, (subtask_id, session['user_id']))
+    db.commit()
+    return redirect(request.referrer or url_for('tasks_page'))
+
 # error 404 handler
 @app.errorhandler(404)
 def not_found(e):
