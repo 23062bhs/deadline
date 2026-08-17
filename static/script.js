@@ -179,12 +179,20 @@ function updateDeleteButton() {
     }
 }
 
-// toggles subtask arrow
+// subtask toggle buttons
+document.querySelectorAll('.subtask-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const taskId = btn.getAttribute('data-task-id');
+        toggleSubtasks(taskId);
+    });
+});
+
+// toggles subtask arrow and row
 function toggleSubtasks(taskId) {
     const row = document.getElementById('subtask-row-' + taskId);
     const chevron = document.getElementById('chevron-' + taskId).parentElement;
 
     const isHidden = row.style.display === 'none';
-    row.style.display = isHidden ? 'table-row' : 'none';
+    row.style.display = isHidden ? 'block' : 'none';
     chevron.classList.toggle('open', isHidden);
 }

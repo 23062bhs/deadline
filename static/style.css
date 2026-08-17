@@ -969,10 +969,6 @@ thead .list-headers th {
     align-items: center;
 }
 
-.task-info td{
-    border-bottom: #b7b7b7 0.2rem solid;
-}
-
 .task-info:last-child td {
     border-bottom: none;
 }
@@ -1066,6 +1062,7 @@ thead .list-headers th {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    padding: 0.5rem 0 0.5rem 4rem;
 }
 
 .subtask-row {
@@ -1073,7 +1070,7 @@ thead .list-headers th {
 }
 
 .subtask-row td {
-    padding: 0.5rem 0 0.5rem 4rem;
+    padding: 0;
 }
 
 .subtask-item {
@@ -1132,6 +1129,10 @@ thead .list-headers th {
 
 .subtask-checkbox-link:hover .fa-square-check {
     color: #16a34a;
+}
+
+.subtask-row {
+    border-top: #b7b7b7 0.2rem solid;
 }
 
 /* sign up page */

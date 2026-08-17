@@ -70,7 +70,7 @@
                             <input type="checkbox" class="task-checkbox" data-id="{{ task[0] }}" autocomplete="off">
                         </td>
                         <td class="name-cell">
-                            <button type="button" class="subtask-toggle-btn" onclick="toggleSubtasks({{ task[0] }})">
+                            <button type="button" class="subtask-toggle-btn" data-task-id="{{ task[0] }}">
                                 <i class="fa-solid fa-chevron-right" id="chevron-{{ task[0] }}"></i>
                             </button>
                             <span class="name-truncate">{{ task[1] }}</span>
@@ -80,7 +80,7 @@
                         </td> 
                         <td class="date-cell">{{ task[2] }}</td>
                         <td class="status-cell">
-                            <span class="pill"  style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);">{{ task[4] }}</span> <!-- sets the pill color to the color associated with the status -->
+                            <span class="pill" style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);">{{ task[4] }}</span> <!-- sets the pill color to the color associated with the status -->
                         </td> 
                         <td>
                             <div>
@@ -100,9 +100,9 @@
                     </tr>
 
                     <!-- subtask row -->
-                    <tr id="subtask-row-{{ task[0] }}" style="display:none;" class="subtask-row">
+                    <tr class="subtask-row">
                         <td colspan="6"> 
-                            <div class="subtask-container">
+                            <div class="subtask-container" id="subtask-row-{{ task[0] }}" style="display:none;" >
                                 {% for sub in task[10] %}
                                     <div class="subtask-item">
                                         <a href="/toggle-subtask/{{ sub[0] }}" class="subtask-checkbox-link">
