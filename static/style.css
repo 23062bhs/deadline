@@ -67,13 +67,18 @@ footer {
 }
 
 .profile-icon {
-    font-size: 1.1rem;
     background-color: #2563eb;
-    padding: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
     margin-left: auto;
     margin-right: 2rem;
-    width: 1.4rem;
 }
 
 .profile-icon:hover {
@@ -1131,8 +1136,9 @@ thead .list-headers th {
     color: #16a34a;
 }
 
-.subtask-row {
-    border-top: #b7b7b7 0.2rem solid;
+.task-divider {
+    border-top: 0.1rem solid #b0b0b0;
+    margin: 1rem 0;
 }
 
 /* sign up page */
