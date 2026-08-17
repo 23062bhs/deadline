@@ -459,10 +459,10 @@ def delete_account():
     db = get_db()
     user_id = session['user_id']
 
+    db.execute(""" DELETE FROM Subtasks WHERE TaskID IN (SELECT TaskID FROM Tasks WHERE UserID = ?) """, (user_id,))
     db.execute("DELETE FROM Tasks WHERE UserID = ?", (user_id,))
     db.execute("DELETE FROM Subjects WHERE UserID = ?", (user_id,))
     db.execute("DELETE FROM Users WHERE UserID = ?", (user_id,))
-    db.execute("DELETE FROM Subtasks WHERE UserID = ?", (user_id,))
     db.commit()
 
     session.clear()
