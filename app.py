@@ -132,6 +132,7 @@ def add_subject():
 @login_required
 def delete_task(task_id):
     db = get_db()
+    db.execute(""" DELETE FROM Subtasks WHERE TaskID = ? AND TaskID IN (SELECT TaskID FROM Tasks WHERE UserID = ?)""", (task_id, session['user_id']))
     db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id'],))
     db.commit()
     return redirect(request.referrer or url_for('home'))
