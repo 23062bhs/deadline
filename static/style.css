@@ -1072,6 +1072,11 @@ thead .list-headers th {
 
 .subtask-row {
     background-color: #dfdfdf;
+    border-top: #b7b7b7 0.2rem solid;
+}
+
+.subtask-row:last-child {
+    border-top: none;
 }
 
 .subtask-row td {
@@ -1082,6 +1087,15 @@ thead .list-headers th {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtask-item span {
+    display: block;
+    max-width: 7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .subtask-item a {
