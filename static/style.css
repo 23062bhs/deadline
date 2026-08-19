@@ -637,6 +637,12 @@ th:last-child {
     font-size: 4.5rem;
 }
 
+.error-page h2 {
+    margin-top: -1rem;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
 .error-page p {
     font-size: 2rem;
 }

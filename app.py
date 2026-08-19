@@ -538,6 +538,11 @@ def delete_subtask(subtask_id):
 def not_found(e):
     return render_template('404.html'), 404
 
+# error 500 handler
+@app.errorhandler(500)
+def internal_error(e):
+    return render_template('500.html'), 500
+
 # runs the app directly 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
