@@ -78,7 +78,7 @@ def home():
     
     sql_subjects = """
         SELECT Subjects.SubjectID, Subjects.SubjectName, Subjects.SubjectColor, 
-               COUNT(Tasks.TaskID) AS TaskCount
+        COUNT(Tasks.TaskID) AS TaskCount
         FROM Subjects
         LEFT JOIN Tasks ON Subjects.SubjectID = Tasks.SubjectID
         WHERE Subjects.UserID = ?    
@@ -303,6 +303,7 @@ def delete_selected():
         task_ids = selected_tasks.split(',') # splits the comma separated IDs into a list
         db = get_db()
         for task_id in task_ids:
+            db.execute(""" DELETE FROM Subtasks WHERE TaskID = ? AND TaskID IN (SELECT TaskID FROM Tasks WHERE UserID = ?) """, (task_id, session['user_id']))
             db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id'],)) # deletes each selected task
         db.commit()
     return redirect(request.referrer or url_for('tasks_page'))
@@ -406,52 +407,74 @@ def profile():
 
     return render_template("profile.html", join_date=join_date, total=total, completed=completed, incomplete=incomplete, overdue=overdue, subjects=subjects, subject_count=subject_count)
 
-# edit profile
-@app.route('/edit-profile', methods=['GET', 'POST'])
+# edit profile page
+@app.route('/edit-profile', methods=['GET'])
 @login_required
 def edit_profile():
-    if request.method == 'POST':
-        new_username = request.form.get('username')
-        new_password = request.form.get('password')
-        confirm_password = request.form.get('confirm_password')
+    return render_template('edit_profile.html')
 
-        db = get_db()
+# edit username
+@app.route('/edit-username', methods=['POST'])
+@login_required
+def edit_username():
+    new_username = request.form.get('username')
+    current_password = request.form.get('current_password')
 
-        # only check username rules if it's actually being changed
-        if new_username != session['username']:
-            existing_user = query_db("SELECT * FROM Users WHERE Username = ?", (new_username,), one=True)
-            if existing_user:
-                flash('Username already taken')
-                return redirect(url_for('edit_profile'))
-            if len(new_username) < 5:
-                flash('Username must be at least 5 characters')
-                return redirect(url_for('edit_profile'))
-            if len(new_username) > 20:
-                flash('Username must be less than 20 characters')
-                return redirect(url_for('edit_profile'))
-            if ' ' in new_username:
-                flash('Username cannot contain spaces')
-                return redirect(url_for('edit_profile'))
+    db = get_db()
+    user = query_db("SELECT * FROM Users WHERE UserID = ?", (session['user_id'],), one=True)
 
-        # only update password if the user typed one
-        if new_password:
-            if len(new_password) < 8:
-                flash('Password must be more than 8 characters')
-                return redirect(url_for('edit_profile'))
-            if new_password != confirm_password:
-                flash('Passwords do not match')
-                return redirect(url_for('edit_profile'))
-            hashed_password = generate_password_hash(new_password)
-            db.execute("UPDATE Users SET Username = ?, Password = ? WHERE UserID = ?", (new_username, hashed_password, session['user_id']))
-        else:
-            db.execute("UPDATE Users SET Username = ? WHERE UserID = ?", (new_username, session['user_id']))
-
-        db.commit()
-        session['username'] = new_username  # keep session in sync
-        flash('Profile updated successfully')
+    # confirm the current password before allowing a username change
+    if not current_password or not check_password_hash(user[2], current_password):
+        flash('Current password is incorrect', 'username')
         return redirect(url_for('edit_profile'))
 
-    return render_template('edit_profile.html')
+    if new_username != session['username']:
+        existing_user = query_db("SELECT * FROM Users WHERE Username = ?", (new_username,), one=True)
+        if existing_user:
+            flash('Username already taken', 'username')
+            return redirect(url_for('edit_profile'))
+        if len(new_username) < 5:
+            flash('Username must be at least 5 characters', 'username')
+            return redirect(url_for('edit_profile'))
+        if len(new_username) > 20:
+            flash('Username must be less than 20 characters', 'username')
+            return redirect(url_for('edit_profile'))
+        if ' ' in new_username:
+            flash('Username cannot contain spaces', 'username')
+            return redirect(url_for('edit_profile'))
+
+    db.execute("UPDATE Users SET Username = ? WHERE UserID = ?", (new_username, session['user_id']))
+    db.commit()
+    session['username'] = new_username  # keep session in sync
+    flash('Username updated successfully', 'username')
+    return redirect(url_for('edit_profile'))
+
+# edit password
+@app.route('/edit-password', methods=['POST'])
+@login_required
+def edit_password():
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('password')
+    confirm_password = request.form.get('confirm_password')
+
+    db = get_db()
+    user = query_db("SELECT * FROM Users WHERE UserID = ?", (session['user_id'],), one=True)
+
+    if not current_password or not check_password_hash(user[2], current_password):
+        flash('Current password is incorrect', 'password')
+        return redirect(url_for('edit_profile'))
+    if len(new_password) < 8:
+        flash('Password must be more than 8 characters', 'password')
+        return redirect(url_for('edit_profile'))
+    if new_password != confirm_password:
+        flash('Passwords do not match', 'password')
+        return redirect(url_for('edit_profile'))
+
+    hashed_password = generate_password_hash(new_password)
+    db.execute("UPDATE Users SET Password = ? WHERE UserID = ?", (hashed_password, session['user_id']))
+    db.commit()
+    flash('Password updated successfully', 'password')
+    return redirect(url_for('edit_profile'))
 
 # delete account
 @app.route('/delete-account', methods=['POST'])

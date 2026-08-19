@@ -1475,7 +1475,7 @@ thead .list-headers th {
 }
 
 /* edit profile page */
-.edit-user-information {
+.edit-username-information {
     display: grid;
     font-family: 'Satoshi';
     background-color: #ffffff;
@@ -1485,6 +1485,7 @@ thead .list-headers th {
     width: 40%;
     align-items: center;
     justify-content: center;
+    height: 80%;
 }
 
 .edit-input-group {
@@ -1537,4 +1538,32 @@ thead .list-headers th {
 
 .edit-save-btn:active {
     transform: scale(0.97); 
+}
+
+.edit-username-title {
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.edit-password-title {
+    margin-top: -0.75rem;
+    padding: 0.5rem 0 1.5rem 0;
+    font-size: 1.5rem;
+}
+
+.edit-container {
+    display: flex;
+}
+
+.edit-password-information {
+    display: grid;
+    font-family: 'Satoshi';
+    background-color: #ffffff;
+    padding: 2.5rem 1rem 1.5rem 1rem;
+    margin: 2rem 0 0 5rem;
+    border-radius: 2rem;
+    width: 45%;
+    align-items: center;
+    justify-content: center;
 }

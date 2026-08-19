@@ -12,29 +12,54 @@
     </div>
 </div>
 
-<!-- edit profile page -->
-<div class="edit-user-information">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="auth-error">{{ messages[0] }}</div>
-        {% endif %}
-    {% endwith %}
-    <form method="POST" action="/edit-profile">
-        <div class="edit-input-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" value="{{ session['username'] }}" required>
-        </div>
-        <div class="edit-input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
-        </div>
-        <div class="edit-input-group">
-            <label for="confirm_password">Confirm Password</label>
-            <input type="password" id="confirm_password" name="confirm_password">
-        </div>
-        <button type="submit" class="edit-save-btn">Save changes</button>
-    </form>
-    <a href="/profile" class="profile-logout-btn">Cancel</a>
+<div class="edit-container">
+    <!-- edit username section -->
+    <div class="edit-username-information">
+        {% with messages = get_flashed_messages(category_filter=['username']) %}
+            {% if messages %}
+                <div class="auth-error">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        <h3 class="edit-username-title">Username</h3>
+        <form method="POST" action="/edit-username">
+            <div class="edit-input-group">
+                <label for="username">New Username</label>
+                <input type="text" id="username" name="username" value="{{ session['username'] }}" required>
+            </div>
+            <div class="edit-input-group">
+                <label for="username_current_password">Current Password</label>
+                <input type="password" id="username_current_password" name="current_password" required>
+            </div>
+            <button type="submit" class="edit-save-btn">Save username</button>
+        </form>
+        <a href="/profile" class="profile-logout-btn">Cancel</a>
+    </div>
+    
+    <!-- edit password section -->
+    <div class="edit-password-information">
+        {% with messages = get_flashed_messages(category_filter=['password']) %}
+            {% if messages %}
+                <div class="auth-error">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        <h3 class="edit-password-title">Password</h3>
+        <form method="POST" action="/edit-password">
+            <div class="edit-input-group">
+                <label for="password_current_password">Current Password</label>
+                <input type="password" id="password_current_password" name="current_password" required>
+            </div>
+            <div class="edit-input-group">
+                <label for="password">New Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="edit-input-group">
+                <label for="confirm_password">Confirm New Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+            <button type="submit" class="edit-save-btn">Save password</button>
+        </form>
+        <a href="/profile" class="profile-logout-btn">Cancel</a>
+    </div>
 </div>
 
 {% endblock %}
