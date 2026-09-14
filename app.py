@@ -184,7 +184,6 @@ def subjects_page():
 def edit_subject(subject_id):
     if request.method == 'POST':
         subject_name = request.form.get('subject_name')
-        subject_id = request.form.get('subject_id')
         subject_color = request.form.get('subject_color')
         
         db = get_db()
@@ -543,6 +542,6 @@ def not_found(e):
 def internal_error(e):
     return render_template('500.html'), 500
 
-# runs the app directly 
+# runs the app directly
 if __name__ == "__main__":
     app.run(debug=False)
