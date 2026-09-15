@@ -383,6 +383,10 @@ def logout():
 @login_required
 def profile():
     user = query_db("SELECT * FROM Users WHERE UserID = ?", (session['user_id'],), one=True)
+    if user is None:
+        session.clear()
+        flash('Your session has expired, please log in again')
+        return redirect(url_for('login'))
     join_date = user[3] if len(user) > 3 else 'Unknown'
 
     # get task counts
@@ -421,6 +425,10 @@ def edit_username():
 
     db = get_db()
     user = query_db("SELECT * FROM Users WHERE UserID = ?", (session['user_id'],), one=True)
+    if user is None:
+        session.clear()
+        flash('Your session has expired, please log in again')
+        return redirect(url_for('login'))
 
     # confirm the current password before allowing a username change
     if not current_password or not check_password_hash(user[2], current_password):
@@ -458,6 +466,10 @@ def edit_password():
 
     db = get_db()
     user = query_db("SELECT * FROM Users WHERE UserID = ?", (session['user_id'],), one=True)
+    if user is None:
+        session.clear()
+        flash('Your session has expired, please log in again')
+        return redirect(url_for('login'))
 
     if not current_password or not check_password_hash(user[2], current_password):
         flash('Current password is incorrect', 'password')
