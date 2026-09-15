@@ -43,7 +43,7 @@ def login_required(f):
 # home page
 @app.route('/', methods=['GET', 'POST'])
 @login_required
-def home(): 
+def home():
     db = get_db()
     today = datetime.now().date() # used to set the minimum selectable date in forms    
 
@@ -54,16 +54,25 @@ def home():
         subject_id = request.form.get('subject_id')
         status_id = request.form.get('status')
 
-        #insert dates
-        if due_date_str: 
-            try:
-                sql_insert = "INSERT INTO Tasks (TaskName, DueDate, SubjectID, StatusID, UserID) VALUES (?, ?, ?, ?, ?)"
-                db.execute(sql_insert, (task_name, due_date_str, subject_id, status_id, session['user_id'],))
-                db.commit()
-                return redirect(request.referrer or url_for('home'))
-            
-            except ValueError:
-                return "Invalid date format", 400
+        # validate required fields before inserting into database
+        if not task_name:
+            flash('Task name is required')
+            return redirect(request.referrer or url_for('home'))
+        if not subject_id:
+            flash('Please select a subject')
+            return redirect(request.referrer or url_for('home'))
+        if not due_date_str:
+            flash('Please select a due date')
+            return redirect(request.referrer or url_for('home'))
+
+        # insert dates
+        try:
+            sql_insert = "INSERT INTO Tasks (TaskName, DueDate, SubjectID, StatusID, UserID) VALUES (?, ?, ?, ?, ?)"
+            db.execute(sql_insert, (task_name, due_date_str, subject_id, status_id, session['user_id'],))
+            db.commit()
+            return redirect(request.referrer or url_for('home'))
+        except ValueError:
+            return "Invalid date format", 400
 
     sql = """
         SELECT Tasks.TaskID, Tasks.TaskName, Tasks.DueDate,
@@ -75,7 +84,7 @@ def home():
         WHERE Tasks.UserID = ?
         """
     tasks = query_db(sql, (session['user_id'],))
-    
+
     sql_subjects = """
         SELECT Subjects.SubjectID, Subjects.SubjectName, Subjects.SubjectColor, 
         COUNT(Tasks.TaskID) AS TaskCount
@@ -91,7 +100,7 @@ def home():
     for task in tasks:
         task_list = list(task) 
         raw_date = task_list[2] # store original date 
-        
+ 
         if task_list[2]:
             try:
                 date_obj = datetime.strptime(task_list[2], '%Y-%m-%d')
@@ -108,7 +117,7 @@ def home():
     completed = sum(1 for t in tasks if t[8] == 1)
     overdue = sum(1 for t in tasks if t[8] == 4)   
     incomplete = total - completed - overdue
-    
+
     return render_template("index.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), total=total, completed=completed, incomplete=incomplete, overdue=overdue)
 
 # home page subject section
@@ -117,16 +126,24 @@ def home():
 def add_subject():
     if request.method == 'POST':
         subject_name = request.form.get('subject_name')
-        subject_color = request.form.get('subject_color') 
+        subject_color = request.form.get('subject_color')
+
+        # validate required fields before inserting
+        if not subject_name:
+            flash('Subject name is required')
+            return redirect(request.referrer or url_for('home'))
+        if not subject_color:
+            flash('Please choose a subject color')
+            return redirect(request.referrer or url_for('home'))
 
         db = get_db()
-        
+
         sql = "INSERT INTO Subjects (SubjectName, SubjectColor, UserID) VALUES (?, ?, ?)"
         db.execute(sql, (subject_name, subject_color, session['user_id'],))
         db.commit()
-        
+
         return redirect(request.referrer or url_for('home'))
-    
+
 # delete tasks
 @app.route('/delete-task/<int:task_id>')
 @login_required
@@ -147,7 +164,15 @@ def edit_task(task_id):
         subject_id = request.form.get('subject_id')
         due_date = request.form.get('due_date')
         status_id = request.form.get('status')
-        
+
+        # validate required fields before inserting
+        if not task_name:
+            flash('Task name is required')
+            return redirect(request.referrer or url_for('home'))
+        if not subject_id or not due_date:
+            flash('Subject and due date are required')
+            return redirect(request.referrer or url_for('home'))
+
         db = get_db()
         #updates task row that matches task id
         sql = """
@@ -157,7 +182,7 @@ def edit_task(task_id):
         """
         db.execute(sql, (task_name, subject_id, due_date, status_id, task_id, session['user_id'],))
         db.commit()
-        
+  
     return redirect(request.referrer or url_for('home'))
 
 # subjects page
@@ -165,7 +190,7 @@ def edit_task(task_id):
 @login_required
 def subjects_page():
     db = get_db()
-    
+
     sql_subjects = """
         SELECT Subjects.SubjectID, Subjects.SubjectName, Subjects.SubjectColor, 
         COUNT(Tasks.TaskID) AS TaskCount
@@ -175,7 +200,7 @@ def subjects_page():
         GROUP BY Subjects.SubjectID
     """
     subjects = query_db(sql_subjects, (session['user_id'],))
-    
+
     return render_template("subjects.html", subjects=subjects)
 
 # edit subjects
@@ -185,7 +210,7 @@ def edit_subject(subject_id):
     if request.method == 'POST':
         subject_name = request.form.get('subject_name')
         subject_color = request.form.get('subject_color')
-        
+
         db = get_db()
         #update the subject row that matches the subject id
         sql = """
@@ -195,7 +220,7 @@ def edit_subject(subject_id):
         """
         db.execute(sql, (subject_name, subject_color, subject_id, session['user_id']))
         db.commit()
-        
+
     return redirect(request.referrer or url_for('home'))
 
 # delete subjects
@@ -278,7 +303,7 @@ def tasks_page():
     for task in tasks:
         task_list = list(task) # convert to list 
         raw_date = task_list[2] # store original date 
-        
+
         if task_list[2]:
             try:
                 date_obj = datetime.strptime(task_list[2], '%Y-%m-%d')
