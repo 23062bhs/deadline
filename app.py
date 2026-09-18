@@ -1,8 +1,9 @@
-from flask import Flask, g, render_template, request, redirect, url_for, session, flash
-from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
+"""Deadline - a Flask app for managing tasks, subtasks and subjects"""
 from functools import wraps
+from datetime import datetime
 import sqlite3
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, g, render_template, request, redirect, url_for, session, flash
 
 DATABASE = "deadline.db"
 
@@ -12,6 +13,7 @@ app.secret_key = 'deadlinesecretkey'
 
 #connect to .db file
 def get_db():
+    """Return the pre-request SQLite connection, creating it if needed"""
     db = getattr(g, '_database', None) # check if a connection already exists in g
     if db is None:
         db = g._database = sqlite3.connect(DATABASE) # creates a new connection if not
@@ -19,13 +21,15 @@ def get_db():
 
 # automatically closes database after every request (prevents memory leaks and file locks)
 @app.teardown_appcontext
-def close_connection(exception):
+def close_connection(_):
+    """Close the database connection at the end of every request"""
     db = getattr(g, '_database', None)
     if db is not None:
         db.close() # only close if a connection was opened
 
 # executes a query and returns either all results or 1 result
 def query_db(query, args=(), one=False):
+    """Run an SQL query and return either all rows or a single row"""
     cur = get_db().execute(query, args)
     rv = cur.fetchall()
     cur.close()
@@ -33,6 +37,7 @@ def query_db(query, args=(), one=False):
 
 # user needs to be logged in to access the app
 def login_required(f):
+    """Redirects to login page if if no user is logged in"""
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session: # redirects to login page if not logged in
@@ -44,8 +49,9 @@ def login_required(f):
 @app.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    """Home page that shows the user's tasks, subjects and """
     db = get_db()
-    today = datetime.now().date() # used to set the minimum selectable date in forms    
+    today = datetime.now().date() # used to set the minimum selectable date in forms
 
     if request.method == 'POST':
         #get form values
@@ -67,8 +73,14 @@ def home():
 
         # insert dates
         try:
-            sql_insert = "INSERT INTO Tasks (TaskName, DueDate, SubjectID, StatusID, UserID) VALUES (?, ?, ?, ?, ?)"
-            db.execute(sql_insert, (task_name, due_date_str, subject_id, status_id, session['user_id'],))
+            sql_insert = """
+                INSERT INTO Tasks (TaskName, DueDate, SubjectID, StatusID, UserID)
+                VALUES (?, ?, ?, ?, ?)
+            """
+            db.execute(
+                sql_insert,
+                (task_name, due_date_str, subject_id, status_id, session['user_id'],)
+            )
             db.commit()
             return redirect(request.referrer or url_for('home'))
         except ValueError:
@@ -98,9 +110,9 @@ def home():
     # display due dates correctly (day, month, year)
     formatted_list = []
     for task in tasks:
-        task_list = list(task) 
-        raw_date = task_list[2] # store original date 
- 
+        task_list = list(task)
+        raw_date = task_list[2] # store original date
+
         if task_list[2]:
             try:
                 date_obj = datetime.strptime(task_list[2], '%Y-%m-%d')
@@ -108,22 +120,26 @@ def home():
             except ValueError:
                 pass # leaves date unchanged if it cant be fixed
 
-        task_list.append(raw_date) 
+        task_list.append(raw_date)
         formatted_list.append(task_list)
 
     tasks = formatted_list
 
     total = len(tasks)
     completed = sum(1 for t in tasks if t[8] == 1)
-    overdue = sum(1 for t in tasks if t[8] == 4)   
+    overdue = sum(1 for t in tasks if t[8] == 4)
     incomplete = total - completed - overdue
 
-    return render_template("index.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), total=total, completed=completed, incomplete=incomplete, overdue=overdue)
+    return render_template(
+        "index.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), 
+        total=total, completed=completed, incomplete=incomplete, overdue=overdue
+    )
 
 # home page subject section
 @app.route('/add-subject', methods=['POST'])
 @login_required
 def add_subject():
+    """Create a new subject belonging to the current user"""
     if request.method == 'POST':
         subject_name = request.form.get('subject_name')
         subject_color = request.form.get('subject_color')
@@ -148,9 +164,16 @@ def add_subject():
 @app.route('/delete-task/<int:task_id>')
 @login_required
 def delete_task(task_id):
+    """Delete a task and any subtasks belonging to it"""
     db = get_db()
-    db.execute(""" DELETE FROM Subtasks WHERE TaskID = ? AND TaskID IN (SELECT TaskID FROM Tasks WHERE UserID = ?)""", (task_id, session['user_id']))
-    db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id'],))
+    db.execute("""
+        DELETE FROM Subtasks WHERE TaskID = ? AND TaskID IN (
+            SELECT TaskID FROM Tasks WHERE UserID = ?)""",
+            (task_id, session['user_id'])
+        )
+    db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?",
+            (task_id, session['user_id'],)
+    )
     db.commit()
     return redirect(request.referrer or url_for('home'))
 
@@ -158,8 +181,9 @@ def delete_task(task_id):
 @app.route('/edit-task/<int:task_id>', methods=['POST'])
 @login_required
 def edit_task(task_id):
+    """Update a task's details"""
     if request.method == 'POST':
-        # gets updated values from edit form 
+        # gets updated values from edit form
         task_name = request.form.get('task_name')
         subject_id = request.form.get('subject_id')
         due_date = request.form.get('due_date')
@@ -182,14 +206,14 @@ def edit_task(task_id):
         """
         db.execute(sql, (task_name, subject_id, due_date, status_id, task_id, session['user_id'],))
         db.commit()
-  
+
     return redirect(request.referrer or url_for('home'))
 
 # subjects page
 @app.route('/subjects')
 @login_required
 def subjects_page():
-    db = get_db()
+    """List all of the current user's subjects with their task counts"""
 
     sql_subjects = """
         SELECT Subjects.SubjectID, Subjects.SubjectName, Subjects.SubjectColor, 
@@ -207,6 +231,7 @@ def subjects_page():
 @app.route('/edit-subject/<int:subject_id>', methods=['POST'])
 @login_required
 def edit_subject(subject_id):
+    """Update a subject's name and color"""
     if request.method == 'POST':
         subject_name = request.form.get('subject_name')
         subject_color = request.form.get('subject_color')
@@ -227,8 +252,12 @@ def edit_subject(subject_id):
 @app.route('/delete-subject/<int:subject_id>')
 @login_required
 def delete_subject(subject_id):
+    """Delete a user's subject"""
     db = get_db()
-    db.execute("DELETE FROM Subjects WHERE SubjectID = ? AND UserID = ?", (subject_id, session['user_id'],))
+    db.execute(
+        "DELETE FROM Subjects WHERE SubjectID = ? AND UserID = ?", 
+        (subject_id, session['user_id'],)
+    )
     db.commit()
     return redirect(request.referrer or url_for('subjects_page'))
 
@@ -236,8 +265,12 @@ def delete_subject(subject_id):
 @app.route('/tasks')
 @login_required
 def tasks_page():
-    today = datetime.now().date() # used to set the minimum selectable date in forms 
-    subjects = query_db("SELECT SubjectID, SubjectName, SubjectColor FROM Subjects WHERE UserID = ?", (session['user_id'],))
+    """List, filter, search and sort the user's tasks"""
+    today = datetime.now().date() # used to set the minimum selectable date in forms
+    subjects = query_db(
+        "SELECT SubjectID, SubjectName, SubjectColor FROM Subjects WHERE UserID = ?", 
+        (session['user_id'],)
+    )
 
     # truncate long subject names in the dropdown
     subjects = [
@@ -262,7 +295,7 @@ def tasks_page():
         conditions.append("Tasks.StatusID = ?")
         args.append(status_filter)
 
-    if search_query: 
+    if search_query:
         conditions.append("Tasks.TaskName LIKE ?")
         args.append(f"%{search_query}%")
 
@@ -301,8 +334,8 @@ def tasks_page():
 
     formatted_list = []
     for task in tasks:
-        task_list = list(task) # convert to list 
-        raw_date = task_list[2] # store original date 
+        task_list = list(task) # convert to list
+        raw_date = task_list[2] # store original date
 
         if task_list[2]:
             try:
@@ -311,30 +344,45 @@ def tasks_page():
             except ValueError:
                 pass # leaves date unchanged if it cant be fixed
 
-        task_list.append(raw_date) 
+        task_list.append(raw_date)
         formatted_list.append(task_list)
         task_list.append(subtasks_by_task.get(task_list[0], []))
 
     tasks = formatted_list
-    return render_template("tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), selected_subject=subject_filter, selected_status=status_filter, selected_sort=sort, selected_search=search_query)
+    return render_template(
+        "tasks.html", tasks=tasks, subjects=subjects, today_date=today.isoformat(), 
+        selected_subject=subject_filter, selected_status=status_filter, selected_sort=sort,
+        selected_search=search_query
+    )
 
 # checkbox
 @app.route('/delete-selected', methods=['POST'])
 @login_required
 def delete_selected():
+    """Delete mutliple tasks at once using checkboxes"""
     selected_tasks = request.form.get('selected_tasks') # gets the selected task IDs
     if selected_tasks:
         task_ids = selected_tasks.split(',') # splits the comma separated IDs into a list
         db = get_db()
         for task_id in task_ids:
-            db.execute(""" DELETE FROM Subtasks WHERE TaskID = ? AND TaskID IN (SELECT TaskID FROM Tasks WHERE UserID = ?) """, (task_id, session['user_id']))
-            db.execute("DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id'],)) # deletes each selected task
+            # delete subtasks first
+            db.execute("""
+                DELETE FROM Subtasks WHERE TaskID = ? AND TaskID IN (
+                    SELECT TaskID FROM Tasks WHERE UserID = ?
+                ) 
+            """, (task_id, session['user_id']))
+            # deletes each selected task
+            db.execute(
+                "DELETE FROM Tasks WHERE TaskID = ? AND UserID = ?", 
+                (task_id, session['user_id'],)
+                )
         db.commit()
     return redirect(request.referrer or url_for('tasks_page'))
 
 # signup page
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    """Register a new user's account"""
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -348,7 +396,7 @@ def signup():
         if len(username) < 5:
             flash('Username must be at least 5 characters')
             session['form_username'] = username
-            return redirect(url_for('signup'))  
+            return redirect(url_for('signup'))
         if len(username) > 20:
             flash('Username must be less than 20 characters')
             session['form_username'] = username
@@ -370,7 +418,10 @@ def signup():
         hashed_password = generate_password_hash(password)
         join_date = datetime.now().strftime('%d-%m-%Y')
         db = get_db()
-        db.execute("INSERT INTO Users (Username, Password, JoinDate) VALUES (?, ?, ?)", (username, hashed_password, join_date))
+        db.execute(
+            "INSERT INTO Users (Username, Password, JoinDate) VALUES (?, ?, ?)", 
+            (username, hashed_password, join_date)
+        )
         db.commit()
 
         return redirect(url_for('login'))
@@ -380,6 +431,7 @@ def signup():
 # login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Log a user in and start their session"""
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -400,6 +452,7 @@ def login():
 # logout
 @app.route('/logout')
 def logout():
+    """Clear the session and log the user out"""
     session.clear() # clears the session
     return redirect(url_for('login'))
 
@@ -407,6 +460,7 @@ def logout():
 @app.route('/profile')
 @login_required
 def profile():
+    """Show the user's profile, stats and subjects"""
     user = query_db("SELECT * FROM Users WHERE UserID = ?", (session['user_id'],), one=True)
     if user is None:
         session.clear()
@@ -415,9 +469,17 @@ def profile():
     join_date = user[3] if len(user) > 3 else 'Unknown'
 
     # get task counts
-    total = query_db("SELECT COUNT(*) FROM Tasks WHERE UserID = ?", (session['user_id'],), one=True)[0]
-    completed = query_db("SELECT COUNT(*) FROM Tasks WHERE UserID = ? AND StatusID = 1", (session['user_id'],), one=True)[0]
-    overdue = query_db("SELECT COUNT(*) FROM Tasks WHERE UserID = ? AND StatusID = 4", (session['user_id'],), one=True)[0]
+    total = query_db(
+        "SELECT COUNT(*) FROM Tasks WHERE UserID = ?", (session['user_id'],), one=True
+    )[0]
+    completed = query_db(
+        "SELECT COUNT(*) FROM Tasks WHERE UserID = ? AND StatusID = 1", 
+        (session['user_id'],), one=True
+    )[0]
+    overdue = query_db(
+        "SELECT COUNT(*) FROM Tasks WHERE UserID = ? AND StatusID = 4", 
+        (session['user_id'],), one=True
+    )[0]
     incomplete = total - completed - overdue
 
     # get subjects with task counts
@@ -433,18 +495,23 @@ def profile():
 
     subject_count = len(subjects)
 
-    return render_template("profile.html", join_date=join_date, total=total, completed=completed, incomplete=incomplete, overdue=overdue, subjects=subjects, subject_count=subject_count)
+    return render_template(
+        "profile.html", join_date=join_date, total=total, completed=completed, 
+        incomplete=incomplete, overdue=overdue, subjects=subjects, subject_count=subject_count
+    )
 
 # edit profile page
 @app.route('/edit-profile', methods=['GET'])
 @login_required
 def edit_profile():
+    """Render the edit profile page"""
     return render_template('edit_profile.html')
 
 # edit username
 @app.route('/edit-username', methods=['POST'])
 @login_required
 def edit_username():
+    """Update the user's username after verifying their password"""
     new_username = request.form.get('username')
     current_password = request.form.get('current_password')
 
@@ -461,7 +528,9 @@ def edit_username():
         return redirect(url_for('edit_profile'))
 
     if new_username != session['username']:
-        existing_user = query_db("SELECT * FROM Users WHERE Username = ?", (new_username,), one=True)
+        existing_user = query_db(
+            "SELECT * FROM Users WHERE Username = ?", (new_username,), one=True
+        )
         if existing_user:
             flash('Username already taken', 'username')
             return redirect(url_for('edit_profile'))
@@ -485,6 +554,7 @@ def edit_username():
 @app.route('/edit-password', methods=['POST'])
 @login_required
 def edit_password():
+    """Update the current user's password after verifying the old one"""
     current_password = request.form.get('current_password')
     new_password = request.form.get('password')
     confirm_password = request.form.get('confirm_password')
@@ -507,7 +577,10 @@ def edit_password():
         return redirect(url_for('edit_profile'))
 
     hashed_password = generate_password_hash(new_password)
-    db.execute("UPDATE Users SET Password = ? WHERE UserID = ?", (hashed_password, session['user_id']))
+    db.execute(
+        "UPDATE Users SET Password = ? WHERE UserID = ?",
+        (hashed_password, session['user_id'])
+    )
     db.commit()
     flash('Password updated successfully', 'password')
     return redirect(url_for('edit_profile'))
@@ -516,10 +589,15 @@ def edit_password():
 @app.route('/delete-account', methods=['POST'])
 @login_required
 def delete_account():
+    """Delete the current user's account and all their data"""
     db = get_db()
     user_id = session['user_id']
 
-    db.execute(""" DELETE FROM Subtasks WHERE TaskID IN (SELECT TaskID FROM Tasks WHERE UserID = ?) """, (user_id,))
+    db.execute("""
+        DELETE FROM Subtasks WHERE TaskID IN (
+            SELECT TaskID FROM Tasks WHERE UserID = ?
+        ) 
+    """, (user_id,))
     db.execute("DELETE FROM Tasks WHERE UserID = ?", (user_id,))
     db.execute("DELETE FROM Subjects WHERE UserID = ?", (user_id,))
     db.execute("DELETE FROM Users WHERE UserID = ?", (user_id,))
@@ -533,13 +611,19 @@ def delete_account():
 @app.route('/add-subtask/<int:task_id>', methods=['POST'])
 @login_required
 def add_subtask(task_id):
+    """Add a new subtask to a task"""
     subtask_name = request.form.get('subtask_name')
     if subtask_name:
         db = get_db()
         # confirm the task belongs to the logged-in user before inserting
-        task = query_db("SELECT TaskID FROM Tasks WHERE TaskID = ? AND UserID = ?", (task_id, session['user_id']), one=True)
+        task = query_db(
+            "SELECT TaskID FROM Tasks WHERE TaskID = ? AND UserID = ?", 
+            (task_id, session['user_id']), one=True
+        )
         if task:
-            db.execute("INSERT INTO Subtasks (TaskID, SubtaskName, IsCompleted) VALUES (?, ?, 0)", (task_id, subtask_name))
+            db.execute(
+                "INSERT INTO Subtasks (TaskID, SubtaskName, IsCompleted) " 
+                "VALUES (?, ?, 0)", (task_id, subtask_name))
             db.commit()
     return redirect(request.referrer or url_for('home'))
 
@@ -547,6 +631,7 @@ def add_subtask(task_id):
 @app.route('/toggle-subtask/<int:subtask_id>')
 @login_required
 def toggle_subtask(subtask_id):
+    """Change a subtask's completed state between done and not done"""
     db = get_db()
     subtask = query_db("""
         SELECT Subtasks.SubtaskID, Subtasks.IsCompleted FROM Subtasks
@@ -556,7 +641,10 @@ def toggle_subtask(subtask_id):
 
     if subtask:
         new_status = 0 if subtask[1] == 1 else 1
-        db.execute("UPDATE Subtasks SET IsCompleted = ? WHERE SubtaskID = ?", (new_status, subtask_id))
+        db.execute(
+            "UPDATE Subtasks SET IsCompleted = ? WHERE SubtaskID = ?", 
+            (new_status, subtask_id)
+        )
         db.commit()
     return redirect(request.referrer or url_for('tasks_page'))
 
@@ -564,19 +652,26 @@ def toggle_subtask(subtask_id):
 @app.route('/delete-subtask/<int:subtask_id>')
 @login_required
 def delete_subtask(subtask_id):
+    """Delete a subtask associated with one of the current user's tasks"""
     db = get_db()
-    db.execute(""" DELETE FROM Subtasks WHERE SubtaskID = ? AND TaskID IN (SELECT TaskID FROM Tasks WHERE UserID = ?) """, (subtask_id, session['user_id']))
+    db.execute("""
+        DELETE FROM Subtasks WHERE SubtaskID = ? AND TaskID IN (
+            SELECT TaskID FROM Tasks WHERE UserID = ?
+        ) 
+    """, (subtask_id, session['user_id']))
     db.commit()
     return redirect(request.referrer or url_for('tasks_page'))
 
 # error 404 handler
 @app.errorhandler(404)
-def not_found(e):
+def not_found(_):
+    """Show a page when a route/resource doesn't exist"""
     return render_template('404.html'), 404
 
 # error 500 handler
 @app.errorhandler(500)
-def internal_error(e):
+def internal_error(_):
+    """Show a page for unhandled server errors"""
     return render_template('500.html'), 500
 
 # runs the app directly
