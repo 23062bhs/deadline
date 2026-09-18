@@ -1117,6 +1117,10 @@ thead .list-headers th {
     color: #000000;
 }
 
+.subtask-delete-link:hover {
+    color: #fe0000;
+}
+
 .add-subtask-form input {
     border: 0.1rem solid #aaaaaa;
     background-color: #ffffff;
@@ -1136,6 +1140,10 @@ thead .list-headers th {
     border: none;
     color: rgb(120, 202, 252);
     cursor: pointer;
+}
+
+.add-subtask-form button:hover {
+    color: rgb(94, 158, 197)
 }
 
 .subtask-checkbox-link i {
