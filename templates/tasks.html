@@ -6,25 +6,29 @@
 
 <!-- header -->
 <div class="header-section">
+    <!-- tasks page title and description -->
     <div class="intro">
         <h1>Tasks</h1>
         <p>Manage, sort and filter your upcoming assignments</p>
     </div>
+    <!-- add task button -->
     <div class="button-group">
         <button id="open-task-modal-btn" class="add-task-btn"><i class="fa-solid fa-plus"></i> Add Task</button>
     </div>
 </div>
 
-<!-- task list -->
+<!-- task table -->
 <div class="task-list-container">
     <div class="tasks-toolbar">
+        <!-- search form -->
         <form method="GET" action="/tasks" class="search-form">
-            <input type="hidden" name="subject" value="{{ selected_subject or '' }}">
+            <input type="hidden" name="subject" value="{{ selected_subject or '' }}"> 
             <input type="hidden" name="status" value="{{ selected_status or '' }}">
             <input type="hidden" name="sort" value="{{ selected_sort or '' }}">
             <input type="text" name="q" class="search-input" placeholder="Search tasks" value="{{ selected_search or '' }}">
             <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
+        <!-- filter subjects -->
         <form method="GET" action="/tasks" style="display:flex;">
             <select name="subject" class="filter-subject-btn" onchange="this.form.submit()">
                 <option value="">All Subjects<i class="fa-solid fa-chevron-down"></i></option>
@@ -33,6 +37,7 @@
                 {% endfor %}
             </select>
         </form>
+        <!-- status options -->
         <div class="status-options">
             <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}" class="all-status-btn {% if not selected_status %}active-status{% endif %}">All</a>
             <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=3" class="progress-status-btn {% if selected_status == '3' %}active-status{% endif %}">In Progress</a>
@@ -40,6 +45,7 @@
             <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=4" class="overdue-status-btn {% if selected_status == '4' %}active-status{% endif %}">Overdue</a>
             <a href="/tasks?{% if selected_subject %}subject={{ selected_subject }}&{% endif %}status=1" class="complete-status-btn {% if selected_status == '1' %}active-status{% endif %}">Complete</a>
         </div>
+        <!-- sort by name and due date -->
         <form method="GET" action="/tasks">
             <select name="sort" class="sort-btn" onchange="this.form.submit()">
                 <option value="">Sort by <i class="fa-solid fa-chevron-down"></i></option>
@@ -49,12 +55,15 @@
             </select>
         </form>
     </div>
+    <!-- task list -->
     <table class="task-list">
         <thead>
             <tr class="list-headers">
+                <!-- delete all subjects checkbox -->
                 <th class="checkbox-header" style="width:1%; white-space:nowrap;">
                     <input type="checkbox" id="select-all-checkbox">
                 </th>
+                <!-- headers -->
                 <th class="name-header">Task Name</th>
                 <th class="subject-header">Subject</th>
                 <th class="date-header">Due Date</th>
@@ -62,27 +71,35 @@
                 <th class="actions-header">Actions</th>
             </tr>
         </thead>
+        <!-- task information -->
         <tbody>
-            {% if tasks %}
-                {% for task in tasks %}
+            {% if tasks %} <!-- only displays if the user has tasks, otherwise show no tasks message -->
+                {% for task in tasks %} <!-- displays all the user's tasks -->
                     <tr class="task-info">
+                        <!-- delete multiple tasks -->
                         <td class="checkbox-cell">
                             <input type="checkbox" class="task-checkbox" data-id="{{ task[0] }}" autocomplete="off">
                         </td>
+                        <!-- name section -->
                         <td class="name-cell">
                             <button type="button" class="subtask-toggle-btn" data-task-id="{{ task[0] }}">
                                 <i class="fa-solid fa-chevron-right" id="chevron-{{ task[0] }}"></i>
                             </button>
                             <span class="name-truncate">{{ task[1] }}</span>
                         </td>
+                        <!-- subject section -->
                         <td class="subject-cell">
                             <span class="pill" style="--bg-color: {{ task[5] }}; background-color: var(--bg-color);" title="{{ task[3] }}">{{ task[3] }}</span> <!-- sets the color of the pill to the color of the subject -->
                         </td> 
+                        <!-- date section -->
                         <td class="date-cell">{{ task[2] }}</td>
+                        <!-- status section -->
                         <td class="status-cell">
                             <span class="pill" style="--bg-color: {{ task[6] }}; background-color: var(--bg-color);">{{ task[4] }}</span> <!-- sets the pill color to the color associated with the status -->
                         </td> 
+                        <!-- edit and delete task actions -->
                         <td>
+                            <!-- edit tasks -->
                             <div>
                                 <a href="javascript:void(0)"
                                     class="list-edit-action"
@@ -94,6 +111,7 @@
                                     data-status="{{ task[8] }}">
                                     <i class="fa-solid fa-pen"></i>
                                 </a>
+                                <!-- delete tasks -->
                                 <a href="/delete-task/{{ task[0] }}" class="list-delete-action" onclick="return confirm('Are you sure you want to delete this task?');"><i class="fa-solid fa-trash"></i></a> <!-- warning message to prevent accidents -->
                             </div>
                         </td>
@@ -105,15 +123,19 @@
                             <div class="subtask-container" id="subtask-row-{{ task[0] }}" style="display:none;" >
                                 {% for sub in task[10] %}
                                     <div class="subtask-item">
+                                        <!-- toggles the subtask as complete or incomplete -->
                                         <a href="/toggle-subtask/{{ sub[0] }}" class="subtask-checkbox-link">
                                             <i class="fa-solid {{ 'fa-square-check' if sub[3] == 1 else 'fa-square' }}"></i>
                                         </a>
+                                        <!-- subtask name -->
                                         <span class="{% if sub[3] == 1 %}subtask-completed{% endif %}">{{ sub[2] }}</span>
+                                        <!-- delete subtask button -->
                                         <a href="/delete-subtask/{{ sub[0] }}" class="subtask-delete-link" onclick="return confirm('Delete this subtask?');">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                     </div>
                                 {% endfor %}
+                                <!-- add subtask button -->
                                 <form method="POST" action="/add-subtask/{{ task[0] }}" class="add-subtask-form">
                                     <input type="text" name="subtask_name" placeholder="Add a subtask" required>
                                     <button type="submit"><i class="fa-solid fa-plus"></i></button>
@@ -125,6 +147,7 @@
             {% endif %}
         </tbody>
     </table>
+    <!-- warning messages -->
     {% if not tasks %}  
         <div class="tasks-page-no-tasks-msg">
             {% if selected_subject %}
@@ -139,9 +162,11 @@
         </div>
     {% endif %}
 </div>
+<!-- delete selected tasks -->
 <div class="delete-selected-btn-container">
     <form method="POST" action="/delete-selected">
         <div id="delete-selected-container" style="display:none; padding: 0.75rem 1rem;">
+            <!-- delete button with warning message before tasks get deleted -->
             <button type="submit" class="delete-selected-btn" onclick="return confirm('Are you sure you want to delete these tasks?')">Delete Selected</button>
             <input type="hidden" name="selected_tasks" id="selected-tasks-input" value="">
         </div>

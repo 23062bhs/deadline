@@ -10,14 +10,18 @@
     <script src="https://kit.fontawesome.com/ada09c2be0.js" crossorigin="anonymous"></script> <!-- import icons -->
 </head>
 <body class="auth-body">
+    <!-- header content -->
     <header>
         <div class="header-content">
+            <!-- favicon -->
             <img src="{{ url_for('static', filename='images/favicon.png') }}" class="header-logo" alt="Logo">
+            <!-- application title -->
             <p>Deadline</p>
         </div>
     </header>
     <!-- sign up page -->
     <div class="auth-container">
+        <!-- sign up page title -->
         <h1>Sign Up</h1>
         <!-- allows the error message to disappear after reloading -->
         {% with messages = get_flashed_messages() %}
@@ -27,21 +31,28 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        <!-- sign up form -->
         <form method="POST" action="/signup">
+            <!-- username input -->
             <div class="auth-input-group">
                 <label>Username</label>
+                <!-- username stays if the sign up fails -->
                 <input type="text" name="username" value="{{ session.pop('form_username', '') }}" required>
             </div>
+            <!-- password input -->
             <div class="auth-input-group">
                 <label>Password</label>
                 <input type="password" name="password" required>
             </div>
+            <!-- confirm password input -->
             <div class="auth-input-group">
                 <label>Confirm Password</label>
                 <input type="password" name="confirm_password" required>
             </div>
+            <!-- sign up button -->
             <button type="submit" class="save-btn">Sign Up</button>
         </form>
+        <!-- sends the user to the log in page if they already have an account -->
         <p>Already have an account? <a href="/login">Log in</a></p>
     </div>
 </body>

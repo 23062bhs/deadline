@@ -6,6 +6,7 @@
 
 <!-- header -->
 <div class="header-section">
+    <!-- profile page title and description -->
     <div class="intro">
         <h1>Profile</h1>
         <p>View your account information and statistics</p>
@@ -15,20 +16,28 @@
 <!-- profile page -->
 <div class="profile">
     <div class="user-information">
+        <!-- profile avatar (blue background with first two letters of username) -->
         <div class="profile-avatar">{{ session['username'][0].upper() }}{{ session['username'][1].upper() if session['username']|length > 1 else '' }}</div>
+        <!-- username -->
         <div class="profile-username">{{ session['username'] }}</div>
+        <!-- join date -->
         <div class="join-date">Joined {{ join_date }}</div>
-        <hr class="profile-divider">
+        <hr class="profile-divider"> <!-- divides the profile side bar into two sections -->
+        <!-- total tasks stat -->
         <div class="profile-info-row">
             <span class="profile-info-label">Total tasks</span>
             <span>{{ total }}</span>
         </div>
+        <!-- subject count stat -->
         <div class="profile-info-row">
             <span class="profile-info-label">Subjects</span>
             <span>{{ subject_count }}</span>
         </div>
+        <!-- edit profile button -->
         <a href="/edit-profile" class="profile-edit-btn">Edit profile</a>
+        <!-- log out button -->
         <a href="/logout" class="profile-logout-btn">Log out</a>
+        <!-- delete account button -->
         <form method="POST" action="/delete-account" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
             <button type="submit" class="profile-delete-btn">Delete account</button>
         </form>
@@ -37,20 +46,25 @@
     <div class="profile-right-column">
         <!-- profile stats -->
         <div class="profile-stats">
+            <!-- profile stats title -->
             <h1 class="stats-title">Task Summary</h1>
             <div class="profile-stat-grid">
+                <!-- total tasks stat -->
                 <div class="profile-stat">
                     <div class="total-stat-label">Total</div>
                     <div class="total-stat-value">{{ total }}</div>
                 </div>
+                <!-- incomplete tasks stat -->
                 <div class="profile-stat">
                     <div class="incomplete-stat-label">Incomplete</div>
                     <div class="incomplete-stat-value">{{ incomplete }}</div>
                 </div>
+                <!-- complete tasks stat -->
                 <div class="profile-stat">
                     <div class="complete-stat-label">Complete</div>
                     <div class="complete-stat-value">{{ completed }}</div>
                 </div>
+                <!-- overdue tasks stat -->
                 <div class="profile-stat">
                     <div class="overdue-stat-label">Overdue</div>
                     <div class="overdue-stat-value">{{ overdue }}</div>
@@ -59,17 +73,21 @@
         </div>
         <!-- subject progress bars -->
         <div class="profile-subjects-card">
+            <!-- progress bars title -->
             <h3 class="cards-title">Tasks by subject</h3>
-            {% if subjects %}
-                {% for subject in subjects %}
+            {% if subjects %} <!-- only displays a progress bar if the user has a subject-->
+                {% for subject in subjects %} <!-- displays all of the user's subjects -->
                     <div class="profile-subject-row">
+                        <!-- progress bar using the color associated with that subject -->
                         <span class="profile-subject-pill" style="--pill-color: {{ subject[2] }}">{{ subject[1] }}</span>
+                        <!-- fills the progress bar as a percantage of the amount of total tasks -->
                         <div class="profile-bar-bg">
                             <div class="profile-bar-fill" style="--fill-width: {{ (subject[3] / total * 100) if total else 0 }}%; --fill-color: {{ subject[2] }}"></div>
                         </div>
-                        <span class="subject-count">{{ subject[3] }} task{{ 's' if subject[3] != 1 }}</span>
+                        <span class="subject-count">{{ subject[3] }} task{{ 's' if subject[3] != 1 }}</span> <!-- changes "tasks" to "task" if the task count is 1 -->
                     </div>
                 {% endfor %}
+            <!-- no subjects warning message -->
             {% else %}
                 <p class="profile-no-subjects-alert">No subjects yet, add a subject to get started</p>
             {% endif %}

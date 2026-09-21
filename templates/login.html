@@ -10,14 +10,18 @@
     <script src="https://kit.fontawesome.com/ada09c2be0.js" crossorigin="anonymous"></script> <!-- import icons -->
 </head>
 <body class="auth-body">
+    <!-- header content -->
     <header>
         <div class="header-content">
+            <!-- favicon -->
             <img src="{{ url_for('static', filename='images/favicon.png') }}" class="header-logo" alt="Logo">
+            <!-- application title -->
             <p>Deadline</p>
         </div>
     </header>
     <!-- login page -->
     <div class="auth-container">
+        <!-- login page title -->
         <h1>Log In</h1>
         <!-- allows the error message to disappear after reloading -->
         {% with messages = get_flashed_messages() %} 
@@ -27,17 +31,23 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        <!-- login form -->
         <form method="POST" action="/login">
+            <!-- username input -->
             <div class="auth-input-group">
                 <label>Username</label>
+                <!-- username stays if the log in fails -->
                 <input type="text" name="username" value="{{ session.pop('form_username', '') }}" required>
             </div>
+            <!-- password input -->
             <div class="auth-input-group">
                 <label>Password</label>
                 <input type="password" name="password" required>
             </div>
+            <!-- log in button -->
             <button type="submit" class="save-btn">Log In</button>
         </form>
+        <!-- sends the user to the sign up page if they don't have an account -->
         <p>Don't have an account? <a href="/signup">Sign up</a></p>
     </div>
 </body>

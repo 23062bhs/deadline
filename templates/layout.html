@@ -10,10 +10,14 @@
     <script src="https://kit.fontawesome.com/ada09c2be0.js" crossorigin="anonymous"></script> <!-- import icons -->
 </head>
 <body>
+    <!-- banner at the top of every page -->
     <header>
         <div class="header-content">
+            <!-- favicon -->
             <img src="{{ url_for('static', filename='images/favicon.png') }}" class="header-logo" alt="Logo">
+            <!-- application title which also sends the user to the home page -->
             <a href="/">Deadline</a>
+            <!-- the user's profile icon that inclues the first 2 letters of their name -->
             <a href="/profile" class="profile-icon">{{ session['username'][0].upper() }}{{ session['username'][1].upper() if session['username']|length > 1 else '' }}</a>
         </div>
     </header>
@@ -21,10 +25,11 @@
     <div class="main-container">
         <nav class="navbar">
             <ul>
+                <!-- link to each page along with the add task and subject modals and the log out button -->
                 <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
                 <li><a href="/subjects"><i class="fa-solid fa-book"></i>Subjects</a></li>
                 <li><a href="javascript:void(0)" id="open-subject-modal-btn"><i class="fa-solid fa-plus"></i>Add Subject</a></li>
-                <hr class="nav-divider">
+                <hr class="nav-divider"> <!-- divides the navigation bar into 2 sections -->
                 <li><a href="/tasks"><i class="fa-solid fa-list-check"></i>Tasks</a></li>
                 <li><a href="javascript:void(0)" id="open-task-modal-btn"><i class="fa-solid fa-calendar-plus"></i>Add Task</a></li>
                 <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a></li>

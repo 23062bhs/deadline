@@ -6,58 +6,73 @@
 
 <!-- header -->
 <div class="header-section">
+    <!-- edit profile page title and description -->
     <div class="intro">
         <h1>Edit Profile</h1>
         <p>Update your account details</p>
     </div>
 </div>
 
+<!-- edit profile page -->
 <div class="edit-container">
     <!-- edit username section -->
     <div class="edit-username-information">
+        <!-- allows the error message to disappear after reloading -->
         {% with messages = get_flashed_messages(category_filter=['username']) %}
             {% if messages %}
                 <div class="auth-error">{{ messages[0] }}</div>
             {% endif %}
         {% endwith %}
+        <!-- edit username title -->
         <h3 class="edit-username-title">Username</h3>
         <form method="POST" action="/edit-username">
+            <!-- change username input -->
             <div class="edit-input-group">
                 <label for="username">New Username</label>
                 <input type="text" id="username" name="username" value="{{ session['username'] }}" required>
             </div>
+            <!-- requires password for confirmation -->
             <div class="edit-input-group">
                 <label for="username_current_password">Current Password</label>
                 <input type="password" id="username_current_password" name="current_password" required>
             </div>
+            <!-- save username button -->
             <button type="submit" class="edit-save-btn">Save username</button>
         </form>
+        <!-- cancel button which sends the user back to the profile page -->
         <a href="/profile" class="profile-logout-btn">Cancel</a>
     </div>
     
     <!-- edit password section -->
     <div class="edit-password-information">
+        <!-- allows the error message to disappear after reloading -->
         {% with messages = get_flashed_messages(category_filter=['password']) %}
             {% if messages %}
                 <div class="auth-error">{{ messages[0] }}</div>
             {% endif %}
         {% endwith %}
+        <!-- edit password title -->
         <h3 class="edit-password-title">Password</h3>
         <form method="POST" action="/edit-password">
+            <!-- current password input -->
             <div class="edit-input-group">
                 <label for="password_current_password">Current Password</label>
                 <input type="password" id="password_current_password" name="current_password" required>
             </div>
+            <!-- new password input -->
             <div class="edit-input-group">
                 <label for="password">New Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
+            <!-- new password again for confirmation -->
             <div class="edit-input-group">
                 <label for="confirm_password">Confirm New Password</label>
                 <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
+            <!-- save password button -->
             <button type="submit" class="edit-save-btn">Save password</button>
         </form>
+        <!-- cancel button that sends the user back to the profile page -->
         <a href="/profile" class="profile-logout-btn">Cancel</a>
     </div>
 </div>
