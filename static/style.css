@@ -4,11 +4,13 @@
     padding: 0;
 }
 
+/* ensures the page can stretch to full viewport height for the sticky footer layout */
 html, body {
     height: 100%;
     margin: 0;
 }
 
+/* vertical flex layout */
 body {
     display: flex;
     flex-direction: column;
@@ -16,6 +18,7 @@ body {
 }
 
 /* home page */
+/* top blue bar containing the logo, app name, and profile icon */
 header {
     background-color: rgb(120, 202, 252);
     font-size: 1.7rem;
@@ -31,11 +34,13 @@ header {
     flex-shrink: 0;
 }
 
+/* small clock icon shown next to the app name */
 .header-logo {
     width: 2.5rem;
     height: 2.5rem;
 }
 
+/* keeps the header content at max width and centered */
 .header-content {
     display: flex;
     align-items: center;
@@ -43,17 +48,20 @@ header {
     width: 100%;
 }
 
+/* removes underline and makes the header white  */
 .header-content a {
     text-decoration: none;
     color: #ffffff;
 }
 
+/* removes margin and padding from nav links */
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
+/* blue footer at the bottom of every page */
 footer {
     font-family: 'Satoshi';
     text-align: center;
@@ -66,6 +74,7 @@ footer {
     margin: auto -2.5rem -2.5rem -2.5rem;
 }
 
+/* user icon with blue background and contains the first 2 letters of the username */
 .profile-icon {
     background-color: #2563eb;
     width: 2.5rem;
@@ -81,10 +90,12 @@ footer {
     margin-right: 2rem;
 }
 
+/* darkens icon after hovering */
 .profile-icon:hover {
     background-color: #4176e8;
 }
 
+/* shrinks icon after clicking */
 .profile-icon:active {
     transform: scale(0.95);
 }
@@ -97,6 +108,7 @@ footer {
     min-height: 0;
 }
 
+/* grey sidebar */
 .navbar {
     font-family: 'Satoshi';
     background-color: rgb(199, 199, 199);
@@ -106,6 +118,7 @@ footer {
     overflow: auto;
 }
 
+/* spaces and removes decorations from nav links */
 li a {
     display: block;
     text-decoration: none;
@@ -115,25 +128,30 @@ li a {
     padding: 1.5rem 0 1.5rem 2.5rem;
 }
 
+/* darkens and slows down the darkening after hovering */
 li a:hover {
     background-color: #b9b7b7;
     transition: all 0.3s ease;
 }
 
+/* divider that splits the side bar into 2 sections */
 .nav-divider {
     border-top: 0.1rem solid #b0b0b0;
     margin: 1rem 0;
 }
 
+/* puts spacing between the icon and link text */
 nav li i {
     margin-right: 1.5rem;
 }
 
+/* active nav link darkens */
 .navbar li a.active {
     background-color: #b9b7b7;
 }
 
 /* main content */
+/* vertical column layout for main content */
 main {
     flex-grow: 1;
     padding: 2.5rem;
@@ -145,24 +163,27 @@ main {
     flex-direction: column;
 }
 
+/* centers header text */
 .header-section {
     align-items: center;
     display: flex;
     justify-content: space-between;
 }
 
+/* changes font and spaces the page intro */
 .intro {
     font-family: 'Satoshi';
     margin-top: -0.5rem;
 }
 
+/* change font size and spaces the page description */
 .description {
     margin-top: 1rem;
     font-size: 1.2rem;
     font-weight: 400;
 }
 
-/* add subject and task buttons */
+/* add subject button */
 .add-subject-btn {
     font-family: 'Satoshi';
     font-size: 0.9rem;
@@ -180,6 +201,7 @@ main {
     justify-content: center;
 }
 
+/* add task button */
 .add-task-btn {
     font-family: 'Satoshi';
     font-size: 1rem;
@@ -196,18 +218,21 @@ main {
     border: none;
 }
 
+/* darkens and adds shadow to add subject button after hovering */
 .add-subject-btn:hover {
     background-color: rgb(200, 200, 200);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
+/* darkens and adds shadow to add task button after hovering */
 .add-task-btn:hover {
     background-color: rgb(93, 190, 250);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
+/* shrinks add task and subject button after clicking */
 .add-task-btn:active, .add-subject-btn:active {
     transform: scale(0.95); 
 }
@@ -221,14 +246,17 @@ main {
     align-items: start;
 }
 
+/* spaces the card text */
 .subjects-card-text {
     margin-left: 1rem;
 }
 
+/* spaces the subject name */
 .subjects-card h3 {
     padding-bottom: 0.5rem;
 }
 
+/* square subject card with shadow */
 .subjects-card {
     padding: 1.25rem 1rem;
     width: 7rem;
@@ -236,17 +264,20 @@ main {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
 }
 
+/* subject section header */
 .subjects-header {
     font-family: 'Satoshi';
     margin: 1.5rem 0 1.5rem 0;
     font-size: 1rem;
 }
 
+/* warning if the user has no subjects */
 .no-subjects-alert {
     margin-top: 0.5rem;
     font-size: 0.9rem;
 }
 
+/* shortens subjects name if they are too long */
 .subjects-truncate {
     display: block;
     max-width: 6rem;
@@ -255,7 +286,7 @@ main {
     text-overflow: ellipsis;
 }
 
-/* modals */
+/* modal header */
 .modal-header  {
     display: flex;
     justify-content: space-between;
@@ -263,6 +294,7 @@ main {
     margin-bottom: 1rem;
 }
 
+/* hides and centers modals */
 .modal-overlay {
     display: none;
     font-family: 'Satoshi';
@@ -273,6 +305,7 @@ main {
     justify-content: center;
 }
 
+/* square modal box with rounded corners */
 .modal-box {
     background-color: #ffffff;
     padding: 1rem 2rem;
@@ -282,6 +315,7 @@ main {
     width: 25rem;
 }
 
+/* close modal button */
 .close-modal-btn {
     padding: 0.25rem 0.75rem;
     background-color: #ffffff;
@@ -289,15 +323,18 @@ main {
     font-size: 2rem;
 }
 
+/* circular background after hovering */
 .close-modal-btn:hover {
     background-color: #dfdfdf;
     border-radius: 50%;
 }
 
+/* shrinks close modal button after hovering */
 .close-modal-btn:active {
     transform: scale(0.97); 
 }
 
+/* blue save button at the bottom of every form */
 .save-btn {
     width: 30%;
     padding: 0.8rem;
@@ -313,19 +350,23 @@ main {
     margin: 0.5rem 0 0.5rem 0;
 }
 
+/* darkens and adds shadow to save button */
 .save-btn:hover {
     background-color: rgb(92, 193, 255);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* shrinks save button after clicking */
 .save-btn:active {
     transform: scale(0.97); 
 }
 
+/* puts spacing between the input groups */
 .input-group {
     padding-bottom: 1rem;
 }
 
+/* input headers */
 .input-group label {
     font-family: 'Satoshi';
     font-weight: 700;
@@ -334,6 +375,7 @@ main {
     color: #000000;
 }
 
+/* rectangular input groups */
 .input-group input, .input-group select {
     padding: 0.5rem 0.7rem;
     border: 0.1rem solid #dddddd;
@@ -345,22 +387,26 @@ main {
     margin-left: 1rem;
 }
 
+/* blue outline after the user clicks on the input group */
 .input-group input:focus, .input-group select:focus {
     outline: none;
     border-color: rgb(120, 202, 252);
 }
 
+/* color picker */
 .color-picker {
     margin: 1rem 0 0 -1rem;
     align-items: center;
     display: flex;
 }
 
+/* spaces and makes the color picker header smaller */
 .color-picker-text {
     font-size: 0.8rem;
     margin-left: 1rem;
 }
 
+/* circular color picker */
 .color-picker input[type="color"] {
     -webkit-appearance: none; 
     appearance: none;
@@ -372,14 +418,18 @@ main {
     padding: 0;
 }
 
+/* removes padding from color picker */
 .color-picker input[type="color"]::-webkit-color-swatch-wrapper {
     padding: 0;
 }
+
+/* gives color picker a grey border and makes it circular */
 .color-picker input[type="color"]::-webkit-color-swatch {
     border: 2px solid #e0e0e0;
     border-radius: 50%; 
 }
 
+/* task list on the home page */
 .tasks-container {
     width: auto;
     font-family: 'Satoshi';
@@ -390,6 +440,7 @@ main {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* spaces the task list title */
 .tasks-title {
     margin-top: -0.75rem;
     padding: 0 0 1.2rem 0.5rem;
@@ -404,6 +455,7 @@ table {
     border-collapse: collapse;
 }
 
+/* darkens the headers at the top of the table */
 .table-headers th {
     text-align: left;
     background-color: rgb(199, 199, 199);
@@ -411,20 +463,24 @@ table {
     color: #505050;
 }
 
+/* rounds the edges of top and bottom left corners */
 th:first-child {
     border-top-left-radius: 0.7rem;
     border-bottom-left-radius: 0.7rem;
 }
 
+/* rounds the edges of top and bottom right corners */
 th:last-child {
     border-top-right-radius: 0.7rem;
     border-bottom-right-radius: 0.7rem;
 }
 
+/* spaces the table header */
 .tasks-header {
     padding-left: 2.5rem !important;
 }
 
+/* task data is spaces and has a border at the bottom */
 .tasks td {
     padding: 0.75rem 1rem 0.75rem 0rem;
     color: #000000;
@@ -432,6 +488,7 @@ th:last-child {
     border-bottom: 0.1rem solid #dfdfdf;
 }
 
+/* spaces and makes the colums less wide so that it fits on the table */
 .tasks-column {
     width: 30%;
 }
@@ -456,6 +513,7 @@ th:last-child {
     padding-left: 1rem;
 }
 
+/* shortens task names if they are too long */
 .tasks-truncate {
     display: inline-block;
     max-width: 10rem;
@@ -465,23 +523,26 @@ th:last-child {
     vertical-align: middle;
 }
 
+/* task actions */
 .menu-btn {
     background: none;
     border: none;
     cursor: pointer;
 }
 
+/* darkens the background color of the menu after hovering */
 .menu-btn:hover {
     background-color: #d8d8d8;
-    color: #1e293b;
     border-radius: 50%;
 }
 
+/* dropdown list */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
+/* hides the dropdown content */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -495,10 +556,12 @@ th:last-child {
     border: 1px solid #e2e8f0;
 }
 
+/* shows the dropdown content after clicking */
 .dropdown-content.show {
     display: block;
 }
 
+/* edit and delete task options */
 .dropdown-content a {
     color: #000000;
     padding: 0.7rem 1rem;
@@ -509,18 +572,22 @@ th:last-child {
     font-size: 0.9rem;
 }
 
+/* darkens background of each action after hovering */
 .dropdown-content a:hover {
     background-color: #f3f3f3;
 }
 
+/* blue edit link after hovering */
 .edit-link:hover {
     color: rgb(120, 202, 252);
 }
 
+/* red delete link after hovering */
 .delete-link:hover {
     color: #ef4444;
 }
 
+/* subject and status pills */
 .pill {
     padding: 0.5rem 1rem;
     border-radius: 2rem;
@@ -532,6 +599,7 @@ th:last-child {
     vertical-align: middle;
 }
 
+/* no tasks warning */
 .no-tasks-msg {
     text-align: center;
     margin-top: 1.5rem;
@@ -540,6 +608,7 @@ th:last-child {
     font-weight: 500;
 }
 
+/* task count under the table */
 .task-count {
     font-family: "Satoshi";
     text-align: right;
@@ -547,6 +616,7 @@ th:last-child {
     padding-bottom: 2.5rem;
 }
 
+/* summary for total, incomplete, complete and overdue tasks */
 .task-summary {
     font-family: 'Satoshi';
     margin: 1.5rem 0 1rem 0;
@@ -556,6 +626,7 @@ th:last-child {
     gap: 2rem;
 }
 
+/* summary title */
 .summary-title {
     font-family: 'Satoshi';
     font-size: 1.3rem;
@@ -563,6 +634,7 @@ th:last-child {
     margin-top: -1.5rem;
 }
 
+/* total tasks stat */
 .total-tasks {
     background-color: #ffffff;
     border-radius: 1.5rem;
@@ -572,11 +644,13 @@ th:last-child {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* spaces the summary header */
 .task-summary h1 {
     margin-top: -0.5rem;
     font-size: 1.2rem;
 }
 
+/* incomplete tasks stat */
 .incomplete-tasks {
     background-color: #ffffff;
     border-radius: 1.5rem;
@@ -586,6 +660,7 @@ th:last-child {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* complete tasks stat */
 .completed-tasks {
     background-color: #ffffff;
     border-radius: 1.5rem;
@@ -595,6 +670,7 @@ th:last-child {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* overdue tasks stat */
 .overdue-tasks {
     background-color: #ffffff;
     border-radius: 1.5rem;
@@ -604,10 +680,12 @@ th:last-child {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* makes task summary text all black */
 .task-summary {
     color: #000000;
 }
 
+/* summary numbers */
 .task-summary span {
     display: block;
     margin-top: 1.3rem;
@@ -615,11 +693,12 @@ th:last-child {
     font-weight: 500;
 }
 
+/* makes overdue tasks stat red */
 .overdue-tasks span {
     color: #df2626;
 }
 
-/* error page */
+/* error pages */
 .error-page {
     margin-top: -2rem;
     display: flex;
@@ -632,21 +711,25 @@ th:last-child {
     gap: 2rem;
 }
 
+/* error page header */
 .error-page h1 {
     margin-top: 5rem;
     font-size: 4.5rem;
 }
 
+/* error 500 page description */
 .error-page h2 {
     margin-top: -1rem;
     font-size: 2rem;
     font-weight: 500;
 }
 
+/* error 404 page description */
 .error-page p {
     font-size: 2rem;
 }
 
+/* button at the button of both the error pages that sends the user back to the home page */
 .go-home-btn {
     font-size: 1.2rem;
     display: inline-flex;
@@ -664,6 +747,7 @@ th:last-child {
     font-weight: 500;
 }
 
+/* darkens and gives shadow to the go home buttons */
 .go-home-btn:hover {
     background-color: rgb(93, 190, 250);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -675,6 +759,7 @@ th:last-child {
     font-size: 1.2rem;
 }
 
+/* add subject button on subjects page */
 .subjects-page-btn {
     font-family: 'Satoshi';
     font-size: 1rem;
@@ -691,15 +776,18 @@ th:last-child {
     border: none;
 }
 
+/* darkens and adds shadow to add subject button */
 .subjects-page-btn:hover {
     background-color: rgb(93, 190, 250);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* shrinks add subject button after hovering */
 .subjects-page-btn:active {
     transform: scale(0.95); 
 }
 
+/* subjects page grid */
 .subjects-page-grid {
     margin-top: 2rem;
     font-family: 'Satoshi';
@@ -710,6 +798,7 @@ th:last-child {
     padding-bottom: 2.5rem;
 }
 
+/* rectangular subject cards */
 .subjects-page-card {
     border-radius: 1rem;
     width: 13.5rem;
@@ -719,22 +808,23 @@ th:last-child {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
 }
 
+/* card headers */
 .subjects-page-card-text {
     padding: 2rem;
 }
 
+/* subject name */
 .subjects-page-card h3 {
     padding: 1.2rem 0 1rem 2rem;
 }
 
+/* subject stat */
 .subjects-page-card span {
     padding: 2rem 0 2rem 2rem;
-}
-
-.subjects-page-task-count {
     font-size: 1rem;
 }
 
+/* edit and delete subject actions */
 .subject-card-actions {
     display: flex;
     border-top: 0.1rem solid #929191;
@@ -743,6 +833,7 @@ th:last-child {
     justify-content: right;
 }
 
+/* removes decorations from subject actions */
 .subject-card-actions a {
     color: #000000;
     text-decoration: none;
@@ -750,11 +841,13 @@ th:last-child {
     margin: -0.5rem 1rem 0 0;
 }
 
+/* lightens subject actions after hovering */
 .subject-card-actions a:hover {
     color: #686868;
     border-radius: 25%;
 }
 
+/* no subjects warning */
 .no-subjects-msg {
     margin-top: -0.5rem;
     font-size: 1.25rem;
@@ -774,6 +867,7 @@ th:last-child {
     margin-bottom: 2.5rem !important;
 }
 
+/* tasks toolbar */
 .tasks-toolbar {
     background-color: #ffffff;
     padding: 0.75rem 0 0.75rem 1.5rem;
@@ -784,6 +878,7 @@ th:last-child {
     justify-content: space-between;
 }
 
+/* filter tasks by subject */
 .filter-subject-btn {
     font-family: 'Satoshi';
     background-color: #ffffff;
@@ -793,11 +888,13 @@ th:last-child {
     max-width: 17rem;
 }
 
+/* gives filter subject button a blue outline after hovering */
 .filter-subject-btn:hover {
     border-color: rgb(120, 202, 252);
     cursor: pointer;
 }
 
+/* sort tasks by status */
 .status-options {
     display: flex;
     border: #b7b7b7 0.1rem solid;
@@ -805,6 +902,7 @@ th:last-child {
     border-radius: 0.75rem;
 }
 
+/* spaces and removes decorations from status options */
 .status-options a {
     text-decoration: none;
     color: #000000;
@@ -812,6 +910,7 @@ th:last-child {
     padding-top: 0.4rem;
 }
 
+/* styles every status option and darkens after hovering */
 .all-status-btn {
     font-family: 'Satoshi';
     background-color: #ffffff;
@@ -881,10 +980,12 @@ th:last-child {
     cursor: pointer;
 }
 
+/* darkens the active status */
 .active-status {
     background-color: rgb(231, 231, 231);
 }
 
+/* sort tasks by due date and name */
 .sort-btn {
     font-family: 'Satoshi';
     background-color: #ffffff;
@@ -894,11 +995,13 @@ th:last-child {
     margin-right: 3rem;
 }
 
+/* gives the sort button a blue outline after hovering */
 .sort-btn:hover {
     border-color: rgb(120, 202, 252);
     cursor: pointer;
 }
 
+/* task list headers */
 thead .list-headers th {
     text-align: left;
     background-color: #ffffff;
@@ -906,11 +1009,13 @@ thead .list-headers th {
     border-bottom: #b7b7b7 0.2rem solid;
 }
 
+/* delete checkbox */
 .checkbox-header {
     width: 7% !important;
     padding-left: 1.6rem !important;
 }
 
+/* list headers */
 .name-header {
     padding-right: 1rem !important;
 }
@@ -923,16 +1028,19 @@ thead .list-headers th {
     padding-left: 0.25rem !important; 
 }
 
+/* task list */
 .task-list {
     width: 100%;
     border-collapse: collapse;
     background-color: #ffffff;
 }
 
+/* grey border under the list headers */
 .task-list thead tr {
     border-bottom: 0.2rem solid #b7b7b7;
 }
 
+/* task headers */
 .task-list th {
     text-align: left;
     font-weight: 500;
@@ -940,34 +1048,41 @@ thead .list-headers th {
     font-size: 0.95rem;
 }
 
+/* spaces task data */
 .task-list td {
     padding: 0.5rem 0;
 }
 
+/* delete selected checkbox width */
 .task-checkbox {
     width: 4rem;
 }
 
+/* edit task action */
 .list-edit-action {
     color: #000000;
     text-decoration: none;
 }
 
+/* turns edit button blue after hovering */
 .list-edit-action:hover {
     color: rgb(120, 202, 252);
     cursor: pointer;
 }
 
+/* delete task action */
 .list-delete-action {
     color: #000000;
     padding-left: 0.5rem;
 }
 
+/* turns delete button red after hovering */
 .list-delete-action:hover {
     color: rgb(255, 0, 0);
     cursor: pointer;
 }
 
+/* task page no tasks message */
 .tasks-page-no-tasks-msg {
     display: flex;
     font-size: 1.2rem;
@@ -980,23 +1095,28 @@ thead .list-headers th {
     align-items: center;
 }
 
+/* last task doesn't have a border */
 .task-info:last-child td {
     border-bottom: none;
 }
 
+/* last task has rounded bottom left corner */
 .task-info:last-child td:first-child {
     border-bottom-left-radius: 1rem;
 }
 
+/* last task had rounded bottom right corner */
 .task-info:last-child td:last-child {
     border-bottom-right-radius: 1rem;
 }
 
+/* name cell */
 .name-cell {
     display: flex;
     margin-top: 0.5rem;
 }
 
+/* shortens task names if they are too long */
 .name-truncate {
     display: block;
     max-width: 7rem;
@@ -1005,10 +1125,12 @@ thead .list-headers th {
     text-overflow: ellipsis;
 }
 
+/* spaces delete selected button */
 .delete-selected-btn-container {
     margin-top: -2rem;
 }
 
+/* delete selected button */
 .delete-selected-btn {
     font-family: 'Satoshi';
     background-color: #ef4444;
@@ -1021,6 +1143,7 @@ thead .list-headers th {
     margin: 0 0 1rem -1rem;
 }
 
+/* search tasks */
 .search-form {
     display: flex;
     align-items: center;
@@ -1030,6 +1153,7 @@ thead .list-headers th {
     padding: 0.4rem 0.8rem;
 }
 
+/* search task input */
 .search-input {
     border: none;
     background: transparent;
@@ -1039,6 +1163,7 @@ thead .list-headers th {
     width: 5rem;
 }
 
+/* search button */
 .search-btn {
     background: none;
     border: none;
@@ -1048,10 +1173,12 @@ thead .list-headers th {
     padding: 0;
 }
 
+/* gives search button a black border after clicking */
 .search-btn:hover {
     color: #000000;
 }
 
+/* arrow that hides and shows subtasks */
 .subtask-toggle-btn {
     background: none;
     border: none;
@@ -1061,14 +1188,17 @@ thead .list-headers th {
     font-size: 0.8rem;
 }
 
+/* arrow turns 90 degrees after clicking */
 .subtask-toggle-btn.open i {
     transform: rotate(90deg);
 }
 
+/* slows down the turn */
 .subtask-toggle-btn i {
     transition: transform 0.15s ease;
 }
 
+/* subtasks */
 .subtask-container {
     display: flex;
     flex-direction: column;
@@ -1076,19 +1206,23 @@ thead .list-headers th {
     padding: 0.5rem 0 0.5rem 4rem;
 }
 
+/* dark subtask background and border */
 .subtask-row {
     background-color: #dfdfdf;
     border-top: #b7b7b7 0.2rem solid;
 }
 
+/* last subtask doesn't have a border */
 .subtask-row:last-child {
     border-top: none;
 }
 
+/* removes padding from subtask data */
 .subtask-row td {
     padding: 0;
 }
 
+/* subtask items */
 .subtask-item {
     display: flex;
     align-items: center;
@@ -1096,6 +1230,7 @@ thead .list-headers th {
     margin-bottom: 0.5rem;
 }
 
+/* subtask name */
 .subtask-item span {
     display: block;
     max-width: 7rem;
@@ -1104,23 +1239,28 @@ thead .list-headers th {
     text-overflow: ellipsis;
 }
 
+/* subtask actions */
 .subtask-item a {
     text-decoration: none;
 }
 
+/* puts a line through the subtask's name if it's completed */
 .subtask-completed {
     text-decoration: line-through;
     color: #888888;
 }
 
+/* delete subtask action */
 .subtask-delete-link {
     color: #000000;
 }
 
+/* turns the delete button red after hovering */
 .subtask-delete-link:hover {
     color: #fe0000;
 }
 
+/* subtask input */
 .add-subtask-form input {
     border: 0.1rem solid #aaaaaa;
     background-color: #ffffff;
@@ -1130,11 +1270,13 @@ thead .list-headers th {
     font-family: 'Satoshi';
 }
 
+/* gives the input a blue border after clicking */
 .add-subtask-form input:focus {
     outline: none;
     border-color: rgb(120, 202, 252);
 }
 
+/* add subtask button */
 .add-subtask-form button {
     background: none;
     border: none;
@@ -1142,38 +1284,39 @@ thead .list-headers th {
     cursor: pointer;
 }
 
+/* turns the add subtask button blue after clicking */
 .add-subtask-form button:hover {
     color: rgb(94, 158, 197)
 }
 
+/* toggle subtask competion checkbox */
 .subtask-checkbox-link i {
     font-size: 1.1rem;
     color: #ffffff;
     transition: color 0.15s ease, transform 0.1s ease;
 }
 
+/* turns the checkbox blue after hovering */
 .subtask-checkbox-link:hover i {
     color: rgb(120, 202, 252);
 }
 
+/* turns the checkbox green after clicking */
 .subtask-checkbox-link .fa-square-check {
     color: #22c55e;
 }
 
+/* turns the completed checkbox darker after hovering */
 .subtask-checkbox-link:hover .fa-square-check {
     color: #16a34a;
 }
 
-.task-divider {
-    border-top: 0.1rem solid #b0b0b0;
-    margin: 1rem 0;
-}
-
-/* sign up page */
+/* sign up and log in page */
 .auth-body {
     background-color: #dfdfdf;
 }
 
+/* authentication page container */
 .auth-container {
     margin: 2.5rem 25rem;
     padding: 3rem;
@@ -1182,20 +1325,24 @@ thead .list-headers th {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* authentication page titles */
 .auth-container h1 {
     font-family: 'Satoshi';
     margin-bottom: 1rem;
 }
 
+/* authentication page description */
 .auth-container p {
     font-family: 'Satoshi';
     margin-top: 1rem;
 }
 
+/* authentication input spacing */
 .auth-input-group {
     padding-bottom: 1rem;
 }
 
+/* input labels */
 .auth-input-group label {
     font-family: 'Satoshi';
     font-weight: 700;
@@ -1204,6 +1351,7 @@ thead .list-headers th {
     color: #000000;
 }
 
+/* authentication inputs */
 .auth-input-group input, .auth-input-group select {
     padding: 0.5rem 0.7rem;
     border: 0.1rem solid #dddddd;
@@ -1215,20 +1363,24 @@ thead .list-headers th {
     margin-left: 1rem;
 }
 
+/* gives the input a blue outline after the user clicks on it */
 .auth-input-group input:focus, .auth-input-group select:focus {
     outline: none;
     border-color: rgb(120, 202, 252);
 }
 
+/* link that takes the user to the sign up or log in page */
 .auth-container p a {
     text-decoration: none;
     color: rgb(120, 202, 252);
 }
 
+/* underlines the link afetr hovering */
 .auth-container p a:hover {
     text-decoration: underline;
 }
 
+/* blue footer at the bottom of every authentication page */
 .auth-footer {
     font-family: 'Satoshi';
     text-align: center;
@@ -1241,6 +1393,7 @@ thead .list-headers th {
     margin: auto 0 0 0;
 }
 
+/* authentication error message */
 .auth-error {
     background-color: #ffbaba;
     color: #c90000;
@@ -1257,6 +1410,7 @@ thead .list-headers th {
     font-family: 'Satoshi';
 }
 
+/* white sidebar containing user information */
 .user-information {
     display: grid;
     background-color: #ffffff;
@@ -1268,6 +1422,7 @@ thead .list-headers th {
     justify-content: center;
 }
 
+/* avatar icon with a blue background and the first 2 letters of the user's username */
 .profile-avatar {
     background-color: #2563eb;
     width: 5rem;
@@ -1282,32 +1437,38 @@ thead .list-headers th {
     margin: 1rem auto 1rem;
 }
 
+/* username */
 .profile-username {
     text-align: center;
     font-weight: 600;
 }
 
+/* join date */
 .join-date {
     margin-top: 1rem;
     text-align: center;
     color: #929191;
 }
 
+/* divides the user information into 2 sections */
 .profile-divider {
     margin: 1.5rem 0 1.5rem 0;
     width: 100%;
 }
 
+/* rows containing total tasks and subject count */
 .profile-info-row {
     margin-bottom: 1rem;
 }
 
+/* row title */
 .profile-info-label {
     font-weight: 600;
     margin-right: 1rem;
     color: #929191;
 }
 
+/* button that sends the user to the edit profile page */
 .profile-edit-btn {
     background-color: rgb(120, 202, 252);
     color: #ffffff;
@@ -1321,11 +1482,13 @@ thead .list-headers th {
     margin: 0.5rem 0 1rem 0;
 }
 
+/* darkens the button after hovering */
 .profile-edit-btn:hover {
     background-color: rgb(93, 190, 250);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* button that logs the user out */
 .profile-logout-btn {
     background-color: #ffd0d0;
     color: #c11818;
@@ -1339,11 +1502,13 @@ thead .list-headers th {
     margin-bottom: 1rem;
 }
 
+/* lightens the log out button after hovering */
 .profile-logout-btn:hover {
     background-color: #fab7b7;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* delete account button  */
 .profile-delete-btn {
     font-family: 'Satoshi';
     background-color: #fa1b1b;
@@ -1358,17 +1523,20 @@ thead .list-headers th {
     margin-bottom: 1rem;
 }
 
+/* darkens the delete account button after hovering */
 .profile-delete-btn:hover {
     background-color: #dc1717;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* column on the right of the profile page containing the user's subject and task information */
 .profile-right-column {
     display: flex;
     flex-direction: column;
     width: 80%;
 }
 
+/* user statistics */
 .profile-stats {
     background-color: #ffffff;
     border-radius: 2rem;
@@ -1377,11 +1545,13 @@ thead .list-headers th {
     height: 25%;
 }
 
+/* stats title */
 .stats-title {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
 }
 
+/* stat grid */
 .profile-stat-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1389,54 +1559,64 @@ thead .list-headers th {
     border-radius: 1rem;
 }
 
+/* card for each statistic */
 .profile-stat {
     padding: 2rem 2rem 1.5rem 2rem;
     background-color: #f1f1f1;
     border-radius: 1rem;
 }
 
+/* title for total tasks stat */
 .total-stat-label {
     font-weight: 600;
     margin: -0.5rem 0 0 -0.5rem;
 }
 
+/* title for incomplete tasks stat */
 .incomplete-stat-label {
     font-weight: 600;
     margin: -0.5rem 0 0 -0.5rem;
     color: #ff9d00;
 }
 
+/* title for complete tasks stat */
 .complete-stat-label {
     font-weight: 600;
     margin: -0.5rem 0 0 -0.5rem;
     color: #24b036;
 }
 
+/* title for overdue tasks stat */
 .overdue-stat-label {
     font-weight: 600;
     margin: -0.5rem 0 0 -0.5rem;
     color: #ec0b0b;
 }
 
+/* total tasks stat */
 .total-stat-value {
     margin: 0.5rem 0 0 -0.5rem;
 }
 
+/* incomplete tasks stat */
 .incomplete-stat-value {
     margin: 0.5rem 0 0 -0.5rem;
     color: #ff9d00;
 }
 
+/* complete tasks stat */
 .complete-stat-value {
     margin: 0.5rem 0 0 -0.5rem;
     color: #24b036;
 }
 
+/* overdue tasks stat */
 .overdue-stat-value {
     margin: 0.5rem 0 0 -0.5rem;
     color: #ec0b0b;
 }
 
+/* subject progress bars */
 .profile-subjects-card {
     display: flex;
     flex-direction: column;
@@ -1446,11 +1626,13 @@ thead .list-headers th {
     padding: 2rem;
 }
 
+/* row for each subject progress bar */
 .profile-subject-row {
     display: flex;
     gap: 1.5rem;
 }
 
+/* progress bar */
 .profile-subject-pill {
     background-color: var(--pill-color);
     padding: 0.5rem 1rem;
@@ -1464,6 +1646,7 @@ thead .list-headers th {
     margin-top: 1.5rem;
 }
 
+/* progress bar background */
 .profile-bar-bg {
     flex: 1;
     background-color: #b2b1b1;
@@ -1472,6 +1655,7 @@ thead .list-headers th {
     margin: 2.5rem 0 0 1rem;
 }
 
+/* progress bar fill colour */
 .profile-bar-fill {
     height: 0.5rem;
     border-radius: 0.25rem;
@@ -1479,10 +1663,12 @@ thead .list-headers th {
     background-color: var(--fill-color);
 }
 
+/* subject count */
 .subject-count {
     margin-top: 2rem;
 }
 
+/* nno subjects alert */
 .profile-no-subjects-alert {
     margin-top: 1.5rem;
     font-weight: 500;
@@ -1502,10 +1688,12 @@ thead .list-headers th {
     height: 80%;
 }
 
+/* edit profile input group spacing */
 .edit-input-group {
     padding-bottom: 1.5rem;
 }
 
+/* label for input groups */
 .edit-input-group label {
     font-family: 'Satoshi';
     font-weight: 700;
@@ -1514,6 +1702,7 @@ thead .list-headers th {
     color: #000000;
 }
 
+/* input groups */
 .edit-input-group input, .edit-input-group select {
     padding: 0.5rem 0.7rem;
     border: 0.1rem solid #dddddd;
@@ -1525,11 +1714,13 @@ thead .list-headers th {
     margin-left: 1rem;
 }
 
+/* gives the input group a blue outline after hovering */
 .edit-input-group input:focus, .edit-input-group select:focus {
     outline: none;
     border-color: rgb(120, 202, 252);
 }
 
+/* save changes button */
 .edit-save-btn {
     width: 50%;
     padding: 0.8rem;
@@ -1545,31 +1736,37 @@ thead .list-headers th {
     margin: 0 0 1.5rem 0;
 }
 
+/* darkens the save changes button after hovering */
 .edit-save-btn:hover {
     background-color: rgb(92, 193, 255);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/* shrinks the save changes button after clicking */
 .edit-save-btn:active {
     transform: scale(0.97); 
 }
 
+/* edit username section title */
 .edit-username-title {
     margin-top: -0.5rem;
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
 }
 
+/* edit password section title */
 .edit-password-title {
     margin-top: -0.75rem;
     padding: 0.5rem 0 1.5rem 0;
     font-size: 1.5rem;
 }
 
+/* edit container */
 .edit-container {
     display: flex;
 }
 
+/* edit password section */
 .edit-password-information {
     display: grid;
     font-family: 'Satoshi';
