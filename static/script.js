@@ -152,13 +152,16 @@ function prepareEditSubjectModal(element) {
     document.getElementById('edit-subject-modal').style.display = 'flex';
 }
 
-// select all checkbox
-document.getElementById('select-all-checkbox').addEventListener('change', function() {
-    document.querySelectorAll('.task-checkbox').forEach(cb => {
-        cb.checked = this.checked;
+// select all checkbox (only exists on the tasks page)
+const selectAllCheckbox = document.getElementById('select-all-checkbox');
+if (selectAllCheckbox) {
+    selectAllCheckbox.addEventListener('change', function() {
+        document.querySelectorAll('.task-checkbox').forEach(cb => {
+            cb.checked = this.checked;
+        });
+        updateDeleteButton();
     });
-    updateDeleteButton();
-});
+}
 
 // show/hide delete button and update selected tasks
 document.querySelectorAll('.task-checkbox').forEach(checkbox => {
